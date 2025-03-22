@@ -1,0 +1,47 @@
+.ff_preview {
+    /* position: absolute;  */
+    right: 93%; 
+    /* top: 32%; */
+    padding-top: 15px;
+}
+
+.preview_preview {
+    display: flex;
+    overflow: hidden;
+    width: 52px;
+    height: 68px;
+    box-shadow: 0 4px 12px var(--template-camera-box-shadow-color);
+    border-radius: 8px;
+}
+
+.preview_preview img {
+    max-height: 70%;
+    margin: auto
+}
+
+@media screen and (max-width: 786px) {
+    .preview_preview {
+        position: relative;
+        left: 7%;
+        margin-top: 10px;
+        width: 39px;
+        height: 59px;
+        border-radius: 8px;
+        display: flex;
+        flex-flow: row;
+        /* padding-top: 10px; */
+        /* box-shadow: 0 4px 12px */
+    }
+
+    .ff_preview {
+        /* position: absolute; */
+        left: 3%;
+        right: 86%;
+        /* top: 32%; */
+    }    
+
+    img{
+      max-height: 90%;
+      margin: auto;
+    }
+}

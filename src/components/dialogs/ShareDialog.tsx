@@ -1,8 +1,8 @@
-import { Button } from 'components/Atomic';
-import { T } from 'Helpers';
-import { FC, useEffect, useState } from 'react';
+import { Button } from '../Atomic';
+import { T } from '../../Helpers';
+import React,{ FC, useEffect, useState } from 'react';
 import { TailSpin } from 'react-loader-spinner';
-import useStore from 'Store';
+import useStore from '../../Store';
 import styled from 'styled-components';
 import { useZakeke } from '@zakeke/zakeke-configurator-react';
 import { ReactComponent as FbIcon } from '../../assets/images/social/facebook_svg.svg';

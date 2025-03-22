@@ -1,10 +1,19 @@
-import { UndoRedoStep } from 'Interfaces';
+//import { UndoRedoStep } from 'Interfaces';
 import React from 'react';
 import create from 'zustand';
-import { Notification } from './components/widgets/Notifications';
-import { TryOnMode, ZakekeTryOnExposedMethods } from '@zakeke/zakeke-configurator-react';
+//import { Notification } from './components/widgets/Notifications';
+//import { TryOnMode, ZakekeTryOnExposedMethods } from 'zakeke-configurator-react';
 
 export const MOBILE_BREAKPOINT = 1024;
+
+//let UndoRedoStep: [] | any;
+
+type UndoRedoStep = {
+    // Define the structure of UndoRedoStep here
+    // For example:
+    action: string;
+    data: any;
+  };
 
 interface Store {
 	isViewerMode: boolean;
@@ -15,8 +24,6 @@ interface Store {
 	dialogs: { id: string; dialog: React.ReactElement }[];
 	addDialog: (id: string, dialog: React.ReactElement) => void;
 	removeDialog: (id: string) => void;
-	tagsOfSavedDesigns: string[];
-	setTagsOfSavedDesigns: (tagsOfSavedDesigns: string[]) => void;
 	selectedGroupId: number | null;
 	selectedAttributeId: number | null;
 	selectedStepId: number | null;
@@ -27,8 +34,6 @@ interface Store {
 	setSelectedTemplateGroupId: (templateGroup: number | null) => void;
 	isLoading: boolean;
 	setIsLoading: (isLoading: boolean) => void;
-	isSavingComposition: boolean;
-	setIsSavingComposition: (isSavingComposition: boolean) => void;
 	isQuoteLoading: boolean;
 	setIsQuoteLoading: (isQuoteLoading: boolean) => void;
 	priceFormatter: Intl.NumberFormat;
@@ -45,14 +50,14 @@ interface Store {
 	lastSelectedItem: { type: string; id: number | null };
 	setLastSelectedItem: (lastSelectedItem: { type: string; id: number | null }) => void;
 
-	tryOnRef?: React.RefObject<ZakekeTryOnExposedMethods>;
-	setTryOnRef: (ref: React.RefObject<ZakekeTryOnExposedMethods>) => void;
+	// tryOnRef?: React.RefObject<ZakekeTryOnExposedMethods>;
+	// setTryOnRef: (ref: React.RefObject<ZakekeTryOnExposedMethods>) => void;
 	pdValue: number;
 	setPdValue: (pdValue: number) => void;
 	isPDStartedFromCart: boolean;
 	setIsPDStartedFromCart: (isPDStartedFromCart: boolean) => void;
-	modeTryOn: TryOnMode;
-	setTryOnMode: (modeTryOn: TryOnMode) => void;
+	// modeTryOn: TryOnMode;
+	// setTryOnMode: (modeTryOn: TryOnMode) => void;
 	notifications: Notification[];
 	setNotifications: (notifications: Notification[]) => void;
 	removeNotification: (id: number) => void;
@@ -88,12 +93,6 @@ const useStore = create<Store>((set) => ({
 			isLoading
 		});
 	},
-	isSavingComposition: false,
-	setIsSavingComposition: (isSavingComposition: boolean) => {
-		set({
-			isSavingComposition
-		});
-	},
 	isQuoteLoading: false,
 	setIsQuoteLoading: (isQuoteLoading: boolean) => {
 		set({
@@ -120,9 +119,9 @@ const useStore = create<Store>((set) => ({
 		set({
 			selectedTemplateGroupId: templateGroupId
 		}),
-	priceFormatter: new Intl.NumberFormat('it-IT', {
+	priceFormatter: new Intl.NumberFormat('us-US', {
 		style: 'currency',
-		currency: 'EUR'
+		currency: 'USD'
 	}),
 	setPriceFormatter: (priceFormatter: Intl.NumberFormat) => {
 		set({
@@ -161,19 +160,19 @@ const useStore = create<Store>((set) => ({
 		});
 	},
 
-	tryOnRef: undefined,
-	setTryOnRef: (ref: React.RefObject<ZakekeTryOnExposedMethods>) => {
-		set(() => ({
-			tryOnRef: ref
-		}));
-	},
+	// tryOnRef: undefined,
+	// setTryOnRef: (ref: React.RefObject<ZakekeTryOnExposedMethods>) => {
+	// 	set(() => ({
+	// 		tryOnRef: ref
+	// 	}));
+	// },
 
-	modeTryOn: TryOnMode.TryOn,
-	setTryOnMode: (modeTryOn: TryOnMode) => {
-		set(() => ({
-			modeTryOn
-		}));
-	},
+	// modeTryOn: TryOnMode.TryOn,
+	// setTryOnMode: (modeTryOn: TryOnMode) => {
+	// 	set(() => ({
+	// 		modeTryOn
+	// 	}));
+	// },
 
 	pdValue: 0,
 	setPdValue: (pdValue: number) => {
@@ -195,14 +194,7 @@ const useStore = create<Store>((set) => ({
 	},
 	removeNotification: (id) => {
 		set((state) => ({
-			notifications: state.notifications.filter((notification) => notification.id !== id)
-		}));
-	},
-
-	tagsOfSavedDesigns: [],
-	setTagsOfSavedDesigns: (tagsOfSavedDesigns: string[]) => {
-		set(() => ({
-			tagsOfSavedDesigns
+			notifications: state.notifications.filter((notification) => null !== id)
 		}));
 	}
 }));

@@ -1,13 +1,12 @@
-import styled, { css } from 'styled-components';
-import Carousel from 'nuka-carousel';
 
-// Styled component for a carousel container
+import Carousel from 'nuka-carousel';
+import styled, { css } from 'styled-components';
+
 export const CarouselContainer = styled(Carousel)`
 	border-bottom: 2px solid #c4c4c4;
 	position: relative;
 `;
 
-// Styled component for an icon
 export const Icon = styled.div<{ hoverable?: boolean }>`
 	display: inline-block;
 	width: 24px;
@@ -31,39 +30,46 @@ export const Icon = styled.div<{ hoverable?: boolean }>`
 	}
 `;
 
-// Styled component for a textarea
 export const TextArea = styled.textarea`
 	background-color: transparent;
-	padding: 10px 20px;
+	padding-top: 13px;
+	height: 39px;
+	 font-family: 'Open Sans';
+	// padding-left: 10px;
+	// padding: 10px 20px;
 	color: #414042;
-	font-size: 14px;
-	border: 1px #f4f4f4 solid;
+	font-size: 16px;
+	border: none;
+	border-bottom: 1px var(--template-primary--400) solid;
 	width: 100%;
-	min-height: 100px;
-	font-family: 'Montserrat', sans-serif;
+	// min-height: 35px;
+	margin-top: 14px;
+	 font-family: 'Open Sans';
 	outline: none;
 	resize: none;
 
 	&:hover {
-		border: 1px black solid;
+		// border: 1px black solid;
+		border: none;
+		border-bottom: 1px var(--template-primary--400) solid;
 	}
 
 	&:focus {
-		border: 1px black solid;
-		outline: none;
+		// border: 1px black solid;
+		// outline: none;
+		border: none;
+		border-bottom: 1px var(--template-primary--400) solid;
 	}
 `;
 
-// Styled component for a row container
 export const Row = styled.div`
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 
 	&:last-child {
 		margin-bottom: 0;
 	}
 `;
 
-// Styled component for an item label
 export const ItemLabel = styled.label`
 	font-size: 14px;
 	display: block;
@@ -80,7 +86,6 @@ export const ItemLabel = styled.label`
 	}
 `;
 
-// Styled component for a button
 export const Button = styled.button<{
 	primary?: boolean;
 	outline?: boolean;
@@ -138,21 +143,22 @@ export const Button = styled.button<{
 	}
 `;
 
-// Styled component for a grid with multiple columns
+export const AddToCartButton = styled(Button)`
+	min-width: 200px;
+`;
+
 export const Columns = styled.div<{ columns: number }>`
 	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(${(props) => props.columns}, 1fr);
 `;
 
-// Styled component for a grid with multiple rows
 export const Rows = styled.div<{ rows: number }>`
 	width: 100%;
 	display: grid;
 	grid-template-rows: repeat(${(props) => props.rows}, 1fr);
 `;
 
-// Styled component for a close editor button
 export const CloseEditorButton = styled.button`
 	position: fixed;
 	bottom: 0;
@@ -167,7 +173,6 @@ export const CloseEditorButton = styled.button`
 	z-index: 11;
 `;
 
-// CSS mixin for arrow styles
 const ArrowCss = css`
 	position: absolute;
 	left: 10px;
@@ -182,29 +187,23 @@ const ArrowCss = css`
 	z-index: 3;
 `;
 
-// Styled component for a left arrow
 export const ArrowLeft = styled.div`
 	${ArrowCss};
 `;
-
-// Styled component for a right arrow
 export const ArrowRight = styled.div`
 	${ArrowCss};
 	left: auto;
 	right: 10px;
 `;
 
-// Styled component for an icon inside the left arrow
 export const ArrowLeftIconStyled = styled(Icon)`
 	font-size: 22px;
 `;
 
-// Styled component for an icon inside the right arrow
 export const ArrowRightIconStyled = styled(Icon)`
 	font-size: 22px;
 `;
 
-// Styled component for the content of a tooltip
 export const TooltipContent = styled.div`
 	padding: 10px;
 `;

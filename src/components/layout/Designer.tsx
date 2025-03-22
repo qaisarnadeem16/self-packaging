@@ -7,19 +7,17 @@ import {
 	ZakekeDesigner,
 	useZakeke
 } from '@zakeke/zakeke-configurator-react';
-import useStore from 'Store';
-import AdvancedSelect from 'components/widgets/AdvancedSelect';
-import { FormControl } from 'components/widgets/FormControl';
-import { FC, useEffect, useRef, useState } from 'react';
-import { CSSObjectWithLabel, GroupBase, OptionProps, SingleValueProps, components } from 'react-select';
-import styled from 'styled-components';
-import { T } from '../../Helpers';
+import useStore from '../../Store';
+import React, { FC, JSX, useEffect, useRef, useState } from 'react';
+import Select, { GroupBase, OptionProps, SingleValueProps, components } from 'react-select';
+import styled from 'styled-components/macro';
+//import { T } from '../../Helpers';
 import { ReactComponent as ArrowLeftIcon } from '../../assets/icons/arrow-left-solid.svg';
 import { ReactComponent as ArrowRightIcon } from '../../assets/icons/arrow-right-solid.svg';
 import { ReactComponent as Arrows } from '../../assets/icons/arrows-alt-solid.svg';
 import { ReactComponent as Add } from '../../assets/icons/plus-circle-solid.svg';
-import { ReactComponent as SearchMinusSolid } from '../../assets/icons/search-minus-solid.svg';
-import { ReactComponent as SearchPlusSolid } from '../../assets/icons/search-plus-solid.svg';
+// import { ReactComponent as SearchMinusSolid } from '../../assets/icons/search-minus-solid.svg';
+// import { ReactComponent as SearchPlusSolid } from '../../assets/icons/search-plus-solid.svg';
 import {
 	ArrowLeft,
 	ArrowLeftIconStyled,
@@ -33,23 +31,24 @@ import {
 import AddTextDialog from '../dialogs/AddTextDialog';
 import { useDialogManager } from '../dialogs/Dialogs';
 import ErrorDialog from '../dialogs/ErrorDialog';
-import ImagesGalleryDialog from '../dialogs/ImagesGalleryDialog';
-import ItemImage, { EditImageItem } from '../widgets/ItemImage';
+// import ImagesGalleryDialog from '../dialogs/ImagesGalleryDialog';
+// import ItemImage, { EditImageItem } from '../widgets/ItemImage';
 import ItemText, { EditTextItem } from '../widgets/ItemText';
 import {
 	Center,
 	IconsAndDesignerContainer,
 	SelectContainer,
-	SupportedFormatsList,
+	// SupportedFormatsList,
 	Template,
 	TemplatesContainer,
 	ZakekeDesignerContainer,
 	ZoomInIcon,
 	ZoomOutIcon
-} from './SharedComponents';
+} from '../../components/Layout/LayoutStyles';
+import Loading from '../Loader/Loader_spring';
 
 export type PropChangeHandler = (
-	item: EditTextItem | EditImageItem,
+	item: EditTextItem, // | EditImageItem,
 	prop: string,
 	value: string | boolean | File
 ) => void;
@@ -71,23 +70,42 @@ const MoveElementButton = styled(Button)`
 	bottom: 0; */
 `;
 
-const DesignerContainer = styled.div<{ $isMobile?: boolean }>`
+const DesignerContainer = styled.div<{ isMobile?: boolean }>`
 	display: flex;
 	flex-flow: column;
 	user-select: none;
 	width: 100%;
 	padding: 30px 30px 70px 30px;
-	${(props) =>
-		props.$isMobile &&
-		`
-        position:fixed;
-        top:0;
+	background-color:#ffffff;
+	position: relative;
+    bottom: 1.5em;
+	border-radius: 32px;
+
+	@media screen and (max-width: 568px) {
+		position:absolute;
+        top:60px;
         left:0;
         width:100%;
-        height:100%;
+        height:67%;
         z-index:11;
         background-color:#ffffff;
         overflow-y:scroll;
+		border-radius: 40px;
+    }		
+
+
+	${(props) =>
+		props.isMobile &&
+		`
+        position:absolute;
+        top:60px;
+        left:0;
+        width:100%;
+        height:87%;
+        z-index:11;
+        background-color:#ffffff;
+        overflow-y:scroll;
+		border-radius: 40px;
     `}
 `;
 
@@ -121,29 +139,21 @@ const Area = styled.div<{ selected?: boolean }>`
     `}
 `;
 
-const SelectOptionLabel = styled.span`
+const OptionContainer = styled(components.Option)`
+	background-color: white !important;
+	span {
 		color: black;
+	}
+	&:hover {
+		background-color: #ddd !important;
+	}
 `;
 
-const SelectSingleValueLabel = styled.span`
+const SingleValueContainer = styled(components.SingleValue)`
+	span {
 		color: black;
+	}
 `;
-
-const SelectOption = (props: JSX.IntrinsicAttributes & OptionProps<any, boolean, GroupBase<any>>) => {
-	return (
-		<components.Option {...props}>
-			<SelectOptionLabel>{props.data.name}</SelectOptionLabel>
-		</components.Option>
-	);
-};
-
-const SelectSingleValue = (props: JSX.IntrinsicAttributes & SingleValueProps<any, boolean, GroupBase<any>>) => {
-	return (
-		<components.SingleValue {...props}>
-			<SelectSingleValueLabel>{props.data.name}</SelectSingleValueLabel>
-		</components.SingleValue>
-	);
-};
 
 const CopyrightMessage = styled.div`
 	display: flex;
@@ -163,6 +173,7 @@ const CopyrightCheckbox = styled.input`
 const CopyrightMandatoryMessage = styled.div``;
 
 const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
+	
 	const { showDialog, closeDialog } = useDialogManager();
 	const [forceUpdate, setForceUpdate] = useState(false);
 	const { setIsLoading, isMobile } = useStore();
@@ -192,28 +203,35 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		setCopyrightMessageAccepted,
 		getCopyrightMessageAccepted
 	} = useZakeke();
+
+	// console.log(items,'Item Item');
 	const customizerRef = useRef<any | null>(null);
 	const [selectedCarouselSlide, setSelectedCarouselSlide] = useState<number>(0);
 
 	const filteredAreas = product?.areas.filter((area) => isAreaVisible(area.id)) ?? [];
 	let finalVisibleAreas: ProductArea[] = [];
-
+	
 	const [moveElements, setMoveElements] = useState(false);
 
-	const translatedTemplates = templates.map((template) => {
-		return { id: template.id, name: T._d(template.name), areas: template.areas };
+	let translatedTemplates = templates.map((template) => {
+		return { id: template.id, name: template.name, areas: template.areas };
 	});
-
-	const translatedCurrentTemplate = {
+	let translatedCurrentTemplate = {
 		id: currentTemplate?.id,
-		name: T._d(currentTemplate?.name ?? ''),
+		name: currentTemplate?.name,
 		areas: currentTemplate?.areas
 	};
+	let translatedAreas = filteredAreas.map((area) => {
+		return { id: area.id, name: area.name };
+	});
 
 	filteredAreas.length > 0 &&
 		filteredAreas.forEach((filteredArea) => {
 			let currentTemplateArea = currentTemplate!.areas.find((x) => x.id === filteredArea.id);
 			let itemsOfTheArea = items.filter((item) => item.areaId === filteredArea.id);
+			// const areaId = itemsOfTheArea.find(({areaId}) => areaId === 385515);
+			// if(areaId) removeItem(areaId?.guid);
+			
 			const areAllItemsStatic = !itemsOfTheArea.some((item) => {
 				return (
 					!item.constraints ||
@@ -237,7 +255,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	);
 
 	let currentTemplateArea = currentTemplate!.areas.find((x) => x.id === actualAreaId);
-	let itemsFiltered = items.filter((item) => item.areaId === actualAreaId).sort((a, b) => (b as any).index - (a as any).index);
+	let itemsFiltered = items.filter((item) => item.areaId === actualAreaId);
 	const allStaticElements = !itemsFiltered.some((item) => {
 		return (
 			!item.constraints || item.constraints.canMove || item.constraints.canRotate || item.constraints.canResize
@@ -334,20 +352,22 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		);
 	};
 
-	const handleAddImageFromGalleryClick = async () => {
-		showDialog(
-			'add-image',
-			<ImagesGalleryDialog
-				onClose={() => closeDialog('add-image')}
-				onImageSelected={(image: { imageID: number }) => {
-					addItemImage(image.imageID, actualAreaId);
-					closeDialog('add-image');
-				}}
-			/>
-		);
-	};
+	// const handleAddImageFromGalleryClick = async () => {
+	// 	showDialog(
+	// 		'add-image',
+	// 		<ImagesGalleryDialog
+	// 			onClose={() => closeDialog('add-image')}
+	// 			onImageSelected={(image: { imageID: number }) => {
+	// 				addItemImage(image.imageID, actualAreaId);
+	// 				closeDialog('add-image');
+	// 			}}
+	// 		/>
+	// 	);
+	// };
 
 	const handleUploadImageClick = async (
+		addItemImage: (guid: any, imageId: number) => Promise<void>,
+		createImage: (file: File, progress?: (percentage: number) => void) => Promise<any>
 	) => {
 		if (currentTemplate && actualAreaId) {
 			const fileFormats = getSupportedUploadFileFormats(currentTemplate.id, actualAreaId);
@@ -360,14 +380,14 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					setIsLoading(true);
 					try {
 						const image = await createImage(files[0], (progress: number) => console.log(progress));
-						await addItemImage(image.imageID, actualAreaId);
+						addItemImage(image.imageID, actualAreaId);
 						input.remove();
 					} catch (ex) {
 						console.error(ex);
 						showDialog(
 							'error',
 							<ErrorDialog
-								error={T._('Failed uploading image.', 'Composer')}
+								error='Failed uploading image.'
 								onCloseClick={() => closeDialog('error')}
 							/>
 						);
@@ -385,47 +405,41 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		removeItem(guid);
 	};
 
-	const handleItemImageChange = async (item: EditImageItem, file: File) => {
-		try {
-			setIsLoading(true);
-			await setItemImageFromFile(item.guid, file);
-		} catch (ex) {
-			console.error(ex);
-		} finally {
-			setIsLoading(false);
-		}
-	};
+	// const handleItemImageChange = async (item: EditImageItem, file: File) => {
+	// 	try {
+	// 		setIsLoading(true);
+	// 		await setItemImageFromFile(item.guid, file);
+	// 	} catch (ex) {
+	// 		console.error(ex);
+	// 	} finally {
+	// 		setIsLoading(false);
+	// 	}
+	// };
 
-	const handleItemImageGallery = async (item: EditImageItem) => {
-		showDialog(
-			'add-image',
-			<ImagesGalleryDialog
-				onClose={() => closeDialog('add-image')}
-				onImageSelected={async (image) => {
-					closeDialog('add-image');
-					try {
-						setIsLoading(true);
-						await setItemImage(item.guid, image.imageID);
-					} catch (ex) {
-						console.error(ex);
-					} finally {
-						setIsLoading(false);
-					}
-				}}
-			/>
-		);
-	};
+	// const handleItemImageGallery = async (item: EditImageItem) => {
+	// 	showDialog(
+	// 		'add-image',
+	// 		<ImagesGalleryDialog
+	// 			onClose={() => closeDialog('add-image')}
+	// 			onImageSelected={async (image) => {
+	// 				closeDialog('add-image');
+	// 				try {
+	// 					setIsLoading(true);
+	// 					await setItemImage(item.guid, image.imageID);
+	// 				} catch (ex) {
+	// 					console.error(ex);
+	// 				} finally {
+	// 					setIsLoading(false);
+	// 				}
+	// 			}}
+	// 		/>
+	// 	);
+	// };
 
-	const handleItemPropChange = (item: EditTextItem | EditImageItem, prop: string, value: string | boolean | File) => {
+	const handleItemPropChange = (item: EditTextItem, prop: string, value: string | boolean | File) => {
 		switch (prop) {
 			case 'remove':
 				handleItemRemoved(item.guid);
-				break;
-			case 'image-upload':
-				handleItemImageChange(item as EditImageItem, value as File);
-				break;
-			case 'image-gallery':
-				handleItemImageGallery(item as EditImageItem);
 				break;
 			case 'text':
 				setItemText(item.guid, value as string);
@@ -440,9 +454,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 				setItemColor(item.guid, value as string);
 				break;
 			case 'font-family':
-				console.log(item);
 				setItemFontFamily(item.guid, value as string);
-				console.log(item);
 				break;
 			case 'text-path':
 				setItemTextOnPath(item.guid, actualAreaId, value as boolean);
@@ -451,10 +463,19 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		}
 	};
 
-	return (
-		<>
-			{!moveElements && (
-				<DesignerContainer $isMobile={isMobile}>
+	const SelectOption = (props: JSX.IntrinsicAttributes & OptionProps<any, boolean, GroupBase<any>>) => {
+		return <OptionContainer {...props}>{<span>{props.data.name}</span>}</OptionContainer>;
+	};
+
+	const SelectSingleValue = (props: JSX.IntrinsicAttributes & SingleValueProps<any, boolean, GroupBase<any>>) => {
+		return <SingleValueContainer {...props}>{<span>{props.data.name}</span>}</SingleValueContainer>;
+	};
+	
+	return ( 
+	 	<>
+		<div className="menu_help_customization_help">Your name or initials will be applied on your blazers inner pocket.</div>
+	    	{!moveElements && (			  	
+				<DesignerContainer isMobile={isMobile}>
 					{/* Templates */}
 					{!isMobile && templates.length > 1 && (
 						<TemplatesContainer>
@@ -466,7 +487,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 										await setTemplate(template.id);
 									}}
 								>
-									{T._d(template.name)}
+									{template.name}
 								</Template>
 							))}
 						</TemplatesContainer>
@@ -513,7 +534,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 									selected={actualAreaId === area.id}
 									onClick={() => setActualAreaId(area.id)}
 								>
-									{T._d(area.name)}
+									{area.name}
 								</Area>
 							))}
 						</CarouselContainer>
@@ -521,57 +542,57 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 					{isMobile && translatedTemplates.length > 1 && (
 						<SelectContainer>
-							<FormControl label={T._('Templates', 'Composer')}>
-								<AdvancedSelect
-									styles={{
-										container: (base) =>
-											({
-												...base,
-												minWidth: 300
-											} as CSSObjectWithLabel),
-									}}
-									isSearchable={false}
-									options={translatedTemplates}
-									menuPosition='fixed'
-									components={{
-										Option: SelectOption,
-										SingleValue: SelectSingleValue
-									}}
-									value={translatedTemplates!.find((x) => x.id === translatedCurrentTemplate.id)}
-									onChange={async (template: any) => await setTemplate(template.id)}
-								/>
-							</FormControl>
+							<span>{'Templates'}</span>
+							<Select
+								styles={{
+									container: (base) => ({
+										...base,
+										minWidth: 300
+									})
+								}}
+								isSearchable={false}
+								options={translatedTemplates}
+								menuPosition='fixed'
+								components={{
+									Option: SelectOption,
+									SingleValue: SelectSingleValue
+								}}
+								value={translatedTemplates!.find((x) => x.id === translatedCurrentTemplate.id)}
+								onChange={async (template: any) => await setTemplate(template.id)}
+							/>
 						</SelectContainer>
 					)}
-					{isMobile && finalVisibleAreas.length > 1 && (
+					{isMobile && translatedAreas.length > 1 && (
 						<SelectContainer>
-							<FormControl label={T._('Customizable Areas', 'Composer')}>
-								<AdvancedSelect
-									styles={{
-										container: (base) =>
-											({
-												...base,
-												minWidth: 300
-											} as CSSObjectWithLabel)
-									}}
-									isSearchable={false}
-									options={finalVisibleAreas}
-									menuPosition='fixed'
-									components={{
-										Option: SelectOption,
-										SingleValue: SelectSingleValue
-									}}
-									value={finalVisibleAreas.find((x) => x.id === actualAreaId) ?? finalVisibleAreas[0]}
+							<span>{'Customizable Areas'}</span>
+							<Select
+								styles={{
+									container: (base) => ({
+										...base,
+										minWidth: 300
+									})
+								}}
+								isSearchable={false}
+								options={translatedAreas}
+								menuPosition='fixed'
+								components={{
+									Option: SelectOption,
+									SingleValue: SelectSingleValue
+								}}
+								value={[translatedAreas!.find((x) => x.id === actualAreaId)]}
 								onChange={(area: any) => setActualAreaId(area.id)}
 							/>
-							</FormControl>
 						</SelectContainer>
 					)}
 
 					{itemsFiltered.length === 0 && !(showAddTextButton || showUploadButton || showGalleryButton) && (
-						<Center>{T._('No customizable items', 'Composer')}</Center>
+						<Center>{'No customizable items'}</Center>
 					)}
 
+					<br></br>
+					<br></br>
+					{itemsFiltered.length === 0 && <div style={{zIndex: '1', top: "50%", position: "absolute"}}><Loading /></div>}
+					{/* <div style={{zIndex: '1', top: "50%", position: "absolute"}}><Loading /></div> */}
 					{itemsFiltered.map((item) => {
 						if (item.type === 0 && isItemEditable(item, currentTemplateArea))
 							return (
@@ -581,45 +602,45 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 									item={item as TextItem}
 								/>
 							);
-						else if (item.type === 1 && isItemEditable(item, currentTemplateArea))
-							return (
-								<ItemImage
-									uploadImgDisabled={
-										copyrightMessage && copyrightMessage.additionalData.enabled
-											? !copyrightMandatoryCheckbox
-											: false
-									}
-									key={item.guid}
-									handleItemPropChange={handleItemPropChange}
-									item={item as ImageItem}
-									currentTemplateArea={currentTemplateArea!}
-								/>
-							);
+						// else if (item.type === 1 && isItemEditable(item, currentTemplateArea))
+						// 	return (
+						// 		<ItemImage
+						// 			uploadImgDisabled={
+						// 				copyrightMessage && copyrightMessage.additionalData.enabled
+						// 					? !copyrightMandatoryCheckbox
+						// 					: false
+						// 			}
+						// 			key={item.guid}
+						// 			handleItemPropChange={handleItemPropChange}
+						// 			item={item as ImageItem}
+						// 			currentTemplateArea={currentTemplateArea!}
+						// 		/>
+						// 	);
 
 						return null;
 					})}
 
-					{(showAddTextButton || showUploadButton || showGalleryButton) && (
+					{/* {(showAddTextButton || showUploadButton || showGalleryButton) && (
 						<UploadButtons>
-							{showAddTextButton && (
+							{/* {showAddTextButton && (
 								<Button isFullWidth onClick={handleAddTextClick}>
 									<Icon>
 										<Add />
 									</Icon>
-									<span>{T._('Add text', 'Composer')}</span>
+									<span>{'Add text'}</span>
 								</Button>
-							)}
+							)} */}
 
-							{showGalleryButton && (
+							{/* {showGalleryButton && (
 								<Button isFullWidth onClick={handleAddImageFromGalleryClick}>
 									<Icon>
 										<Add />
 									</Icon>
 									<span>{T._('Add clipart', 'Composer')}</span>
 								</Button>
-							)}
+							)} */}
 
-							{showUploadButton && (
+							{/* {showUploadButton && (
 								<>
 									<Button
 										disabled={
@@ -628,7 +649,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 												: false
 										}
 										isFullWidth
-										onClick={handleUploadImageClick}
+										onClick={() => handleUploadImageClick(addItemImage, createImage)}
 									>
 										<Icon>
 											<Add />
@@ -672,33 +693,42 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 									)}
 								</CopyrightMessage>
 							)}
-						</UploadButtons>
-					)}
-					{itemsFiltered.length > 0 && !allStaticElements && (
+							*/}
+						{/* </UploadButtons> */}
+					
+					{/* )}  */}
+				
+					{/* {itemsFiltered.length > 0 && !allStaticElements && (
 						<MoveElementButton isFullWidth outline onClick={() => setMoveElements(true)}>
 							<Icon>
 								<Arrows />
 							</Icon>
-							<span>{T._('Move elements', 'Composer')} </span>
+							<span>{'Scale Your Name'} </span>
 						</MoveElementButton>
-					)}
-					{isMobile && <CloseEditorButton onClick={onCloseClick}>{T._('OK', 'Composer')}</CloseEditorButton>}
+					)} */}
+					{/* {isMobile && <CloseEditorButton onClick={onCloseClick}>OK</CloseEditorButton>} */}
 				</DesignerContainer>
 			)}
+			<br />
+			<br />
+			
 			{moveElements && (
-				<ZakekeDesignerContainer $isMobile={isMobile} className='zakeke-container'>
+				<ZakekeDesignerContainer isMobile={isMobile} className='zakeke-container'>
+					<div style={{width: "100%", height: "96%"}}>
 					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
 					<IconsAndDesignerContainer>
-						<ZoomIconIn hoverable onClick={() => customizerRef.current.zoomIn()}>
+						{/* <ZoomIconIn hoverable onClick={() => customizerRef.current.zoomIn()}>
 							<SearchPlusSolid />
 						</ZoomIconIn>
 						<ZoomIconOut hoverable onClick={() => customizerRef.current.zoomOut()}>
 							<SearchMinusSolid />
-						</ZoomIconOut>
+						</ZoomIconOut> */}
 					</IconsAndDesignerContainer>
 					<Button isFullWidth onClick={() => setMoveElements(false)}>
-						<span>{T._('OK', 'Composer')} </span>
+						<span>OK</span>
 					</Button>
+					
+					</div>
 				</ZakekeDesignerContainer>
 			)}
 		</>

@@ -1,7 +1,6 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Dialog } from './Dialogs';
-import { T } from 'Helpers';
 
 const Container = styled.div`
 	display: flex;
@@ -12,7 +11,7 @@ const Container = styled.div`
 
 const ErrorDialog: FC<{ error: string; onCloseClick: () => void }> = ({ error, onCloseClick }) => {
 	return (
-		<Dialog alignButtons='center' buttons={[{ label: T._('Close', 'Composer'), onClick: onCloseClick }]}>
+		<Dialog alignButtons='center' buttons={[{ label: 'Close', onClick: onCloseClick }]}>
 			<Container>
 				<span>{error}</span>
 			</Container>

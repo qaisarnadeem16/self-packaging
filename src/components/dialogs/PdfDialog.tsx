@@ -1,6 +1,5 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import styled from 'styled-components';
-import { T } from "../../Helpers";
 import { Dialog } from "./Dialogs";
 
 const PdfDialogContainer = styled.div`
@@ -25,18 +24,18 @@ const SpanContainer = styled.div`
 
 const PdfDialog: FC<{ onCloseClick: () => void, url: string }> = ({ onCloseClick, url }) => {
   return <Dialog
-    title={T._('PDF Preview', 'Composer')}
+    title={'PDF Preview'}
     buttons={[
-      { label: T._('Download', 'Composer'), onClick: () => window.open(url, "_blank") }
+      { label: 'Download', onClick: () => window.open(url, "_blank") }
     ]}
     alignButtons="center"
     noMarginFooterButton>
     <PdfDialogContainer>
       <SpanContainer>
-        <span>{T._('The PDF preview is ready.', 'Composer')}</span>
+        <span>{'The PDF preview is ready.'}</span>
       </SpanContainer>
       <SpanContainer>
-        <span>{T._('In case the PDF is of low resolution, please go back to the editor, zoom in and try again.', 'Composer')}</span>
+        <span>{'In case the PDF is of low resolution, please go back to the editor, zoom in and try again.'}</span>
       </SpanContainer>
     </PdfDialogContainer>
   </Dialog>;

@@ -1,0 +1,48 @@
+.layout {
+    padding: 12px 24px 60px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    grid-gap: 40px;
+    height: 100%;
+}
+
+.ff_root {
+    position: relative;
+    /* user-select: none;
+    overflow: auto;  */
+}
+
+.ff_viewer_left_actions {
+    z-index: 1;
+    position: absolute;
+    width: 90px;
+    padding: 30px;
+}
+
+.ff_viewer_zakeke {
+    background-color: rgb(242, 242, 242) !important;
+    /* background-color: var(--template-background-color); */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 786px){
+    .layout {
+        display: grid;
+        grid-template-columns: auto;
+        gap: 0px;
+        padding: 0px;
+    }
+    
+    .ff_root {
+        /* width: 358px; */
+        width: 100%;
+        min-height: 470px;
+        /* left: 5%; */
+    }
+
+    .textEditor {
+        min-height: 504px;
+    }
+}

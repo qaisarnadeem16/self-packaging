@@ -1,33 +1,33 @@
-import { T } from 'Helpers';
 import React, { FunctionComponent, ReactElement, Suspense, useContext } from 'react';
 import { createPortal } from 'react-dom';
-import { Button } from 'components/Atomic';
+import { Button } from '../../components/Atomic';
 import styled from 'styled-components';
 import useStore from '../../Store';
-import { ReactComponent as CloseIcon } from '../../assets/icons/times-solid.svg';
+import CloseIcon  from '../../assets/icons/times-solid.svg';
+import TimeSolid  from '../../assets/icons/TimeSolid';
 
-// Get the dialogs portal element
 const dialogsPortal = document.getElementById('dialogs-portal')!;
 
-// Create a context for managing dialogs
 export const dialogContext = React.createContext({ dialogId: '' });
 
-// Custom hook for managing dialogs
 export function useDialogManager() {
+	// console.log('in dialog manager');
+	
 	const { addDialog, removeDialog } = useStore();
 	const { dialogId } = useContext(dialogContext);
 
 	const showDialog = (key: string, dialog: ReactElement) => addDialog(key, dialog);
 	const closeDialog = (key: string) => removeDialog(key);
+	
+	// console.log('return', showDialog, dialogId);
 
 	return {
 		currentDialogId: dialogId,
 		showDialog,
-		closeDialog
+		closeDialog,
 	};
 }
 
-// Overlay for the dialog
 const DialogOverlay = styled.div`
 	position: fixed;
 	background-color: rgba(0, 0, 0, 0.7);
@@ -47,7 +47,6 @@ const DialogOverlay = styled.div`
 	}
 `;
 
-// Container for the dialog window
 const DialogWindowContainer = styled.div`
 	padding: 20px;
 	background-color: white;
@@ -58,9 +57,8 @@ const DialogWindowContainer = styled.div`
 	position: relative;
 	min-width: 0;
 `;
-
-// Close icon for the dialog window
-const DialogWindowClose = styled(CloseIcon)`
+//styled(TimeSolid)`
+const DialogWindowClose = styled.div` 
 	position: absolute;
 	right: 10px;
 	top: 10px;
@@ -75,7 +73,6 @@ const DialogWindowClose = styled(CloseIcon)`
 	}
 `;
 
-// Component for the dialog window
 export const DialogWindow: FunctionComponent<{
 	children?: React.ReactNode;
 	className?: string;
@@ -84,23 +81,21 @@ export const DialogWindow: FunctionComponent<{
 }> = ({ children, className, showCloseButton = true, onClose }) => {
 	return (
 		<DialogWindowContainer className={className}>
-			{showCloseButton && <DialogWindowClose onClick={onClose} />}
+			{showCloseButton && <DialogWindowClose onClick={onClose}> <TimeSolid />	</DialogWindowClose>}
 			{children}
 		</DialogWindowContainer>
 	);
 };
 
-// Content of the dialog
+// Side padding is for select outlines that must not be cropped
 const DialogContent = styled.div<{ hasTitle?: boolean }>`
 	overflow-y: auto;
 	padding: 4px;
 	flex: 1;
 	min-height: 0;
-	max-height: 450px;
 	${(props) => props.hasTitle && `margin-top: 20px;`}
 `;
 
-// Button for the dialog footer
 export const DialogFooterButton = styled(Button)<{
 	isMobile?: boolean;
 	isFullWidth?: boolean;
@@ -113,14 +108,13 @@ export const DialogFooterButton = styled(Button)<{
 	${(props) =>
 		props.isMobile &&
 		`
-			flex:1;
-			width:unset;
-			font-size:12px;
-			min-width: 100px;
-		`};
+    flex:1;
+    width:unset;
+    font-size:12px;
+    min-width: 100px;
+    `};
 `;
 
-// Footer of the dialog
 const DialogFooter = styled.div<{
 	alignButtons?: string;
 	noMarginFooterButton?: boolean;
@@ -140,7 +134,6 @@ const DialogFooter = styled.div<{
 	}
 `;
 
-// Title of the dialog
 const DialogTitle = styled.h1`
 	font-size: 15px;
 	text-align: left;
@@ -153,7 +146,6 @@ const DialogTitle = styled.h1`
 	width: 100%;
 `;
 
-// Interface for a dialog button
 interface DialogButton {
 	label: string;
 	secondary?: boolean;
@@ -164,7 +156,6 @@ interface DialogButton {
 	isSaveButton?: boolean;
 }
 
-// Interface for dialog props
 interface DialogProps {
 	showCloseButton?: boolean;
 	children?: React.ReactNode;
@@ -177,7 +168,6 @@ interface DialogProps {
 	noMarginFooterButton?: boolean;
 }
 
-// Component for a dialog
 export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref) => {
 	const Window = props.windowDecorator || DialogWindow;
 	const { removeDialog, isMobile } = useStore();
@@ -219,16 +209,17 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref)
 							})}
 						</DialogFooter>
 					)}
-				</React.Fragment>
+				</React.Fragment>,
 			)}
 		</DialogOverlay>
 	);
 });
 
-// Component for rendering dialogs
 export const DialogsRenderer: FunctionComponent<{}> = (props) => {
 	const { dialogs } = useStore();
-
+	// console.log(dialogs, 'DialogsRendererDialogsRendererDialogsRenderer');
+	// console.log(dialogsPortal,'dialogsPortal      22222');
+	 
 	return (
 		<>
 			{createPortal(
@@ -237,7 +228,7 @@ export const DialogsRenderer: FunctionComponent<{}> = (props) => {
 						{x.dialog}
 					</dialogContext.Provider>
 				)),
-				dialogsPortal
+				dialogsPortal,
 			)}
 		</>
 	);
@@ -245,12 +236,10 @@ export const DialogsRenderer: FunctionComponent<{}> = (props) => {
 
 // #region Basic dialogs
 
-// Styled dialog window with max-width
 export const BasicDialogWindow = styled(DialogWindow)`
 	max-width: 600px;
 `;
 
-// Message dialog component
 export const MessageDialog: FunctionComponent<{ message: string } & DialogProps> = ({ message, ...props }) => {
 	const { closeDialog } = useDialogManager();
 	const { dialogId } = useContext(dialogContext);
@@ -265,8 +254,8 @@ export const MessageDialog: FunctionComponent<{ message: string } & DialogProps>
 					onClick: () => {
 						closeDialog(dialogId);
 						props.onClose?.();
-					}
-				}
+					},
+				},
 			]}
 			{...props}
 		>
@@ -275,7 +264,6 @@ export const MessageDialog: FunctionComponent<{ message: string } & DialogProps>
 	);
 };
 
-// Question dialog component
 export const QuestionDialog: FunctionComponent<
 	{
 		message?: React.ReactNode;
@@ -293,12 +281,12 @@ export const QuestionDialog: FunctionComponent<
 		<Dialog
 			windowDecorator={BasicDialogWindow}
 			buttons={[
-				{ label: buttonYesLabel || T._('Yes', 'Admin'), onClick: onYesClick || (() => closeDialog(dialogId)) },
+				{ label: buttonYesLabel || 'Yes', onClick: onYesClick || (() => closeDialog(dialogId)) },
 				{
-					label: buttonNoLabel || T._('No', 'Admin'),
+					label: buttonNoLabel || 'No',
 					secondary: true,
-					onClick: onNoClick || (() => closeDialog(dialogId))
-				}
+					onClick: onNoClick || (() => closeDialog(dialogId)),
+				},
 			]}
 			{...props}
 		>
