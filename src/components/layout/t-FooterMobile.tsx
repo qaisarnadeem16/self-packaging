@@ -18,9 +18,9 @@ import { ReactComponent as SaveSolid } from '../../assets/icons/save-solid.svg';
 // import NftDialog, { NftForm } from 'components/dialogs/NftDialog';
 import React, { useEffect, useRef, useState } from 'react';
 import useDropdown from '../../hooks/useDropdown';
-import { TooltipContent } from '../../components/Atomic';
+import { TooltipContent } from '../Atomic';
 import MenuFooter from '../Footer/MenuFooter';
-import { FooterMobileContainer } from './LayoutStyles';
+import { FooterMobileContainer } from './tlayoutStyles';
 // import QuantityDialog from 'components/dialogs/QuantityDialog';
 
 const OutOfStockTooltipContent = styled(TooltipContent)`

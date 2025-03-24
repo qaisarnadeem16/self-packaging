@@ -8,12 +8,12 @@ import styled from 'styled-components/macro';
 import savedCompositionsIcon from '../../../assets/icons/arrow-right-solid.svg';
 import star from '../../../assets/icons/star.svg';
 import noImage from '../../../assets/images/no_image.png';
-import Designer from '../Designer';
-import DesignsDraftList from '../DesignsDraftList';
-import { ItemName, SelectorMobileContainer, StepsMobileContainer, Template, TemplatesContainer } from '../LayoutStyles';
-import Steps from '../Steps';
-import { MenuItem, MobileItemsContainer } from './SelectorMobileComponents';
+import Designer from '../tdesigner';
+import DesignsDraftList from '../tDesignsDraftList';
+import { ItemName, SelectorMobileContainer, StepsMobileContainer, Template, TemplatesContainer } from '../tlayoutStyles';
+import Steps from '../tSteps';
 import TemplateGroup from '../../widgets/TemplateGroup';
+import { MenuItem, MobileItemsContainer } from './MobileComponents';
 
 const PriceInfoTextContainer = styled.div`
 	font-size: 14px;

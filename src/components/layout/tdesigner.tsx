@@ -44,7 +44,7 @@ import {
 	ZakekeDesignerContainer,
 	ZoomInIcon,
 	ZoomOutIcon
-} from '../../components/Layout/LayoutStyles';
+} from './tlayoutStyles';
 import Loading from '../Loader/Loader_spring';
 
 export type PropChangeHandler = (

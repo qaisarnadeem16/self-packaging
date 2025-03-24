@@ -469,11 +469,11 @@ export const UploadButtons = styled.div`
 	margin: 20px 0px;
 `;
 
-export type PropChangeHandler = (
-	item: EditTextItem | any,
-	prop: string,
-	value: string | boolean | File
-) => void;
+// export type PropChangeHandler = (
+// 	item: EditTextItem | any,
+// 	prop: string,
+// 	value: string | boolean | File
+// ) => void;
 
 export const FooterRightElementsContainer = styled.div`
 	display: flex;

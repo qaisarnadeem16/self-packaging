@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
 import { Step, useZakeke } from '@zakeke/zakeke-configurator-react';
-import { StepsContainer } from "./LayoutStyles";
+import { StepsContainer } from "./tlayoutStyles";
 import styled from "styled-components";
-import { Icon } from "../../components/Atomic";
+import { Icon } from "../Atomic";
 import { ReactComponent as LeftArrow } from '../../assets/icons/angle-left-solid.svg';
 import { ReactComponent as RightArrow } from '../../assets/icons/angle-right-solid.svg';
-import { range } from './../../Helpers';
+import { range } from '../../Helpers';
 import useStore from "../../Store";
 
 const ArrowIcons = styled(Icon) <{ isRight?: boolean }>`

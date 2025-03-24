@@ -3,7 +3,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import ArrowLeftIcon from '../../../assets/icons/arrow-left-solid';
 import ArrowRightIcon from '../../../assets/icons/arrow-right-solid';
-import { MenuItemIcon, MenuItemImage, MenuItemImagesImage, MenuItemImagesImageWrapper, MenuItemImagesWrapper, MenuItemLabel, MobileItemContainer } from "../LayoutStyles";
+import { MenuItemIcon, MenuItemImage, MenuItemImagesImage, MenuItemImagesImageWrapper, MenuItemImagesWrapper, MenuItemLabel, MobileItemContainer } from "../tlayoutStyles";
 import noImage from '../../../assets/images/no_image.png';
 
 const getVisibleArrows = (div: HTMLDivElement) => {

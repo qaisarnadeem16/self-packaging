@@ -28,11 +28,11 @@ import PrintIcon from "../assets/icons/print.jpg";
 import ShareIcon from "../assets/icons/share.svg";
 import { Icon } from "./Atomic";
 import MenuFooter from "./Footer/MenuFooter";
-import Designer from "./Layout/Designer";
+import Designer from "./layout/tdesigner";
 import { ReactComponent as CrossIcon } from "../assets/icons/cross.svg";
 import { ReactComponent as MenuIcon } from "../assets/icons/menu.svg";
 // import { customizeGroup } from "../Helpers";
-import { AiIcon, ArIcon } from "../components/Layout/LayoutStyles";
+import { AiIcon, ArIcon } from "./layout/tlayoutStyles";
 
 // import {
 //   PRODUCT_FULL_SUIT,

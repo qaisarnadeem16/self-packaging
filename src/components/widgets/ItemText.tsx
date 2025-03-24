@@ -22,7 +22,7 @@ import { ReactComponent as CurveIcon } from "../../assets/icons/times-solid.svg"
 import { FormControl } from "./FormControl";
 //import ColorPicker from "./colorpicker";
 import AdvancedSelect from './AdvancedSelect';
-import { PropChangeHandler } from "components/Layout/LayoutStyles";
+import { PropChangeHandler } from "../layout/tdesigner";
 
 export interface EditTextItem {
   guid: string;

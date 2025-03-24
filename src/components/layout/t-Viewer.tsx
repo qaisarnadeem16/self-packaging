@@ -51,7 +51,7 @@ import {
   ViewerContainer,
   ZoomInIcon,
   ZoomOutIcon,
-} from "./LayoutStyles";
+} from "./tlayoutStyles";
 // import TryOnsButton from 'components/widgets/TryOnsButtons';
 // import AiDialog from 'components/dialogs/AIDialog';
 
