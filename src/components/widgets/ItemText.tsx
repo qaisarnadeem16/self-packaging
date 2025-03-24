@@ -116,6 +116,7 @@ const SingleValueContainer = styled(components.SingleValue)`
 `;
 
 
+
 const SinglePaletteItem = styled.div<{ color: string; selected: boolean }>`
 	width: 20px;
 	height: 20px;
