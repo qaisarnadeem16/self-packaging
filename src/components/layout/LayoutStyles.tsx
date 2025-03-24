@@ -1,7 +1,7 @@
 import { Icon } from '../Atomic';
 import styled from 'styled-components/macro';
-//import { EditTextItem } from '../widgets/ItemText';
-//import { EditImageItem } from '../widgets/ItemImage';
+import { EditTextItem } from '../widgets/ItemText';
+// import { EditImageItem } from '../widgets/ItemImage';
 //import { DialogWindow } from 'components/dialogs/Dialogs';
 
 export const SelectorContainer = styled.div`
@@ -469,11 +469,11 @@ export const UploadButtons = styled.div`
 	margin: 20px 0px;
 `;
 
-// export type PropChangeHandler = (
-// 	item: EditTextItem | EditImageItem,
-// 	prop: string,
-// 	value: string | boolean | File
-// ) => void;
+export type PropChangeHandler = (
+	item: EditTextItem | any,
+	prop: string,
+	value: string | boolean | File
+) => void;
 
 export const FooterRightElementsContainer = styled.div`
 	display: flex;

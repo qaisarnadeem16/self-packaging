@@ -14,7 +14,6 @@ import {
 import { useState } from "react";
 import { debounce } from "lodash";
 
-import type { PropChangeHandler } from "../Layout/Designer";
 
 import { ReactComponent as CloseIcon } from "../../assets/icons/times-solid.svg";
 import { ReactComponent as BoldIcon } from "../../assets/icons/times-solid.svg";
@@ -23,6 +22,7 @@ import { ReactComponent as CurveIcon } from "../../assets/icons/times-solid.svg"
 import { FormControl } from "./FormControl";
 //import ColorPicker from "./colorpicker";
 import AdvancedSelect from './AdvancedSelect';
+import { PropChangeHandler } from "components/Layout/LayoutStyles";
 
 export interface EditTextItem {
   guid: string;
