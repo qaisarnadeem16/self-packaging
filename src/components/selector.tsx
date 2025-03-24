@@ -373,176 +373,30 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   return (
     <Container>
-      <div className="app">
+      {/* <div className="app">
         <button className="menu-button" onClick={togglePopup}>
           <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1 12C1 11.4477 1.44772 11 2 11H22C22.5523 11 23 11.4477 23 12C23 12.5523 22.5523 13 22 13H2C1.44772 13 1 12.5523 1 12Z" fill="#0F0F0F"></path> <path d="M1 4C1 3.44772 1.44772 3 2 3H22C22.5523 3 23 3.44772 23 4C23 4.55228 22.5523 5 22 5H2C1.44772 5 1 4.55228 1 4Z" fill="#0F0F0F"></path> <path d="M1 20C1 19.4477 1.44772 19 2 19H22C22.5523 19 23 19.4477 23 20C23 20.5523 22.5523 21 22 21H2C1.44772 21 1 20.5523 1 20Z" fill="#0F0F0F"></path> </g></svg>
         </button>
-
-        {isPopupOpen && (
-          <div className="popup">
-            <button className="close-button" onClick={togglePopup}>
-              X
-            </button>
-            <div className="popup-buttons">
-              <button onClick={() => { if (resetCameraID) setCamera(resetCameraID)}} >Reset View</button>
-              <button onClick={handlePrint}>Print Your Design</button>
-              <button onClick={handleShareClick}>
-                Share Your Design
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="" style={{ display: 'flex', flexDirection: 'column', position: 'absolute', left: '50%', gap: '22px' }}>
-        {
-          !IS_IOS && (
-            <div
-              className="bubble_buttons"
-              onClick={() => { if (resetCameraID) setCamera(resetCameraID) }}
-            >
-              <div className="bubble_button_button">
-                <ExplodeIcon>
-                  <svg
-                    width="220"
-                    height="220"
-                    viewBox="16 16 110 110"
-                    preserveAspectRatio="xMidYMid meet"
-                    stroke="#838383"
-                    stroke-width="24"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <g transform="translate(0, 150) scale(0.1, -0.1)">
-                      <path
-                        d="M705 1060 c-98 -16 -195 -62 -195 -92 0 -28 23 -31 61 -9 97 56 239 65 351 22 73 -28 156 -103 193 -174 l28 -53 -28 -53 c-38 -70 -121 -144 -193 -172 -45 -19 -77 -23 -152 -23 -127 0 -191 24 -274 106 -65 63 -65 61 -11 93 14 9 4 19 -65 68 -45 32 -85 55 -91 52 -11 -7 -12 -192 -1 -199 4 -2 18 2 32 9 23 12 28 10 86 -50 224 -230 603 -165 733 126 18 39 18 46 5 79 -76 183 -283 300 -479 270z"
-                        fill="#838383"
-                      />
-                      <path
-                        d="M709 821 c-21 -22 -29 -39 -29 -66 0 -48 44 -95 90 -95 46 0 90 47 90 95 0 27 -8 44 -29 66 -40 39 -82 39 -122 0z"
-                        fill="#838383"
-                      />
-                    </g>
-                  </svg>
-                </ExplodeIcon>
-              </div>
-
-              <div className="bubble_button_text">Reset View</div>
-            </div>
-          )
-        }
-
-        {
-          !IS_IOS && (
-            <div
-              className="bubble_buttons"
-              onClick={() => {
-                refViewer.current?.requestFullscreen();
-
-                if (refViewer.current?.webkitRequestFullscreen) {
-                  refViewer.current.webkitRequestFullscreen();
-                }
-
-                const element = refViewer.current;
-
-                if (element) {
-                  if (element.requestFullscreen) {
-                    // element.requestFullscreen();
-                  } else if (element.webkitEnterFullscreen) {
-                    element.webkitEnterFullscreen();
-                  } else if (element.mozRequestFullScreen) {
-                    element.mozRequestFullScreen();
-                  } else if (element.msRequestFullscreen) {
-                    element.msRequestFullscreen();
-                  }
-                }
-              }}
-            >
-              <div className="bubble_button_button">
-                <ExplodeIcon>
-                  <ExplodeIconL />
-                </ExplodeIcon>
-              </div>
-
-              <div className="bubble_button_text">Full Screen</div>
-            </div>
-          )
-        }
-
-        {
-          !IS_IOS && (
-            <div
-              className="bubble_buttons"
-              onClick={() => handlePrint()}
-            >
-              <div className="bubble_button_button">
-                <ExplodeIcon>
-                  <svg
-                    viewBox="0 0 32 32"
-                    xmlns="http://www.w3.org/2000/svg"
-                    stroke="#838383"
-                    fill="#838383"
-                    stroke-width=".2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M28,9H25V3H7V9H4a2,2,0,0,0-2,2V21a2,2,0,0,0,2,2H7v6H25V23h3a2,2,0,0,0,2-2V11A2,2,0,0,0,28,9ZM9,5H23V9H9ZM23,27H9V17H23Zm5-6H25V15H7v6H4V11H28Z" fill="#838383" stroke="#838383" />
-                  </svg>
-                </ExplodeIcon>
-              </div>
-
-              <div className="bubble_button_text">Print</div>
-            </div>
-          )
-        }
-
-        {
-          !IS_IOS && (
-            <div
-              className="bubble_buttons"
-              onClick={handleShareClick}
-            >
-              <div className="bubble_button_button">
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  stroke="#838383"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M5 15v10a2 2 0 002 2h18a2 2 0 002-2v-10" />
-                  <path d="M16 20V3.5" />
-                  <path d="M22 9l-6-6-6 6" />
-                </svg>
-              </div>
-
-              <div className="bubble_button_text">Share</div>
-            </div>
-          )
-        }
-      </div >
+      </div> */}
 
       <div
         className="left-keys"
       >
-        <div className=""
-          style={{}}
-        >
-          <div style={{ color: '#322332', gap: '2px', display: 'flex', flexDirection: 'column', marginTop: '4px' }}>
-            <h1 style={{ fontFamily: "Crimson", fontSize: '38px', fontWeight: 400, margin: '2px' }}>
-              The Original<sup style={{ fontSize: '22px', fontWeight: 700, fontFamily: 'Open Sans', position: 'absolute', top: '1px' }}>™</sup>
-            </h1>
-            <h2 style={{ fontFamily: 'Open Sans', fontSize: '18px', fontWeight: 600, }}>
-              Warehouse Gooseneck Light
-            </h2>
+
+
+        <div className="viewer_zoom">
+          <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
+          <div className="" onClick={fullScreen} style={{ cursor: 'pointer', paddingTop: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.5 2C0.5 1.17157 1.17157 0.5 2 0.5H25C25.8284 0.5 26.5 1.17157 26.5 2V25C26.5 25.8284 25.8284 26.5 25 26.5H2C1.17157 26.5 0.5 25.8284 0.5 25V2Z" fill="white" stroke="#434342" />
+              <path d="M10.125 4.5H5.25V9.75" stroke="#FF5733" />
+              <path d="M10.125 22.5H5.25V17.25" stroke="#FF5733" />
+              <path d="M17.25 4.5H22.125V9.75" stroke="#FF5733" />
+              <path d="M17.25 22.5H22.125V17.25" stroke="#FF5733" />
+            </svg>
+            <div className="ff_zoom_description">Full screen</div>
           </div>
         </div>
-
-        <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
 
         <Scroll upRef={refViewer.current} downRef={viewFooter.current} />
       </div>
@@ -570,7 +424,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
             })}
           </div>
           <br />
-          <div className="" style={{ background: "white", padding: "20px 18px" }}>
+          <div className="" style={{
+            background: "white", padding: "20px 18px", border: 'none',
+            borderRadius: '18px 18px 18px 0px'
+          }}>
             {selectedGroup && (
               <>
                 {filteredAttributes.map((step) => {

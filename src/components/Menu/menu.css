@@ -20,8 +20,8 @@
 .menu_item {
     display: inline-block;
     padding: 16px;
-    background: var(--template-boundary-color);
-    color: #fff;
+    background: #fff;
+    color: #000;
     font-family: 'Open Sans';
     font-size: 16px;
     font-weight: 600;
@@ -32,8 +32,8 @@
 }
 
 .selected {
-    background-color: rgb(255, 251, 251);
-    color: rgb(6, 3, 3);
+    background-color: #FF5733;
+    color: #fff;
 }
 
 .menu_choice_steps {
