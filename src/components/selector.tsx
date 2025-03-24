@@ -403,31 +403,32 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
       <div className="" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', gap: '12px' }}>
         <div className="menu">
-          <div className="menu_group">
-            {groups1.map((group) => {
-              const handleGroupClick = (group: any) => {
-                selectGroup(group.id);
-              };
-
-              return (
-                <div
-                  className={`menu_item ${group.id === selectedGroupId ? "selected" : ""}`}
-                  key={group.id}
-                  onClick={() => {
-                    scrollDownOnClick(checkOnce, setCheckOnce);
-                    handleGroupClick(group);
-                  }}
-                >
-                  {group.id === -1 ? "Other" : group.name}
-                </div>
-              );
-            })}
-          </div>
-          <br />
+          
           <div className="" style={{
             background: "white", padding: "20px 18px", border: 'none',
             borderRadius: '18px 18px 18px 0px'
           }}>
+            <div className="menu_group">
+              {groups1.map((group) => {
+                const handleGroupClick = (group: any) => {
+                  selectGroup(group.id);
+                };
+
+                return (
+                  <div
+                    className={`menu_item ${group.id === selectedGroupId ? "selected" : ""}`}
+                    key={group.id}
+                    
+                    onClick={() => {
+                      scrollDownOnClick(checkOnce, setCheckOnce);
+                      handleGroupClick(group);
+                    }}
+                  >
+                    {group.id === -1 ? "Other" : group.name}
+                  </div>
+                );
+              })}
+            </div>
             {selectedGroup && (
               <>
                 {filteredAttributes.map((step) => {
@@ -448,21 +449,21 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         className="menu_choice_step_title"
                         style={{
                           display: "flex",
-                          borderBottom: selectedStepId !== step.id || !closeAttribute ? "1px solid var(--template-primary--400)" : "",
+                          // borderBottom: selectedStepId !== step.id || !closeAttribute ? "1px solid var(--template-primary--400)" : "",
                         }}
                       >
-                        <div
+                        {/* <div
                           className="menu_choice_step_description"
                           onClick={() => setCloseAttribute(true)}
                           style={{
-                            paddingBottom: ".5em",
+                            padding: " 1em .5em",
                             marginRight: "auto",
                             textTransform: "uppercase",
                           }}
                         >
                           {step.name}
-                        </div>
-                        <div
+                        </div> */}
+                        {/* <div
                           className="menu_choice_step_toggle"
                           style={{
                             textAlign: 'right',
@@ -498,21 +499,23 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               </svg>
                             )}
                           </div>
-                        </div>
+                        </div> */}
                       </div>
 
                       <div
                         className="menu_options"
                         style={{
-                          opacity: closeAttribute && step.id === selectedStepId ? 1 : 0,
-                          transform: closeAttribute && step.id === selectedStepId ? "translateY(0)" : "translateY(-10px)",
+                          opacity: 1,
+                          // transform: closeAttribute && step.id === selectedStepId ? "translateY(0)" : "translateY(-10px)",
                           overflow: "hidden",
                           transition: "all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
-                          transitionDelay: closeAttribute && step.id === selectedStepId ? "0.2s" : "0s",
+                          // transitionDelay: closeAttribute && step.id === selectedStepId ? "0.2s" : "0s",
                         }}
                       >
-                        {closeAttribute && step.id === selectedStepId && (
+                       
+                        {/* {closeAttribute && step.id === selectedStepId && ( */}
                           <>
+                         
                             {Array.from(new Map(step.options.map((attribute) => [attribute.id, attribute])).values())
                               .filter((attribute) => attribute.enabled !== false)
                               .map((attribute) => (
@@ -521,10 +524,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   onClick={() => handleOptionClick(attribute)}
                                   selected={attribute.selected}
                                   style={{
-                                    backgroundColor: attribute.selected ? "#7f8c9d" : "white",
-                                    color: attribute.selected ? "white" : "inherit",
+                                    backgroundColor: attribute.selected ? "#F2F2F2" : "white",
+                                    color: attribute.selected ? "inherit" : "inherit",
                                     borderRadius: "11px",
-                                    border: attribute.selected ? "2px solid rgb(121 136 156)" : "2.5px solid lightGray",
+                                    border: attribute.selected ? "2px solid #FF5733" : "2.5px solid lightGray",
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
@@ -557,7 +560,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                     </div>
                                   )}
 
-                                  {!isSpecialStep && attribute.selected && (
+                                  {/* {!isSpecialStep && attribute.selected && (
                                     <div
                                       className="backgroundSvg"
                                       style={{
@@ -579,11 +582,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                         />
                                       </svg>
                                     </div>
-                                  )}
+                                  )} */}
                                 </ListItem>
                               ))}
                           </>
-                        )}
+                        {/* )} */}
                       </div>
                     </div>
                   );
@@ -591,6 +594,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
               </>
             )}
           </div>
+          <br />
 
           <div className="" style={{ marginTop: '24px' }}>
             {screenWidth < 500 && <MenuFooter viewFooter={viewFooter} />}

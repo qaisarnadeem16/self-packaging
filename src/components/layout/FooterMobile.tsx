@@ -10,7 +10,6 @@ import { MessageDialog, QuestionDialog, useDialogManager } from '../dialogs/Dial
 import ErrorDialog from '../dialogs/ErrorDialog';
 import PdfDialog from '../dialogs/PdfDialog';
 // import ShareDialog from '../dialogs/ShareDialog';
-import { FooterMobileContainer, PriceContainer } from './LayoutStyles';
 
 // import QuotationFormDialog from 'components/dialogs/QuotationFormDialog';
 // import SaveDesignsDraftDialog from 'components/dialogs/SaveDesignsDraftDialog';
@@ -21,6 +20,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import useDropdown from '../../hooks/useDropdown';
 import { TooltipContent } from '../../components/Atomic';
 import MenuFooter from '../Footer/MenuFooter';
+import { FooterMobileContainer } from './LayoutStyles';
 // import QuantityDialog from 'components/dialogs/QuantityDialog';
 
 const OutOfStockTooltipContent = styled(TooltipContent)`

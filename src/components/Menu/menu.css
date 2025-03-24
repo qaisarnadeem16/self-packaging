@@ -19,7 +19,7 @@
 
 .menu_item {
     display: inline-block;
-    padding: 16px;
+    padding: 12px;
     background: #fff;
     color: #000;
     font-family: 'Open Sans';
@@ -28,6 +28,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 1px;
     cursor: pointer;
+    border-radius: 5px;
 
 }
 
