@@ -1,6 +1,6 @@
 import React from 'react';
 import FooterMobile from './components/layout/t-FooterMobile';
-import SelectorMobile from './components/Layout/mobile/SelectorMobile';
+import SelectorMobile from './components/layout/mobile/t-SelectorMobile';
 import Viewer from './components/layout/t-Viewer';
 import styled from 'styled-components';
 
