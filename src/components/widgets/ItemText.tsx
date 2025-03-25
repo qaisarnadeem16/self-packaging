@@ -1,28 +1,20 @@
-import React, { JSX } from "react";
-import { FC, useCallback } from "react";
-import styled from "styled-components/macro";
-import { FontFamily, useZakeke } from "@zakeke/zakeke-configurator-react";
-import { Button, Columns, Icon, TextArea } from "../Atomic";
-// import Select, { components, GroupBase, OptionProps, SingleValueProps } from 'react-select';
-import {
-  CSSObjectWithLabel,
-  GroupBase,
-  OptionProps,
-  SingleValueProps,
-  components,
-} from "react-select";
-import { useState } from "react";
-import { debounce } from "lodash";
+import { FontFamily, useZakeke } from '@zakeke/zakeke-configurator-react';
+import { debounce } from 'lodash';
+import { FC, JSX, useEffect, useState } from 'react';
+import { CSSObjectWithLabel, GroupBase, OptionProps, SingleValueProps, components } from 'react-select';
+import styled from 'styled-components';
+import { Button, Columns, Icon, TextArea } from '../Atomic';
 
+import type { PropChangeHandler } from '../layout/tdesigner';
 
-import { ReactComponent as CloseIcon } from "../../assets/icons/times-solid.svg";
-import { ReactComponent as BoldIcon } from "../../assets/icons/times-solid.svg";
-import { ReactComponent as ItalicSolid } from "../../assets/icons/times-solid.svg";
-import { ReactComponent as CurveIcon } from "../../assets/icons/times-solid.svg";
-import { FormControl } from "./FormControl";
-//import ColorPicker from "./colorpicker";
+import { ReactComponent as CurveIcon } from '../../assets/icons/star.svg';
+import { ReactComponent as BoldIcon } from '../../assets/icons/star.svg';
+import { ReactComponent as ItalicSolid } from '../../assets/icons/star.svg';
+import { ReactComponent as CloseIcon } from '../../assets/icons/times-solid.svg';
 import AdvancedSelect from './AdvancedSelect';
-import { PropChangeHandler } from "../layout/tdesigner";
+import { FormControl } from './FormControl';
+import ColorPicker from './colorPicker';
+import { T, wrapperJoin } from 'helper';
 
 export interface EditTextItem {
   guid: string;
@@ -36,11 +28,11 @@ export interface EditTextItem {
   constraints: { [key: string]: any } | null;
 }
 
-const defaultColorsPalette = ["#000000", "#FFFFFF"];
+const defaultColorsPalette = ['#000000', '#FFFFFF'];
 
 enum ItemType {
   Text = 0,
-  Image = 1,
+  Image = 1
 }
 
 export interface TextItem {
@@ -67,55 +59,30 @@ export interface TextItem {
 const ItemTextContainer = styled.div``;
 
 const TextToolsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  grid-gap: 10px;
-  flex-wrap: wrap;
-  top: 20%;
+	display: flex;
+	flex-direction: row;
+	grid-gap: 10px;
+	flex-wrap: wrap;
 `;
 
 const TextButtonsContainer = styled.div`
-  width: 50%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 5px;
+	width: 50%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 5px;
 `;
 
 const ColorPickerContainer = styled.div`
-  margin-right: 5px;
-  width: calc(50% - 30px);
+	margin-right: 5px;
+	width: calc(50% - 30px);
 `;
 
 const ColorsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 20px;
-  border-bottom: 1px #ccc dotted;
+	display: flex;
+	flex-direction: row;
+	padding-bottom: 20px;
+	border-bottom: 1px #ccc dotted;
 `;
-
-const OptionContainer = styled(components.Option)`
-  background-color: white !important;
-
-  &:hover {
-    background-color: #ddd !important;
-  }
-
-  img {
-    max-width: 100%;
-    height: 4px;
-    object-fit: contain;
-  }
-`;
-
-const SingleValueContainer = styled(components.SingleValue)`
-    
-        max-width: 100%;
-        height: 32px;
-        object-fit: contain;
-    }
-`;
-
-
 
 const SinglePaletteItem = styled.div<{ color: string; selected: boolean }>`
 	width: 20px;
@@ -134,8 +101,8 @@ const SinglePaletteItem = styled.div<{ color: string; selected: boolean }>`
 const TextColorsContainer = styled.div<{ $isDefaultPalette?: boolean }>`
 	display: grid;
 	${(props) =>
-		!props.$isDefaultPalette &&
-		`
+    !props.$isDefaultPalette &&
+    `
     grid-template-columns: repeat(auto-fill,minmax(20px,1fr));
     grid-gap: 5px;`};
 	/* grid-template-columns: repeat(auto-fill,minmax(20px,1fr)); */
@@ -162,141 +129,134 @@ const FontCustomSingleValueContainer = styled.div`
 `;
 
 const FontOption = (props: JSX.IntrinsicAttributes & OptionProps<any, boolean, GroupBase<any>>) => {
-	return (
-		<components.Option {...props}>
-			{<FontCustomOption src={props.data.imageUrl} alt={props.data.name} />}
-		</components.Option>
-	);
+  return (
+    <components.Option {...props}>
+      {<FontCustomOption src={props.data.imageUrl} alt={props.data.name} />}
+    </components.Option>
+  );
 };
 
 const FontSingleValue = (props: JSX.IntrinsicAttributes & SingleValueProps<any, boolean, GroupBase<any>>) => {
-	return (
-		<components.SingleValue {...props}>
-			<FontCustomSingleValueContainer>
-				{<FontCustomSingleValue src={props.data.imageUrl} alt={props.data.name} />}
-			</FontCustomSingleValueContainer>
-		</components.SingleValue>
-	);
+  return (
+    <components.SingleValue {...props}>
+      <FontCustomSingleValueContainer>
+        {<FontCustomSingleValue src={props.data.imageUrl} alt={props.data.name} />}
+      </FontCustomSingleValueContainer>
+    </components.SingleValue>
+  );
 };
+
 const ItemText: FC<{
   item: EditTextItem;
   handleItemPropChange: PropChangeHandler;
   fonts?: FontFamily[];
+  inDialog?: boolean;
   hideRemoveButton?: boolean;
-}> = ({ item, handleItemPropChange, hideRemoveButton }) => {
-  const { removeItem, fonts, disableTextColors, textColors } = useZakeke();
-
-  console.log(fonts, "fonts");
+}> = ({ item, handleItemPropChange, inDialog, hideRemoveButton }) => {
+  const { removeItem, fonts, disableTextColors, textColors, getPrintingMethodsRestrictions, getSanitationText } =
+    useZakeke();
 
   const constraints = item.constraints;
   const canEdit = constraints?.canEdit ?? true;
   const hasCurvedText = item.isTextOnPath;
   const isUpperCase = constraints?.toUppercase ?? false;
 
+  let currentFont = fonts?.find((x) => x.name === item.fontFamily);
+
+  const textRestrictions = getPrintingMethodsRestrictions();
   // Used for performance cache
   const [fillColor, setFillColor] = useState(item.fillColor);
 
-  const weightData =
-    typeof item.fontWeight === "number"
-      ? ["normal", "normal"]
-      : item.fontWeight.split(" ");
-  const isBold =
-    weightData.length > 1 ? weightData[1] === "bold" : weightData[0] === "bold";
-  const isItalic = weightData.length > 1 ? weightData[0] === "italic" : false;
-  const [textAreaLength, setTextAreaLength] = useState(item.text.length);
-
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    let stringWithZeroWidthSpace = e.target.value.replace(/\u200B/g, "");
-
-    console.log(stringWithZeroWidthSpace.length);
-
-    setTextAreaLength(e.target.value.length);
-    if (handleItemPropChange)
-      handleItemPropChange(
-        item as TextItem,
-        "text",
-        isUpperCase
-          ? e.currentTarget.value.toUpperCase()
-          : e.currentTarget.value
-      );
-  };
-
-  //eslint-disable-next-line
-  const handleFillColorChange = useCallback(
-    debounce((color: string) => {
-      handleItemPropChange(item, "font-color", color);
-    }, 500),
-    []
-  );
-
-  let currentFont = fonts?.find((x) => x.name === item.fontFamily);
-
   const [fontLoading, setFontLoading] = useState(false);
+  const [dirtyCharInserted, setDirtyCharInserted] = useState([] as string[]);
+
+  const weightData = typeof item.fontWeight === 'number' ? ['normal', 'normal'] : item.fontWeight.split(' ');
+  const isBold = weightData.length > 1 ? weightData[1] === 'bold' : weightData[0] === 'bold';
+  const isItalic = weightData.length > 1 ? weightData[0] === 'italic' : false;
 
   const setItemTextDebounced = (value: string) => {
     handleItemPropChange?.(item, 'text', isUpperCase ? value.toUpperCase() : value);
     debounce(() => {
-        const initialText = value;
-        
-        const text = value;
+      const initialText = value;
+      const sanitizationInfo = currentFont
+        ? getSanitationText(currentFont, value)
+        : {
+          sanitizedText: value,
+          dirtyChars: []
+        };
+      setDirtyCharInserted(sanitizationInfo.dirtyChars);
+      const text = sanitizationInfo.sanitizedText;
 
-        if (text !== initialText) {
-            handleItemPropChange?.(item, 'text', isUpperCase ? text.toUpperCase() : text);
-        }
+      if (text !== initialText) {
+        handleItemPropChange?.(item, 'text', isUpperCase ? text.toUpperCase() : text);
+      }
     }, 500)();
-};
+  };
 
   const handleFontChange = (font: string) => {
     handleItemPropChange(item, 'font-family', font);
     currentFont = fonts?.find((x) => x.name === font);
     setItemTextDebounced(item.text);
-};
+  };
 
-
+  useEffect(() => {
+    handleFontChange(item.fontFamily);
+    //eslint-disable-next-line
+  }, []);
 
   if (item)
     return (
       <ItemTextContainer>
         <FormControl
-          label={item.name || "Add Text"}
-          // rightComponent={!hideRemoveButton && item.constraints!.canDelete
-          // && <Icon onClick={() => removeItem(item.guid)}><CloseIcon /></Icon>}
+          label={item.name || T._('Text', 'Composer')}
+          rightComponent={
+            !hideRemoveButton &&
+            item.constraints!.canDelete && (
+              <Icon onClick={() => removeItem(item.guid)}>
+                <CloseIcon />
+              </Icon>
+            )
+          }
         >
           <TextArea
             value={isUpperCase ? item.text.toUpperCase() : item.text}
-            onChange={handleChange}
-            maxLength={
-              !item.constraints ? null : item.constraints.maxNrChars || null
-            }
-            disabled={!canEdit}
+            onChange={(e) => {
+              e.currentTarget.value = e.currentTarget.value.replace('⠀', '');
+              setItemTextDebounced(e.currentTarget.value);
+            }}
+            maxLength={!item.constraints ? null : item.constraints.maxNrChars || null}
+            disabled={!canEdit || fontLoading}
           />
-          <span
-            style={{ position: "relative", paddingTop: "25px", right: "23px" }}
-          >
-            {textAreaLength}
-          </span>
+          {dirtyCharInserted.length > 0 && currentFont && (
+            <div style={{ color: 'red' }}>
+              {T._(
+                `The following characters have been removed as they are not supported by the font ${currentFont.name
+                }: ${wrapperJoin(dirtyCharInserted, ',', '"', '"')}`,
+                'Composer'
+              )}{' '}
+            </div>
+          )}
         </FormControl>
 
         <TextToolsContainer>
           {(!constraints || constraints.canChangeFontFamily) && (
-            <FormControl label={"Font"}>
+            <FormControl label={T._('Font', 'Composer')}>
               <AdvancedSelect
                 components={{
                   Option: FontOption,
-                  SingleValue: FontSingleValue,
+                  SingleValue: FontSingleValue
                 }}
                 styles={{
                   container: (base) =>
-                    ({
-                      ...base,
-                      width: 200,
-                      marginTop: 20
-                    } as CSSObjectWithLabel),
+                  ({
+                    ...base,
+                    width: 200
+                  } as CSSObjectWithLabel)
                 }}
                 isSearchable={false}
                 options={fonts}
                 isDisabled={fontLoading}
-                menuPosition="fixed"
+                menuPosition='fixed'
                 value={[fonts!.find((x) => x.name === item.fontFamily)]}
                 onChange={(font: any) => {
                   item.fontFamily = font.name;
@@ -307,93 +267,113 @@ const ItemText: FC<{
                   }, 2000);
                 }}
               />
-
-              {/* <Select
-                        styles={{
-                            container: base => ({
-                                ...base,
-                                minWidth: 200,
-                                top: '20%',
-                            }),
-                            
-                        }}
-                        isSearchable={false}
-                        options={fonts}
-                        menuPosition="fixed"
-                        components={{
-                            Option: FontOption,
-                            SingleValue: FontSingleValue
-                        }}
-                        value={[fonts!.find(x => x.name === item.fontFamily)]}
-                        onChange={(font: any) => handleItemPropChange(item, 'font-family', font.name)}
-                    /> */}
             </FormControl>
           )}
-          {/* <TextButtonsContainer>
-                    {(!constraints || constraints.canChangeFontWeight) && <FormControl label={"Style"}>
-                        <Columns columns={2}>
-                            <Button
-                                outline
-                                selected={isBold}
-                                onClick={() => handleItemPropChange(item, 'font-bold', !isBold)}>
-                                <Icon><BoldIcon /></Icon>
-                            </Button>
-                            <Button
-                                outline
-                                selected={isItalic}
-                                onClick={() => handleItemPropChange(item, 'font-italic', !isItalic)}>
-                                <Icon><ItalicSolid /></Icon>
-                            </Button>
-                        </Columns>
-                    </FormControl>}
-                    {(!constraints || constraints.canChangeTextPathMode) && <FormControl label={"Curved"}>
-                        <Button
+          {(textRestrictions.allowedBold ||
+            textRestrictions.allowedItalic ||
+            textRestrictions.allowedCurved) && (
+              <TextButtonsContainer>
+                {(!constraints || constraints.canChangeFontWeight) &&
+                  (textRestrictions.allowedBold || textRestrictions.allowedItalic) && (
+                    <FormControl label={T._('Style', 'Composer')}>
+                      <Columns
+                        columns={
+                          textRestrictions.allowedBold && textRestrictions.allowedItalic ? 2 : 1
+                        }
+                      >
+                        {textRestrictions.allowedBold && (
+                          <Button
                             outline
-                            selected={hasCurvedText}
-                            onClick={() => handleItemPropChange(item, 'text-path', !hasCurvedText)}>
-                            <Icon><CurveIcon /></Icon>
-                        </Button>
-                    </FormControl>}
-                </TextButtonsContainer> */}
+                            selected={isBold}
+                            onClick={() => handleItemPropChange(item, 'font-bold', !isBold)}
+                          >
+                            <Icon>
+                              <BoldIcon />
+                            </Icon>
+                          </Button>
+                        )}
+                        {textRestrictions.allowedItalic && (
+                          <Button
+                            outline
+                            selected={isItalic}
+                            onClick={() => handleItemPropChange(item, 'font-italic', !isItalic)}
+                          >
+                            <Icon>
+                              <ItalicSolid />
+                            </Icon>
+                          </Button>
+                        )}
+                      </Columns>
+                    </FormControl>
+                  )}
+                {(!constraints || constraints.canChangeTextPathMode) && textRestrictions.allowedCurved && (
+                  <FormControl label={T._('Curved', 'Composer')}>
+                    <Button
+                      outline
+                      selected={hasCurvedText}
+                      onClick={() => handleItemPropChange(item, 'text-path', !hasCurvedText)}
+                    >
+                      <Icon>
+                        <CurveIcon />
+                      </Icon>
+                    </Button>
+                  </FormControl>
+                )}
+              </TextButtonsContainer>
+            )}
         </TextToolsContainer>
 
-        {/* {(!disableTextColors || !(disableTextColors && textColors.length === 1)) && <FormControl label={T._("Color", "Composer")}>
-                <ColorsContainer>
-                    {!disableTextColors && <ColorPickerContainer>
-                        <ColorPicker
-                            color={fillColor}
-                            onChange={color => {
-                                // handleFillColorChange(color);
-                                handleItemPropChange(item, 'font-color', color);
-                                setFillColor(color);
-                            }} />
-                    </ColorPickerContainer>}
+        {(!disableTextColors || !(disableTextColors && textColors.length === 1)) &&
+          !!item.constraints?.canChangeFontColor && (
+            <FormControl label={T._('Color', 'Composer')}>
+              <ColorsContainer>
+                {!disableTextColors && (
+                  <ColorPickerContainer>
+                    <ColorPicker
+                      color={fillColor}
+                      onChange={(color) => {
+                        // handleFillColorChange(color);
+                        handleItemPropChange(item, 'font-color', color);
+                        setFillColor(color);
+                      }}
+                    />
+                  </ColorPickerContainer>
+                )}
 
-                    {!disableTextColors && <TextColorsContainer isDefaultPalette>
-                        {(defaultColorsPalette).map(hex => <SinglePaletteItem
-                            key={hex}
-                            onClick={() => {
-                                handleItemPropChange(item, 'font-color', hex);
-                                setFillColor(hex);
-                            }}
-                            selected={hex === fillColor}
-                            color={hex}
-                        />)}
-                    </TextColorsContainer>}
+                {!disableTextColors && (
+                  <TextColorsContainer $isDefaultPalette>
+                    {defaultColorsPalette.map((hex) => (
+                      <SinglePaletteItem
+                        key={hex}
+                        onClick={() => {
+                          handleItemPropChange(item, 'font-color', hex);
+                          setFillColor(hex);
+                        }}
+                        selected={hex === fillColor}
+                        color={hex}
+                      />
+                    ))}
+                  </TextColorsContainer>
+                )}
 
-                    {disableTextColors && <TextColorsContainer>
-                        {textColors.map(textColor => <SinglePaletteItem
-                            key={textColor.colorCode}
-                            onClick={() => {
-                                handleItemPropChange(item, 'font-color', textColor.colorCode)
-                                setFillColor(textColor.colorCode);
-                            }}
-                            selected={textColor.colorCode === fillColor}
-                            color={textColor.colorCode}
-                        />)}
-                    </TextColorsContainer>}
-                </ColorsContainer>
-            </FormControl>} */}
+                {disableTextColors && (
+                  <TextColorsContainer>
+                    {textColors.map((textColor) => (
+                      <SinglePaletteItem
+                        key={textColor.colorCode}
+                        onClick={() => {
+                          handleItemPropChange(item, 'font-color', textColor.colorCode);
+                          setFillColor(textColor.colorCode);
+                        }}
+                        selected={textColor.colorCode === fillColor}
+                        color={textColor.colorCode}
+                      />
+                    ))}
+                  </TextColorsContainer>
+                )}
+              </ColorsContainer>
+            </FormControl>
+          )}
       </ItemTextContainer>
     );
   else return null;

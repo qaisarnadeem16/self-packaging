@@ -43,7 +43,10 @@ import { AiIcon, ArIcon } from "./layout/tlayoutStyles";
 import Zoom from "./Zoom/Zoom";
 import ShareDialog from "./dialogs/ShareDialog";
 import { PRODUCT_FULL_SUIT, scrollDownOnClick } from "../Helpers";
-
+import { useActualGroups } from "helper";
+import textIcon from '../../assets/icons/font-solid.svg';
+import savedCompositionsIcon from '../../assets/icons/saved_designs.svg';
+import star from '../../assets/icons/star.svg';
 const Container = styled.div`
   height: auto;
   // overflow: auto;
@@ -99,8 +102,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // idsToRemove.push(10640); // id to remove on only blazer product
 
-  const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
-
+  // const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
+  const groups1 = useActualGroups();
   // if (product?.name != PRODUCT_PANT) groups1.push(customizeGroup);
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -175,6 +178,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
     selectOptionName(attribute.name);
     console.log("Groups after option selection:", groups1)
   }, [selectOption, selectOptionName,groups1]);
+
+  
 
   // Updated filteredAttributes to remove group-specific logic
   const filteredAttributes = useMemo(() => {
@@ -340,6 +345,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     togglePopup();
   };
 
+  console.log('wwwwwwwwww', selectedGroupId)
   console.log('first', groups1)
 
   const handlePrint = () => {
@@ -426,10 +432,14 @@ const Selector: FunctionComponent<SelectorProps> = ({
       </div>
 
       <div className="" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', gap: '12px' }}>
+       
+       
+       
         <div className="menu">
 
           <div className="" style={{
             background: "white", padding: "20px 18px", border: 'none',
+            height: '100%',
             borderRadius: '18px 18px 18px 0px'
           }}>
             <div className="menu_group">
@@ -448,7 +458,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       handleGroupClick(group);
                     }}
                   >
-                    {group.id === -1 ? "Other" : group.name}
+                    {group.id === -2 ? "Customize" : group.name}
                   </div>
                 );
               })}
@@ -573,6 +583,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                         alignItems: "center",
                                         justifyContent: "center",
                                         padding: "8px 18px",
+                                        fontWeight:'600',
                                         fontSize: isShadeSize ? "26px" : "15px",
                                         textAlign: isShadeSize ? "center" : "inherit",
                                       }}
@@ -621,14 +632,21 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                 </div>
                               </div>
                             ))}
+
+
                         </>
+
                         {/* )} */}
                       </div>
+
                     </div>
                   );
                 })}
               </>
             )}
+            {selectedGroupId === -2 && <Designer />}
+
+
           </div>
           <br />
 
