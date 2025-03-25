@@ -14,21 +14,43 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
 
   return (
     <div style={{
-      backgroundImage: `url(${footerBg})`,}} className='footer_steps'>
+      backgroundImage: `url(${footerBg})`,
+    }} className='footer_steps'>
       <div className="menu_footer" ref={viewFooter}>
         <div className="menu_actions">
-          <div className="price_value">{priceFormatter.format(price)}</div>
+          <div className="" style={{display:'flex', gap:'20px'}}>
+            <div className="sale_price">
+              -20%
+              <span className='off_price'>Antes: 0,80€/u</span>
+            </div>
+            <div className="price_value">{priceFormatter.format(price)} <span className='price_value_total'>TOTAL: 904,34 €</span></div>
+          </div>
 
-          {isAddToCartLoading ? (
-            "Adding to cart..."
-          ) : (
-            <button
-              onClick={() => addToCart([], undefined, useLegacyScreenshot)}
-              className="cart_button"
-            >
-              añadir a carrito
-            </button>
-          )}
+          <div className="add_cart">
+            {isAddToCartLoading ? (
+              "Adding to cart..."
+            ) : (
+              <button
+                onClick={() => addToCart([], undefined, useLegacyScreenshot)}
+                className="cart_button"
+              >
+                añadir a carrito
+              </button>
+            )}
+          </div>
+
+          <div className="">
+            {isAddToCartLoading ? (
+              "Adding to cart..."
+            ) : (
+              <button
+                onClick={() => addToCart([], undefined, useLegacyScreenshot)}
+                className="cart"
+              >
+                comprar
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

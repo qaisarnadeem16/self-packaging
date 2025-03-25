@@ -49,6 +49,16 @@ div {
     padding-top: 6px;
 }
 
+.full_screen {
+    cursor: pointer;
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
 
 .btn {
     display: flex;
@@ -135,8 +145,8 @@ div {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    width: 1500px;
-    height: 90px;
+    width: 100%;
+    height: 13%;
     position: absolute;
     right: 0;
     bottom: 10px;
@@ -170,14 +180,41 @@ div {
 }
 
 
-.price_value {}
+.price_value {
+    color: #434342;
+    font-size: 34px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.price_value_total {
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.sale_price {
+    color: #FF5733;
+    font-size: 34px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.off_price {
+    font-size: 20px;
+    font-weight: 400;
+}
 
 .menu_actions {
     align-items: center;
     height: 90px;
     display: flex;
     margin-left: auto;
-    gap: 20px;
+    gap: 45px;
     color: var(--template-boundary-color) !important;
     /* padding-right: 15px; */
 }
@@ -237,6 +274,13 @@ div {
     align-items: center;
     justify-content: center;
     gap: 10px;
+}
+
+.cart {
+    display: none;
+}
+.share_button {
+    display: none;
 }
 
 
@@ -312,9 +356,15 @@ div {
 
 
     .left-keys {
-        top: 10%;
+        top: 7%;
+        gap: 4px;
+        width: 100%;
+        left: 0%;
+        padding-left: 10px;
+        padding-right: 10px;
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         /* position: static !important; */
     }
 
@@ -368,9 +418,56 @@ div {
         display: none;
     }
 
+    .full_screen {
+        cursor: pointer;
+        padding-top: 0px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cart {
+        width: 160px;
+        height: 45px;
+        background-color: #FF5733;
+        color: white;
+        border: none;
+        border-radius: 18px 18px 18px 0px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .add_cart {
+        display: none;
+    }
+
+    .sale_price {
+        display: none;
+    }
+
+    .share_button {
+        display: flex;
+        gap: 5px;
+    }
+    
+
+    .price_value {
+        color: #434342;
+        font-size: 27px;
+        font-weight: 700;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
     .menu_actions {
         margin: 0% !important;
-        gap: 15px;
+        gap: 25px;
         padding-right: 0px !important;
     }
 

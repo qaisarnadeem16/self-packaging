@@ -173,7 +173,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
     console.log(`Selected Attribute: ${attribute.name}`);
     selectOption(attribute.id);
     selectOptionName(attribute.name);
-  }, [selectOption, selectOptionName]);
+    console.log("Groups after option selection:", groups1)
+  }, [selectOption, selectOptionName,groups1]);
 
   // Updated filteredAttributes to remove group-specific logic
   const filteredAttributes = useMemo(() => {
@@ -339,6 +340,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
     togglePopup();
   };
 
+  console.log('first', groups1)
+
   const handlePrint = () => {
     const canvas = document.querySelector("canvas");
 
@@ -386,7 +389,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
         <div className="viewer_zoom">
           <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
-          <div className="" onClick={fullScreen} style={{ cursor: 'pointer', paddingTop: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className="full_screen" onClick={fullScreen} style={{}}>
             <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0.5 2C0.5 1.17157 1.17157 0.5 2 0.5H25C25.8284 0.5 26.5 1.17157 26.5 2V25C26.5 25.8284 25.8284 26.5 25 26.5H2C1.17157 26.5 0.5 25.8284 0.5 25V2Z" fill="white" stroke="#434342" />
               <path d="M10.125 4.5H5.25V9.75" stroke="#FF5733" />
@@ -398,12 +401,33 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </div>
         </div>
 
+        <div className="share_button">
+          <div className="" style={{ cursor: 'pointer' }}>
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.5" y="0.5" width="27" height="27" rx="4.5" fill="white" stroke="#434342" />
+              <path d="M13.6797 23C18.9264 23 23.1797 18.7467 23.1797 13.5C23.1797 8.25329 18.9264 4 13.6797 4C8.43298 4 4.17969 8.25329 4.17969 13.5C4.17969 18.7467 8.43298 23 13.6797 23Z" stroke="#434342" />
+              <path d="M15.2476 13.4988C15.2476 14.3633 14.5469 15.064 13.6824 15.064C12.818 15.064 12.1172 14.3633 12.1172 13.4988C12.1172 12.6344 12.818 11.9336 13.6824 11.9336C14.5469 11.9336 15.2476 12.6344 15.2476 13.4988Z" fill="#FF5733" stroke="#434342" />
+              <path d="M22.3556 13.4985C22.3556 13.4985 18.4729 18.868 13.6828 18.868C8.89264 18.868 5.00781 13.4985 5.00781 13.4985C5.00781 13.4985 8.89051 8.12891 13.6807 8.12891C18.4708 8.12891 22.3535 13.4985 22.3535 13.4985H22.3556Z" stroke="#434342" />
+            </svg>
+          </div>
+          <div className="" style={{ cursor: 'pointer' }} onClick={handleShareClick}>
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.5" y="0.5" width="27" height="27" rx="4.5" fill="white" stroke="#434342" />
+              <path d="M7.52344 6.04688L23.1653 12.4557" stroke="#434342" stroke-miterlimit="10" />
+              <path d="M5.27344 23.1864L19.7158 14.4688" stroke="#434342" stroke-miterlimit="10" />
+              <circle cx="8.08447" cy="5.66259" r="2.66259" fill="#FF5733" />
+              <circle cx="20.8345" cy="12.3345" r="2.66259" fill="#FF5733" />
+              <circle cx="6.66259" cy="22.3384" r="2.66259" fill="#FF5733" />
+            </svg>
+          </div>
+        </div>
+
         <Scroll upRef={refViewer.current} downRef={viewFooter.current} />
       </div>
 
       <div className="" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', gap: '12px' }}>
         <div className="menu">
-          
+
           <div className="" style={{
             background: "white", padding: "20px 18px", border: 'none',
             borderRadius: '18px 18px 18px 0px'
@@ -418,7 +442,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   <div
                     className={`menu_item ${group.id === selectedGroupId ? "selected" : ""}`}
                     key={group.id}
-                    
+
                     onClick={() => {
                       scrollDownOnClick(checkOnce, setCheckOnce);
                       handleGroupClick(group);
@@ -512,13 +536,14 @@ const Selector: FunctionComponent<SelectorProps> = ({
                           // transitionDelay: closeAttribute && step.id === selectedStepId ? "0.2s" : "0s",
                         }}
                       >
-                       
+
                         {/* {closeAttribute && step.id === selectedStepId && ( */}
-                          <>
-                         
-                            {Array.from(new Map(step.options.map((attribute) => [attribute.id, attribute])).values())
-                              .filter((attribute) => attribute.enabled !== false)
-                              .map((attribute) => (
+                        <>
+
+                          {Array.from(new Map(step.options.map((attribute) => [attribute.id, attribute])).values())
+                            .filter((attribute) => attribute.enabled !== false)
+                            .map((attribute) => (
+                              <div className="">
                                 <ListItem
                                   key={attribute.id}
                                   onClick={() => handleOptionClick(attribute)}
@@ -560,6 +585,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                     </div>
                                   )}
 
+
                                   {/* {!isSpecialStep && attribute.selected && (
                                     <div
                                       className="backgroundSvg"
@@ -584,8 +610,18 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                     </div>
                                   )} */}
                                 </ListItem>
-                              ))}
-                          </>
+                                <div
+                                  style={{
+                                    fontSize: "12px",
+                                    color: attribute.selected ? "#FF5733" : "#434342", 
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {attribute.name}
+                                </div>
+                              </div>
+                            ))}
+                        </>
                         {/* )} */}
                       </div>
                     </div>
