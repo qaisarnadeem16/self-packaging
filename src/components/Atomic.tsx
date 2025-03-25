@@ -30,6 +30,26 @@ export const Icon = styled.div<{ hoverable?: boolean }>`
 	}
 `;
 
+export const TextIcon = styled.div<{ hoverable?: boolean }>`
+	display: inline-block;
+	cursor: pointer;
+	${(props) =>
+		props.hoverable &&
+		`
+    @media(hover) {
+      &:hover {
+        opacity: 0.5
+      }
+    }
+  `}
+
+	svg {
+		fill: currentColor;
+		width: 100%;
+		height: 100%;
+	}
+`;
+
 export const TextArea = styled.textarea`
 	background-color: transparent;
 	padding-top: 13px;
@@ -133,6 +153,73 @@ export const Button = styled.button<{
 
   ${Icon} + span {
 		margin-left: 10px;
+	}
+
+	span {
+		display: flex;
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+	}
+`;
+
+export const TextButton = styled.button<{
+	primary?: boolean;
+	outline?: boolean;
+	selected?: boolean;
+	disabled?: boolean;
+	isFullWidth?: boolean;
+	uppercase?: boolean;
+}>`
+	display: flex;
+	flex-direction:column;
+	justify-content: center;
+	align-items: center;
+	background: white;
+    border-radius: 12px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    text-align: center;
+	background-color: ${(props) => (props.primary ? '#313c46' : 'white')};
+	color: ${(props) => (props.outline ? 'black' : props.primary ? 'white' : '#313c46')};
+	min-height: 90px;
+	min-width:98px;
+	padding: ${(props) => (props.outline ? '' : '5px 10px 5px 10px')};
+	text-align: center;
+	text-transform: ${(props) => (props.uppercase ? 'uppercase' : 'none')};
+	border-radius:10px;
+	cursor: ${(props) => (!props.disabled ? 'pointer' : 'auto')};
+
+	${(props) =>
+		props.selected &&
+		`
+    border: 1px solid black;
+  `}
+
+	${(props) =>
+		!props.disabled &&
+		`
+      &:hover {
+        background-color: ${props.outline ? 'white' : props.primary ? '#4b6074' : '#313c46'};
+        border: ${props.outline ? '1px solid black' : '1px solid #4b6074'};
+        color: ${props.outline ? 'black' : 'white'};
+      }
+  `}
+
+  ${(props) =>
+		props.disabled &&
+		`
+      background-color: lightgray;
+      border: 1px solid gray;
+      color: #313c46;
+  `}
+
+  ${Icon} + span {
+		margin-top: 4px;
+		font-size:10px;
 	}
 
 	span {

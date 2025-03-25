@@ -279,8 +279,17 @@ div {
 .cart {
     display: none;
 }
+
 .share_button {
     display: none;
+}
+
+.share_button_desktop {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    padding-right: 6px;
+    gap: 5px;
 }
 
 
@@ -454,7 +463,10 @@ div {
         display: flex;
         gap: 5px;
     }
-    
+
+    .share_button_desktop {
+        display: none;
+    }
 
     .price_value {
         color: #434342;
