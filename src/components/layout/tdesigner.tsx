@@ -105,7 +105,6 @@ const DesignerContainer = styled.div<{ $isMobile?: boolean }>`
 		  height:100%;
 		  z-index:11;
 		  background-color:#ffffff;
-		  overflow-y:scroll;
 	  `}
   `;
 
