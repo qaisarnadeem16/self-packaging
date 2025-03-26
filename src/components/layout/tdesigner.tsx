@@ -590,7 +590,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							})}
 						</CarouselContainer>
 					)} */}
-					<div className="" style={{
+					{finalVisibleAreas.length > 1 && <div className="" style={{
 						color: "inherit",
 						borderRadius: "11px",
 						display: "flex",
@@ -638,7 +638,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 								</Area>
 							);
 						})}
-					</div>
+					</div>}
 					{(showAddTextButton || showUploadButton || showGalleryButton) && (
 						<UploadButtons>
 

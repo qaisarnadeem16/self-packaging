@@ -29,6 +29,7 @@
     border-radius: 1px;
     cursor: pointer;
     border-radius: 5px;
+    text-transform: capitalize;
 
 }
 

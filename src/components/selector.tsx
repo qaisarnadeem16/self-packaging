@@ -555,7 +555,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                     fontWeight: isShadeSize ? "600" : "600",
                                     fontSize: isShadeSize ? "26px !important" : "auto",
                                     height: isShadeSize ? "85px" : "auto",
-                                    width: isShadeSize ? "85px" : "auto",
+                                    width: isShadeSize ? "85px" : "100px",
                                     textAlign: isShadeSize ? "center" : "inherit",
                                   }}
                                 >
