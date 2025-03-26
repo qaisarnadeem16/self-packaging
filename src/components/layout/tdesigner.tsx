@@ -99,7 +99,6 @@ const DesignerContainer = styled.div<{ $isMobile?: boolean }>`
 	${(props) =>
 		props.$isMobile &&
 		`
-		  position:fixed;
 		  top:0;
 		  left:0;
 		  width:100%;
@@ -127,6 +126,9 @@ const UploadButtonDiv = styled.div`
   flex-direction: row;
   gap: 20px;
   margin: 20px 0px;
+  @media (max-width: 768px) {
+	 gap:15px;
+  }
 
 `;
 
@@ -900,7 +902,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							<span>{T._('Move elements', 'Composer')} </span>
 						</MoveElementButton>
 					)} */}
-					{isMobile && <CloseEditorButton onClick={onCloseClick}>{T._('OK', 'Composer')}</CloseEditorButton>}
+					{/* {isMobile && <CloseEditorButton onClick={onCloseClick}>{T._('OK', 'Composer')}</CloseEditorButton>} */}
 				</DesignerContainer>
 			)}
 			{moveElements && (
