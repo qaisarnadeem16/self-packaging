@@ -26,10 +26,10 @@ export const FormControl: FC<{
 }> = ({ placeholder, label, rightComponent, children }) => {
   return (
     <FormControlContainer placeholder={placeholder}>
-      <FormControlLabel>
+      {/* <FormControlLabel>
         <span style={{width: '70px'}}>{label}</span>
         {rightComponent}
-      </FormControlLabel>
+      </FormControlLabel> */}
       {children}
     </FormControlContainer>
   );

@@ -424,6 +424,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           <div className="" style={{
             background: "white", padding: "20px 18px", border: 'none',
             height: '100%',
+            overflowY:"auto",
             borderRadius: '18px 18px 18px 0px'
           }}>
             <div className="menu_group">

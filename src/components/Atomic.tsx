@@ -3,7 +3,7 @@ import Carousel from 'nuka-carousel';
 import styled, { css } from 'styled-components';
 
 export const CarouselContainer = styled(Carousel)`
-	border-bottom: 2px solid #c4c4c4;
+	/* border-bottom: 2px solid #c4c4c4; */
 	position: relative;
 `;
 
@@ -52,32 +52,27 @@ export const TextIcon = styled.div<{ hoverable?: boolean }>`
 
 export const TextArea = styled.textarea`
 	background-color: transparent;
-	padding-top: 13px;
-	height: 39px;
+	padding: 5px;
+	height: 100px;
 	 font-family: 'Open Sans';
 	// padding-left: 10px;
 	// padding: 10px 20px;
 	color: #414042;
 	font-size: 16px;
-	border: none;
-	border-bottom: 1px var(--template-primary--400) solid;
+	border: 2px #434342 solid;
 	width: 100%;
 	// min-height: 35px;
 	margin-top: 14px;
+	border-radius: 2px;
 	 font-family: 'Open Sans';
 	outline: none;
 	resize: none;
 
 	&:hover {
-		// border: 1px black solid;
-		border: none;
-		border-bottom: 1px var(--template-primary--400) solid;
+		border: 1px var(--template-primary--400) solid;
 	}
 
 	&:focus {
-		// border: 1px black solid;
-		// outline: none;
-		border: none;
 		border-bottom: 1px var(--template-primary--400) solid;
 	}
 `;
@@ -183,7 +178,7 @@ export const TextButton = styled.button<{
     font-family: Arial, sans-serif;
     font-size: 12px;
     text-align: center;
-	background-color: ${(props) => (props.primary ? '#313c46' : 'white')};
+	background-color: ${(props) => (props.primary ? '#F2F2F2' : 'white')};
 	color: ${(props) => (props.outline ? 'black' : props.primary ? 'white' : '#313c46')};
 	min-height: 90px;
 	min-width:98px;
@@ -197,15 +192,16 @@ export const TextButton = styled.button<{
 		props.selected &&
 		`
     border: 1px solid black;
+	background-color:#F2F2F2;
   `}
 
 	${(props) =>
 		!props.disabled &&
 		`
       &:hover {
-        background-color: ${props.outline ? 'white' : props.primary ? '#4b6074' : '#313c46'};
-        border: ${props.outline ? '1px solid black' : '1px solid #4b6074'};
-        color: ${props.outline ? 'black' : 'white'};
+        background-color: ${props.outline ? 'white' : props.primary ? '#4b6074' : '#F2F2F2'};
+        border: ${props.outline ? '1px solid black' : '1px solid #F2F2F2'};
+        color: ${props.outline ? 'black' : 'black'};
       }
   `}
 
