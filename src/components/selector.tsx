@@ -175,10 +175,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
   }, [selectStepName, selectStep, selectOptionName]);
 
   const handleOptionClick = useCallback((attribute: any) => {
-    console.log(`Selected Attribute: ${attribute.name}`);
+    // console.log(`Selected Attribute: ${attribute.name}`);
     selectOption(attribute.id);
     selectOptionName(attribute.name);
-    console.log("Groups after option selection:", groups1)
+    // console.log("Groups after option selection:", groups1)
   }, [selectOption, selectOptionName, groups1]);
 
 
@@ -347,8 +347,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
     togglePopup();
   };
 
-  console.log('wwwwwwwwww', selectedGroupId)
-  console.log('first', groups1)
+  // console.log('wwwwwwwwww', selectedGroupId)
+  // console.log('first', groups1)
 
   const handlePrint = () => {
     const canvas = document.querySelector("canvas");
@@ -608,6 +608,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                 </ListItem>
                                 <div
                                   style={{
+                                    width:'98px',
                                     fontSize: "12px",
                                     color: attribute.selected ? "#FF5733" : "#434342",
                                     textAlign: "center",
