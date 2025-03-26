@@ -421,11 +421,15 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
         <div className="menu">
 
-          <div className="" style={{
+          <div className="" 
+          style={{
             background: "white", padding: "20px 18px", border: 'none',
             height: '100%',
             overflowY:"auto",
-            borderRadius: '18px 18px 18px 0px'
+            borderRadius: '18px 18px 18px 0px',
+            ...(window.innerWidth <= 768 && {
+              overflowY:"hidden",
+            }),
           }}>
             <div className="menu_group">
               {groups1.map((group) => {
