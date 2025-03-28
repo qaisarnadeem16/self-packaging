@@ -140,7 +140,7 @@ const Area = styled.div<{ selected?: boolean }>`
 	justify-content: center;
 	align-items: center;
 	min-height: 50px; /* Adjusted to fit icon */
-	max-width: 80px;
+	max-width: 85px;
 	border-bottom: 5px solid transparent;
 	cursor: pointer;
 	padding: 5px 10px;
@@ -491,7 +491,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 				break;
 		}
 	};
-	type FaceType = 'front' | 'back' | 'right' | 'left' | 'top' | 'bottom';
+	type FaceType = 'front' | 'back' | 'left' | 'right' | 'top' | 'bottom';
 
 	// 2. Create an interface for the icon components
 	interface FaceIcons {
@@ -503,20 +503,20 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const FACE_ICONS: Record<FaceType, FaceIcons> = {
 		front: { default: FrontFace, active: FrontFaceActive },
 		back: { default: BackFace, active: BackFaceActive },
-		right: { default: RightFace, active: RightFaceActive },
 		left: { default: LeftFace, active: LeftFaceActive },
+		right: { default: RightFace, active: RightFaceActive },
 		top: { default: TopFace, active: TopFaceActive },
 		bottom: { default: BottomFace, active: BottomFaceActive },
 	};
 	// console.log('finalVisibleAreas', finalVisibleAreas)
 	const facesData = [
-		{ name: "Front Face", icon: <FrontFace />, activeIcon: <FrontFaceActive /> },
-		{ name: "Back Face", icon: <BackFace />, activeIcon: <BackFaceActive /> },
-		{ name: "Left Face", icon: <LeftFace />, activeIcon: <LeftFaceActive /> },
-		{ name: "Right Face", icon: <RightFace />, activeIcon: <RightFaceActive /> },
-		{ name: "Top Face", icon: <TopFace />, activeIcon: <TopFaceActive /> },
-		{ name: "Bottom Face", icon: <BottomFace />, activeIcon: <BottomFaceActive /> },
-	]
+		{ name: "front face", icon: <FrontFace />, activeIcon: <FrontFaceActive /> },
+		{ name: "back face", icon: <BackFace />, activeIcon: <BackFaceActive /> },
+		{ name: "left face", icon: <LeftFace />, activeIcon: <LeftFaceActive /> },
+		{ name: "right face", icon: <RightFace />, activeIcon: <RightFaceActive /> },
+		{ name: "top face", icon: <TopFace />, activeIcon: <TopFaceActive /> },
+		{ name: "bottom face", icon: <BottomFace />, activeIcon: <BottomFaceActive /> },
+	];
 	return (
 		<>
 			{!moveElements && (
@@ -613,7 +613,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							})}
 						</CarouselContainer>
 					)} */}
-					{finalVisibleAreas.length > 1 && <div className="">
+					{finalVisibleAreas.length > 1 && (<div className="">
 						<div className=""
 
 							style={{
@@ -659,18 +659,15 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							>
 								{finalVisibleAreas.map((area) => {
 									const isSelected = actualAreaId === area.id;
-
-									// Find matching face data (case-insensitive comparison)
+									const normalizedAreaName = T._d(area.name).trim().toLowerCase();
+									// console.log('Area:', area.id, 'Name:', normalizedAreaName); // Debug
 									const matchedFace = facesData.find(face =>
-										face.name.toLowerCase() === T._d(area.name).toLowerCase()
-									);
+										face.name === normalizedAreaName
+									) || facesData[0]; // Fallback to first face
 									const displayName = T._d(area.name)
 										.replace(/\b(Large)\b/gi, '')
 										.trim();
-									// Get the appropriate icon
-									const Icon = isSelected
-										? matchedFace?.activeIcon
-										: matchedFace?.icon;
+									const Icon = isSelected ? matchedFace.activeIcon : matchedFace.icon;
 
 									return (
 										<Area
@@ -679,17 +676,14 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 											onClick={() => setActualAreaId(area.id)}
 										>
 											{Icon}
-											<span className="" style={{
-												color: isSelected ? "#FF5733" : "#AAAAAA",
-												fontWeight: "400",
-												fontSize: "10px"
-											}} > {T._d(displayName)}</span>
+											<span style={{ /* your styles */ }}>{displayName}</span>
 										</Area>
 									);
 								})}
 							</div>
 						</div>
-					</div>}
+					</div>
+					)}
 					{(showAddTextButton || showUploadButton || showGalleryButton) && (
 						<UploadButtons>
 
