@@ -21,12 +21,15 @@ export const ListItem = styled.div<{ selected?: boolean }>`
      border-radius: 16px;
     //  margin-top:6px;
     //  margin-bottom: 12px;
+    width: 100px;
     //  margin-right: px;
      cursor: pointer;
-    //  @media screen and (max-width: 1013px) {
+     @media screen and (max-width: 1013px) {
     //  margin-bottom: 9px;
     //  margin-right: 9px;
-    //     }
+    width: 60px;
+
+       }
     
 `;
 

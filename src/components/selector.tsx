@@ -347,8 +347,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
     togglePopup();
   };
 
-  console.log('wwwwwwwwww', selectedGroupId)
-  console.log('first', groups1)
+  // console.log('wwwwwwwwww', selectedGroupId)
+  // console.log('first', groups1)
 
   const handlePrint = () => {
     const canvas = document.querySelector("canvas");
@@ -555,7 +555,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                     fontWeight: isShadeSize ? "600" : "600",
                                     fontSize: isShadeSize ? "26px !important" : "auto",
                                     height: isShadeSize ? "85px" : "auto",
-                                    width: isShadeSize ? "85px" : "100px",
+                                    width: attribute.name === "Units" ? "auto" : "",
                                     textAlign: isShadeSize ? "center" : "inherit",
                                   }}
                                 >
@@ -573,7 +573,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                         textAlign: isShadeSize ? "center" : "inherit",
                                       }}
                                     >
-                                      {isShadeSize ? attribute.name.replace(/[a-zA-Z]/g, "") : attribute.name}
+                                      
+                                      {isShadeSize  ? attribute.name.replace(/[a-zA-Z]/g, "") : attribute.name}
                                     </div>
                                   ) : (
                                     <div className="menu_choice_option_image_container">

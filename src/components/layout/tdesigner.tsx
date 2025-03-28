@@ -487,12 +487,12 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	};
 	console.log('finalVisibleAreas', finalVisibleAreas)
 	const facesData = [
-		{ name: "Front Large Face", icon: <FrontFace />, activeIcon: <FrontFaceActive /> },
-		{ name: "Back Large Face", icon: <BackFace />, activeIcon: <BackFaceActive /> },
-		{ name: "Left Large Face", icon: <LeftFace />, activeIcon: <LeftFaceActive /> },
-		{ name: "Right Large Face", icon: <RightFace />, activeIcon: <RightFaceActive /> },
-		{ name: "Top Large Face", icon: <TopFace />, activeIcon: <TopFaceActive /> },
-		{ name: "Bottom Large Face", icon: <BottomFace />, activeIcon: <BottomFaceActive /> },
+		{ name: "Front Face", icon: <FrontFace />, activeIcon: <FrontFaceActive /> },
+		{ name: "Back Face", icon: <BackFace />, activeIcon: <BackFaceActive /> },
+		{ name: "Left Face", icon: <LeftFace />, activeIcon: <LeftFaceActive /> },
+		{ name: "Right Face", icon: <RightFace />, activeIcon: <RightFaceActive /> },
+		{ name: "Top Face", icon: <TopFace />, activeIcon: <TopFaceActive /> },
+		{ name: "Bottom Face", icon: <BottomFace />, activeIcon: <BottomFaceActive /> },
 	]
 	return (
 		<>
