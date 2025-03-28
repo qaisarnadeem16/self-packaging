@@ -419,7 +419,7 @@ export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
 	${(props) =>
         props.$isMobile &&
         `
-       position:fixed;
+        position:fixed;
         inset:0;
         z-index:13;
     `}
@@ -528,6 +528,7 @@ export const SelectContainer = styled.div`
 	padding-bottom: 30px;
 	border-bottom: 1px #ccc dotted;
 	position: relative;
+	display:none;
 `;
 
 export const ExtensionFieldsContainer = styled.div`

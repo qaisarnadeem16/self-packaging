@@ -175,10 +175,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
   }, [selectStepName, selectStep, selectOptionName]);
 
   const handleOptionClick = useCallback((attribute: any) => {
-    console.log(`Selected Attribute: ${attribute.name}`);
+    // console.log(`Selected Attribute: ${attribute.name}`);
     selectOption(attribute.id);
     selectOptionName(attribute.name);
-    console.log("Groups after option selection:", groups1)
+    // console.log("Groups after option selection:", groups1)
   }, [selectOption, selectOptionName, groups1]);
 
 
@@ -421,11 +421,15 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
         <div className="menu">
 
-          <div className="" style={{
+          <div className="" 
+          style={{
             background: "white", padding: "20px 18px", border: 'none',
             height: '100%',
             overflowY:"auto",
-            borderRadius: '18px 18px 18px 0px'
+            borderRadius: '18px 18px 18px 0px',
+            ...(window.innerWidth <= 768 && {
+              overflowY:"hidden",
+            }),
           }}>
             <div className="menu_group">
               {groups1.map((group) => {
@@ -609,6 +613,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                 </ListItem>
                                 <div
                                   style={{
+                                    width:'98px',
                                     fontSize: "12px",
                                     color: attribute.selected ? "#FF5733" : "#434342",
                                     textAlign: "center",
