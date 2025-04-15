@@ -887,31 +887,31 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 
 
-					{/* {itemsFiltered.length > 0 && !allStaticElements && (
+					{itemsFiltered.length > 0 && !allStaticElements && (
 						<MoveElementButton isFullWidth outline onClick={() => setMoveElements(true)}>
 							<Icon>
 								<Arrows />
 							</Icon>
 							<span>{T._('Move elements', 'Composer')} </span>
 						</MoveElementButton>
-					)} */}
+					)}
 					{/* {isMobile && <CloseEditorButton onClick={onCloseClick}>{T._('OK', 'Composer')}</CloseEditorButton>} */}
 				</DesignerContainer>
 			)}
 			{moveElements && (
 				<ZakekeDesignerContainer $isMobile={isMobile} className="zakeke-container">
 					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
-					<IconsAndDesignerContainer>
+					{/* <IconsAndDesignerContainer>
 						<ZoomIconIn hoverable onClick={() => customizerRef.current.zoomIn()}>
 							<SearchPlusSolid />
 						</ZoomIconIn>
 						<ZoomIconOut hoverable onClick={() => customizerRef.current.zoomOut()}>
 							<SearchMinusSolid />
 						</ZoomIconOut>
-					</IconsAndDesignerContainer>
-					<Button isFullWidth onClick={() => setMoveElements(false)}>
+					</IconsAndDesignerContainer> */}
+					<button onClick={() => setMoveElements(false)} className='btn'>
 						<span>{T._('OK', 'Composer')} </span>
-					</Button>
+					</button>
 				</ZakekeDesignerContainer>
 			)}
 		</>

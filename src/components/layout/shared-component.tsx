@@ -190,8 +190,8 @@ export const Template = styled.div<{ selected?: boolean }>`
 	}
 
 	${(props) =>
-        props.selected &&
-        `
+		props.selected &&
+		`
        background-color: #f4f4f4;
     `}
 `;
@@ -212,11 +212,11 @@ export const ZoomInIcon = styled(Icon) <{ $isMobile?: boolean }>`
 	height: 32px;
 	z-index: 3;
 	${(props) =>
-        props.$isMobile
-            ? `
+		props.$isMobile
+			? `
 		top: calc(10%);
 		`
-            : `top: calc(30%);`}
+			: `top: calc(30%);`}
 	@media (max-height: 550px) {
 		top: calc(5%);
 	}
@@ -229,11 +229,11 @@ export const ZoomOutIcon = styled(Icon) <{ $isMobile?: boolean }>`
 	height: 32px;
 	z-index: 3;
 	${(props) =>
-        props.$isMobile
-            ? `
+		props.$isMobile
+			? `
 		top: calc(10% + 50px);
 		`
-            : `top: calc(30% + 50px);`};
+			: `top: calc(30% + 50px);`};
 	@media (max-height: 550px) {
 		top: calc(5% + 40px);
 	}
@@ -246,11 +246,11 @@ export const ResetIcon = styled(Icon) <{ $isMobile?: boolean }>`
 	height: 27px;
 	z-index: 3;
 	${(props) =>
-        props.$isMobile
-            ? `
+		props.$isMobile
+			? `
 		top: calc(10% + 100px);
 		`
-            : `top: calc(30% + 100px);`};
+			: `top: calc(30% + 100px);`};
 
 	@media (max-height: 550px) {
 		top: calc(5% + 80px);
@@ -264,11 +264,11 @@ export const UndoIcon = styled(Icon) <{ $isMobile?: boolean }>`
 	height: 27px;
 	z-index: 3;
 	${(props) =>
-        props.$isMobile
-            ? `
+		props.$isMobile
+			? `
 		top: calc(10% + 200px);
 		`
-            : `top: calc(30% + 200px);`};
+			: `top: calc(30% + 200px);`};
 
 	@media (max-height: 550px) {
 		top: calc(5% + 120px);
@@ -282,11 +282,11 @@ export const RedoIcon = styled(Icon) <{ $isMobile?: boolean }>`
 	height: 27px;
 	z-index: 3;
 	${(props) =>
-        props.$isMobile
-            ? `
+		props.$isMobile
+			? `
 		top: calc(10% + 150px);
 		`
-            : `top: calc(30% + 150px);`};
+			: `top: calc(30% + 150px);`};
 
 	@media (max-height: 550px) {
 		top: calc(5% + 160px);
@@ -376,8 +376,8 @@ export const AiIcon = styled(AISolid) <{ $isArIconVisible?: boolean }>`
 	right: 10px;
 
 	${(props) =>
-        props.$isArIconVisible &&
-        `
+		props.$isArIconVisible &&
+		`
     	right: 50px;
     `}
 	@media (hover) {
@@ -410,16 +410,33 @@ export const SupportedFormatsList = styled.span`
 `;
 
 export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
-	height: 100%;
-	width: 100%;
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	background: #ffffff;
+	/* height: 70vh; */
+	width: 40%;
+	position: fixed;
+	bottom: 20% ;
+	right: 1%;
+	/* display: flex; */
+	padding-bottom: 20px;
+	border-radius: 30px;
+	/* flex-direction: column;
+	align-items: start;
+	justify-content: left; */
+	z-index: 99;
+	background: #fff;
+	  /* Desktop specific styles */
+  @media (max-width: 769px) {
+    width: 100%; /* Maximum width for desktop */
+	bottom: 10% ;
+	right: 0;
+  }
 	${(props) =>
-        props.$isMobile &&
-        `
+		props.$isMobile &&
+		`
         position:fixed;
+	width: 100%;
+	border-radius: 10px;
+		bottom: 0;
+	
         inset:0;
         z-index:13;
     `}
@@ -449,9 +466,9 @@ export const UploadButtons = styled.div`
 `;
 
 export type PropChangeHandler = (
-    item: EditTextItem | EditImageItem,
-    prop: string,
-    value: string | boolean | File
+	item: EditTextItem | EditImageItem,
+	prop: string,
+	value: string | boolean | File
 ) => void;
 
 export const PriceContainer = styled.div<{ $isMobile?: boolean }>`
@@ -460,8 +477,8 @@ export const PriceContainer = styled.div<{ $isMobile?: boolean }>`
 	color: #313c46;
 	margin-right: 20px;
 	${(props) =>
-        props.$isMobile &&
-        `
+		props.$isMobile &&
+		`
     margin-right: 0px;
     color:white;`};
 `;
@@ -512,8 +529,8 @@ export const FooterMobileContainer = styled.div<{ isQuoteEnable?: boolean }>`
 	border-top: 1px #fff solid;
 	grid-template-areas: 'back pdf save share cart';
 	${(props) =>
-        props.isQuoteEnable &&
-        `
+		props.isQuoteEnable &&
+		`
 	grid-template-columns: repeat(6, 1fr);
 	grid-template-areas: 'back pdf save share cart quote' 
 	`};
