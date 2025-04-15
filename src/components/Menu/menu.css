@@ -156,9 +156,25 @@
 
     .menu_group {
         z-index: 1;
-        gap: 8px;
+        padding: 12px;
         overflow: auto;
+        scrollbar-color: #f0eeee transparent;
+        scrollbar-width: thin;
     }
+
+    .menu_group::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .menu_group::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .menu_group::-webkit-scrollbar-thumb {
+        background-color: #d4d1d1;
+        border-radius: 4px;
+    }
+
 
     .menu_choice_steps {
         height: '';
@@ -184,9 +200,7 @@
         font-size: 14px;
     }
 
-    .attributes_name{
+    .attributes_name {
         width: 65px;
     }
 }
-
-
