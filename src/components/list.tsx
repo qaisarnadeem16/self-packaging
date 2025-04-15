@@ -27,7 +27,7 @@ export const ListItem = styled.div<{ selected?: boolean }>`
      @media screen and (max-width: 1013px) {
     //  margin-bottom: 9px;
     //  margin-right: 9px;
-    width: 60px;
+    width: 65px;
 
        }
     

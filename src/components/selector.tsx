@@ -612,10 +612,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   )} */}
                                 </ListItem>
                                 <div
+                                className="attributes_name"
                                   style={{
-                                    width:'98px',
-                                    fontSize: "12px",
-                                    color: attribute.selected ? "#FF5733" : "#434342",
+                                    color: attribute.selected ? "#FF5733": "#434342",
                                     textAlign: "center",
                                   }}
                                 >
