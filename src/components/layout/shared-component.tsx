@@ -410,8 +410,8 @@ export const SupportedFormatsList = styled.span`
 `;
 
 export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
-	/* height: 70vh; */
-	width: 40%;
+	/* height: 40vh; */
+	width: 43%;
 	position: fixed;
 	bottom: 20% ;
 	right: 1%;

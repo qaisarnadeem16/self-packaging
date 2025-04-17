@@ -415,11 +415,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <Scroll upRef={refViewer.current} downRef={viewFooter.current} />
       </div>
 
-      <div className="" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', gap: '12px' }}>
+      <div className="container1" >
 
 
 
-        <div className="menu" style={{paddingTop:'20px'}}>
+        <div className="menu" style={{paddingTop:'20px', paddingBottom:"10px"}}>
 
           <div className="" 
           style={{
@@ -652,7 +652,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </div>
         </div>
         {screenWidth > 500 && (
-          <div className="" style={{ marginTop: '7px' }}>
+          <div className="" style={{ marginTop: '10px' }}>
             <MenuFooter viewFooter={viewFooter} />
           </div>
         )}

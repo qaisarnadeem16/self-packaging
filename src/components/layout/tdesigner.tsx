@@ -519,7 +519,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	];
 	return (
 		<>
-			{!moveElements && (
+			{/* {!moveElements && ( */}
 				<DesignerContainer $isMobile={isMobile}>
 					{/* Templates */}
 					{!isMobile && templates.length > 1 && (
@@ -642,7 +642,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 								paddingRight: '5px',
 								maxWidth: '100px',
 								fontFamily: "Almarai, sans-serif"
-							}}>Die-cut Face</span>
+							}}>Die-cut <br /> Face</span>
 							<div className=""
 								style={{
 									color: "inherit",
@@ -696,9 +696,10 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 									fontSize: "16px",
 									paddingRight: '5px',
 									maxWidth: '100px',
-									fontFamily: "Almarai, sans-serif"
-								}}>Custom tool</span>
+									fontFamily: "Almarai, sans-serif !important"
+								}}>Custom <br /> tool</span>
 							</div>
+
 							<UploadButtonDiv>
 								{showAddTextButton && (
 									<TextButton onClick={handleAddTextClick}>
@@ -867,6 +868,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 									key={item.guid}
 									handleItemPropChange={handleItemPropChange}
 									item={item as TextItem}
+									setMoveElements={setMoveElements}
 								/>
 							);
 						else if (item.type === 1 && isItemEditable(item, currentTemplateArea))
@@ -899,7 +901,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					)} */}
 					{/* {isMobile && <CloseEditorButton onClick={onCloseClick}>{T._('OK', 'Composer')}</CloseEditorButton>} */}
 				</DesignerContainer>
-			)}
+			{/* )} */}
 			{moveElements && (
 				<ZakekeDesignerContainer $isMobile={isMobile} className="zakeke-container">
 					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
