@@ -47,7 +47,7 @@ const SocialContainer = styled.div`
 const ShareName = styled.span`
 	font-weight: 700;
 	font-size: 16px;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Almarai';
 `;
 
 const SocialIcon = styled.div`

@@ -52,7 +52,7 @@ import ShareIcon from "assets/icons/ShareIcon";
 const Container = styled.div`
   height: auto;
   // overflow: auto;
-  font-family: 'Open Sans';
+  font-family: 'Almarai';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -419,7 +419,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
 
 
-        <div className="menu">
+        <div className="menu" style={{paddingTop:'20px'}}>
 
           <div className="" 
           style={{

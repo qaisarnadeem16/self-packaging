@@ -124,7 +124,7 @@ const UploadButtonDiv = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
-  margin: 20px 0px;
+  margin: 8px 0px 0px 0px;
   @media (max-width: 768px) {
 	 gap:15px;
   }
@@ -682,6 +682,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 								})}
 							</div>
 						</div>
+
+						<hr />
 					</div>
 					)}
 					{(showAddTextButton || showUploadButton || showGalleryButton) && (
@@ -710,7 +712,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 												<path d="M5.9649 1H1.89953C1.40273 1 1 1.40738 1 1.90992V5.70715C1 6.20968 1.40273 6.61707 1.89953 6.61707H5.9649C6.4617 6.61707 6.86443 6.20968 6.86443 5.70715V1.90992C6.86443 1.40738 6.4617 1 5.9649 1Z" fill="white" stroke="#FF5733" />
 											</svg>
 										</TextIcon>
-										<span>{T._('Text', 'Composer')}</span>
+										<span style={{ paddingTop: '2px' }}>{T._('Text', 'Composer')}</span>
 									</TextButton>
 								)}
 
@@ -725,7 +727,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 												<path d="M1.00123 6.16478C1.16423 4.01928 1.32438 1.10093 8.37369 3.06188C14.302 4.70849 14.8167 1 14.8167 1L14.8453 26.5067C14.6795 28.6493 14.4392 31.8474 7.47287 29.6096C0.186194 27.268 1.02982 32.6779 1.02982 32.6779L1.00123 6.1619V6.16478Z" fill="white" stroke="#434342" stroke-width="0.92" />
 											</svg>
 										</TextIcon>
-										<span>{T._('Clipart', 'Composer')}</span>
+										<span style={{ paddingTop: '8px' }}>{T._('Clipart', 'Composer')}</span>
 									</TextButton>
 								)}
 
@@ -764,7 +766,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 												</svg>
 											</TextIcon>
 											<span>
-												<span>
+												<span style={{ paddingTop: '6px' }}>
 													{itemsFiltered.some(
 														(item) =>
 															item.type === 1 && isItemEditable(item, currentTemplateArea)
@@ -887,14 +889,14 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 
 
-					{itemsFiltered.length > 0 && !allStaticElements && (
+					{/* {itemsFiltered.length > 0 && !allStaticElements && (
 						<MoveElementButton isFullWidth outline onClick={() => setMoveElements(true)}>
 							<Icon>
 								<Arrows />
 							</Icon>
 							<span>{T._('Move elements', 'Composer')} </span>
 						</MoveElementButton>
-					)}
+					)} */}
 					{/* {isMobile && <CloseEditorButton onClick={onCloseClick}>{T._('OK', 'Composer')}</CloseEditorButton>} */}
 				</DesignerContainer>
 			)}

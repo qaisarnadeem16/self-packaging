@@ -109,7 +109,7 @@ div {
 }
 
 .bubble_button_text {
-    font-family: 'Open Sans';
+    font-family: 'Almarai';
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -146,17 +146,17 @@ div {
     background-size: cover;
     background-position: center;
     width: 100%;
-    height: 13%;
+    height: 14%;
     position: absolute;
     right: 0;
-    bottom: 10px;
+    bottom: 18px;
 }
 
 
 .menu_price {
     padding-bottom: 22px;
     display: flex;
-    font-family: 'Open Sans';
+    font-family: 'Almarai';
     font-weight: 600;
     line-height: 16px;
     font-size: 24px;
@@ -170,7 +170,7 @@ div {
     position: relative;
     top: 16px;
     left: 30px;
-    font-family: 'Open Sans';
+    font-family: 'Almarai';
     font-size: 16px;
     font-style: italic;
     font-weight: 500;
@@ -221,7 +221,7 @@ div {
 
 .menu_btn_cart {
     /* margin-right: 10px; */
-    font-family: 'Open Sans';
+    font-family: 'Almarai';
     font-size: 14px;
     font-weight: 600;
     background-color: #4f5b6c !important;
@@ -243,7 +243,7 @@ div {
 
 .menu_btn_list {
     /* margin-right: 10px; */
-    font-family: 'Open Sans';
+    font-family: 'Almarai';
     font-size: 14px;
     font-weight: 600;
     background-color: #f2f2f2 !important;
@@ -286,6 +286,9 @@ div {
 
 .share_button_desktop {
     display: flex;
+    position: absolute;
+    right: 15px;
+    bottom: 60px;
     flex-direction: row;
     justify-content: end;
     padding-right: 6px;

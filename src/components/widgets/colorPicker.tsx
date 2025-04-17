@@ -49,7 +49,7 @@ const HexInput = styled(HexColorInput)`
     background-color: transparent;
     color: #414042;
     border: 1px #f4f4f4 solid;
-    font-family: "Montserrat",sans-serif;
+    font-family: "Almarai";
     outline:none;
     resize: none;
 
@@ -73,7 +73,7 @@ const RgbInput = styled.input`
     background-color: transparent;
     color: #414042;
     border: 1px #f4f4f4 solid;
-    font-family: "Montserrat",sans-serif;
+    font-family: "Almarai";
     outline:none;
     resize: none;
 

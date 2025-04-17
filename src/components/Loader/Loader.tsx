@@ -48,7 +48,7 @@ const Loader: React.FC<LoaderProps> = (props) => {
   const LoadingLabel = styled.div`
     color: #000;
     font-size: 12px;
-    font-family: "Inter";
+    font-family: "Almarai";
     font-style: normal;
     font-weight: 700;
     line-height: 16px;
@@ -70,7 +70,7 @@ const Loader: React.FC<LoaderProps> = (props) => {
     font-size: 12px;
     line-height: 16px;
     font-style: normal;
-    font-family: "Inter";
+    font-family: "Almarai";
   `;
 
   const LoadingPercentageandIconContainer = styled.div`

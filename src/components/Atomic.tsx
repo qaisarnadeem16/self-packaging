@@ -54,7 +54,7 @@ export const TextArea = styled.textarea`
 	background-color: transparent;
 	padding: 5px;
 	height: 100px;
-	 font-family: 'Open Sans';
+	 font-family: 'Almarai';
 	// padding-left: 10px;
 	// padding: 10px 20px;
 	color: #414042;
@@ -64,7 +64,7 @@ export const TextArea = styled.textarea`
 	// min-height: 35px;
 	margin-top: 14px;
 	border-radius: 2px;
-	 font-family: 'Open Sans';
+	 font-family: 'Almarai';
 	outline: none;
 	resize: none;
 
@@ -175,13 +175,13 @@ export const TextButton = styled.button<{
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     border: 1px solid #ddd;
     cursor: pointer;
-    font-family: Arial, sans-serif;
+    font-family: 'Almarai';
     font-size: 12px;
     text-align: center;
 	background-color: ${(props) => (props.primary ? '#F2F2F2' : 'white')};
 	color: ${(props) => (props.outline ? 'black' : props.primary ? 'white' : '#313c46')};
-	min-height: 90px;
-	min-width:98px;
+	min-height: 85px;
+	min-width:85px;
 	padding: ${(props) => (props.outline ? '' : '5px 10px 5px 10px')};
 	text-align: center;
 	text-transform: ${(props) => (props.uppercase ? 'uppercase' : 'none')};

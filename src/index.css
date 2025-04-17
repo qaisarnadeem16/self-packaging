@@ -28,7 +28,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: "Almarai", sans-serif !important;
+  font-family: "Almarai" !important;
   background-color: #f2f2f2 !important;
 }
 
@@ -117,7 +117,7 @@ html {
   cursor: pointer;
   background: none;
   display: flex;
-  font-family: 'Open Sans';
+  font-family: 'Almarai';
   font-size: 18px;
   font-weight: 600;
   color: #323232;
