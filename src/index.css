@@ -176,11 +176,29 @@ html {
   gap: 10px;
 }
 
+.text-editor-scroll-container::-webkit-scrollbar {
+  width: 5px;
+}
+.text-editor-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #FF5733;
+  border-radius: 10px;
+}
+.text-editor-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.text-editor-scroll-container::-webkit-scrollbar-button {
+  display: none;
+}
+.text-editor-scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: #FF5733 transparent;
+}
 
-.controller{
+
+/* .controller{
   position: absolute;
   bottom: 40px;
-}
+} */
 @media (max-width: 768px) {
   .controller {
       position: relative;

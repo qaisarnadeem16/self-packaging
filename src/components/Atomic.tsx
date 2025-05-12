@@ -53,7 +53,6 @@ export const TextIcon = styled.div<{ hoverable?: boolean }>`
 export const TextArea = styled.textarea`
 	background-color: transparent;
 	padding: 5px;
-	height: 100px;
 	 font-family: 'Almarai';
 	// padding-left: 10px;
 	// padding: 10px 20px;
