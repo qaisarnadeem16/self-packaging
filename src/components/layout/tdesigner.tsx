@@ -127,6 +127,8 @@ const UploadButtonDiv = styled.div`
   margin: 8px 0px 0px 0px;
   @media (max-width: 768px) {
 	 gap:15px;
+	 overflow:auto;
+	 padding:10px 0px;
   }
 
 `;
@@ -788,7 +790,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 													(item) =>
 														item.type === 1 && isItemEditable(item, currentTemplateArea)
 												)
-													? T._('Upload another image', 'Composer')
+													? T._('Upload  image', 'Composer')
 													: T._('Upload Images', 'Composer')}{' '}
 											</span>
 										</span>
@@ -827,8 +829,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 													(item) =>
 														item.type === 1 && isItemEditable(item, currentTemplateArea)
 												)
-													? T._('Upload another image', 'Composer')
-													: T._('Deign', 'Composer')}{' '}
+													? T._('Design', 'Composer')
+													: T._('Design', 'Composer')}{' '}
 											</span>
 										</span>
 									</TextButton>

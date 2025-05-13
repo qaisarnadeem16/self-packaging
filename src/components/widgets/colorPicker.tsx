@@ -1,6 +1,5 @@
-import useDropdown from "hooks/useDropdown";
 import { debounce } from "lodash";
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import styled from "styled-components";
 
@@ -13,7 +12,7 @@ const ColorPickerContainer = styled.div`
     background-color: white;
     z-index: 2;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 10px;
 `;
 
@@ -46,20 +45,20 @@ const HexInput = styled(HexColorInput)`
     width: 100%;
     display: block;   
     
-    background-color: transparent;
+    background-color: white;
     color: #414042;
     border: 1px #f4f4f4 solid;
     font-family: "Almarai";
-    outline:none;
+    outline: none;
     resize: none;
 
-    &:hover{
+    &:hover {
         border: 1px black solid;
     }
 
-    &:focus{
+    &:focus {
         border: 1px black solid;
-        outline:none;
+        outline: none;
     }
 `;
 
@@ -70,20 +69,20 @@ const RgbInput = styled.input`
     display: block;
     text-align: center;
     
-    background-color: transparent;
+   background-color: white;
     color: #414042;
     border: 1px #f4f4f4 solid;
     font-family: "Almarai";
-    outline:none;
+    outline: none;
     resize: none;
 
-    &:hover{
+    &:hover {
         border: 1px black solid;
     }
 
-    &:focus{
+    &:focus {
         border: 1px black solid;
-        outline:none;
+        outline: none;
     }
 `;
 
@@ -134,12 +133,11 @@ const clampValue = (value: string) => {
 
 const ColorPickerDropdown: FC<{ color: string, onChange: (color: string) => void }> = ({ color, onChange }) => {
 
-    const [preventChange, setPreventChange] = useState(true); // Default true to avoid triggering onChange on mount
+    const [preventChange, setPreventChange] = useState(true);
 
     const [r, setR] = useState(hexToRgb(color ?? "#000000").r.toString());
     const [g, setG] = useState(hexToRgb(color ?? "#000000").g.toString());
     const [b, setB] = useState(hexToRgb(color ?? "#000000").b.toString());
-
 
     useEffect(() => {
         setPreventChange(false);
@@ -158,7 +156,6 @@ const ColorPickerDropdown: FC<{ color: string, onChange: (color: string) => void
             triggerColorChange(rbgNewColor);
         }
 
-        // If the color changed 'color' change, reset the prevent change
         setPreventChange(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [r, g, b]);
@@ -167,7 +164,6 @@ const ColorPickerDropdown: FC<{ color: string, onChange: (color: string) => void
         if (preventChange)
             return;
 
-        // When the color change, update the rgb values but don't trigger again the change to avoid loop
         if (color && color.length === 7) {
             setPreventChange(true);
             setR(hexToRgb(color).r.toString());
@@ -239,7 +235,7 @@ const ColorPickerDropdown: FC<{ color: string, onChange: (color: string) => void
                     />
                 </InputContainer>
             </RgbValuesContainer>
-        </HexPickerContainer >
+        </HexPickerContainer>
     </ColorPickerContainer>
 }
 
@@ -248,35 +244,10 @@ interface ColorPickerProps {
     onChange: (color: string) => void
 }
 
-const ColorContainer = styled.div<{ color: string }>`
-    width: 100%;
-    height: 40px;
-    border: 1px solid #DDD;
-    background-color: ${props => props.color};
-    cursor: pointer;
-
-    @media(hover) {
-        &:hover {
-            opacity: 0.7;
-        }
-    }
-`;
-
 const ColorPicker: FC<ColorPickerProps> = ({ color, onChange }) => {
-    const [open, , isOpened, Dropdown] = useDropdown();
-    const ref = useRef<HTMLDivElement>(null);
-
-    return <>
-        <ColorContainer
-            ref={ref}
-            color={color}
-            onClick={() => open(ref.current!, 'bottom', 'right')}
-        />
-
-        {isOpened && <Dropdown>
-            <ColorPickerDropdown color={color} onChange={onChange} />
-        </Dropdown>}
-    </>;
+    return (
+        <ColorPickerDropdown color={color} onChange={onChange} />
+    );
 }
 
 export default ColorPicker;

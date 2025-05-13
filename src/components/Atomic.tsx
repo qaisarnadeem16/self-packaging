@@ -52,18 +52,19 @@ export const TextIcon = styled.div<{ hoverable?: boolean }>`
 
 export const TextArea = styled.textarea`
 	background-color: transparent;
-	padding: 5px;
-	 font-family: 'Almarai';
+	// padding: 5px;
+	font-family: 'Almarai';
 	// padding-left: 10px;
-	// padding: 10px 20px;
-	color: #414042;
+	padding: 13px 0px 0px 10px;
+	color: #434342;
 	font-size: 16px;
-	border: 2px #434342 solid;
+	border: 2px #AAAAAA8C solid;
 	width: 100%;
 	// min-height: 35px;
 	margin-top: 14px;
-	border-radius: 2px;
-	 font-family: 'Almarai';
+	border-radius: 7px;
+	align-items:center;
+	font-family: 'Almarai';
 	outline: none;
 	resize: none;
 

@@ -3,7 +3,7 @@
     flex-flow: column;
     position: relative;
     max-height: calc(100% - 3px);
-    height: calc(90vh - 72px);
+    height: calc(100vh - 72px);
     color: var(--template-primary--600);
 }
 

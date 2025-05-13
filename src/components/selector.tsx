@@ -425,10 +425,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
           <div className="text-editor-scroll-container"
             style={{
-              background: "white", padding: "20px 18px", border: 'none',
+              background: "white", padding: "30px 18px", border: 'none',
               height: '100%',
               overflowY: "auto",
-              borderRadius: '18px 18px 18px 0px',
+              // borderRadius: '18px 18px 18px 0px',
               ...(window.innerWidth <= 768 && {
                 overflowY: "hidden",
               }),
