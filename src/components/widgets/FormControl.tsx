@@ -15,7 +15,7 @@ const FormControlContainer = styled.div<{ rightComponent?: any, placeholder?: an
   justify-content: center;
   grid-gap: 5px;
   margin-top: 10px;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
 `;
 
 export const FormControl: FC<{

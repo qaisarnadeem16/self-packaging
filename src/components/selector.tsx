@@ -421,7 +421,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
         <div className="menu" style={{paddingTop:'20px', paddingBottom:"10px"}}>
 
-          <div className="" 
+          <div className="text-editor-scroll-container" 
           style={{
             background: "white", padding: "20px 18px", border: 'none',
             height: '100%',

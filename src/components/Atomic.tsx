@@ -53,7 +53,6 @@ export const TextIcon = styled.div<{ hoverable?: boolean }>`
 export const TextArea = styled.textarea`
 	background-color: transparent;
 	padding: 5px;
-	height: 100px;
 	 font-family: 'Almarai';
 	// padding-left: 10px;
 	// padding: 10px 20px;
@@ -132,8 +131,8 @@ export const Button = styled.button<{
 		!props.disabled &&
 		`
       &:hover {
-        background-color: ${props.outline ? 'white' : props.primary ? '#4b6074' : '#313c46'};
-        border: ${props.outline ? '1px solid black' : '1px solid #4b6074'};
+        background-color: ${props.outline ? 'white' : props.primary ? '#f05635' : '#313c46'};
+        // border: ${props.outline ? '1px solid black' : '1px solid #4b6074'};
         color: ${props.outline ? 'black' : 'white'};
       }
   `}
@@ -227,7 +226,19 @@ export const TextButton = styled.button<{
 `;
 
 export const AddToCartButton = styled(Button)`
-	min-width: 200px;
+	width: 300px;
+    height: 45px;
+    background-color: #FF5733;
+    color: white;
+    border: none;
+    border-radius: 18px 18px 18px 0px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 `;
 
 export const Columns = styled.div<{ columns: number }>`
