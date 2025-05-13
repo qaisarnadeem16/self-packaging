@@ -521,6 +521,22 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		<>
 			{/* {!moveElements && ( */}
 			<DesignerContainer $isMobile={isMobile}>
+				<div className="views">
+					<button className="" onClick={() => setMoveElements(false)} 
+						style={{
+							border: `2px solid ${!moveElements ? "#f97316" : "#6b7280"}`,
+						}}>
+						<img src="/svg/3d.svg" alt="" className="" />
+					</button>
+
+					<button className="" onClick={() => setMoveElements(true)}
+					style={{
+						border: `2px solid ${moveElements ? "#f97316" : "#6b7280"}`,
+
+					}}>
+						<img src="/svg/edit.svg" alt="" className="" />
+					</button>
+				</div>
 				{/* Templates */}
 				{!isMobile && templates.length > 1 && (
 					<TemplatesContainer>

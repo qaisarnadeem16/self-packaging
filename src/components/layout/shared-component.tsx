@@ -414,7 +414,7 @@ export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
 	width: 43%;
 	position: fixed;
 	bottom: 20% ;
-	right: 1%;
+	left: 6%;
 	/* display: flex; */
 	padding-bottom: 20px;
 	border-radius: 30px;
@@ -422,10 +422,10 @@ export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
 	align-items: start;
 	justify-content: left; */
 	z-index: 99;
-	background: #fff;
+	background: #f2f2f2;
 	  /* Desktop specific styles */
   @media (max-width: 769px) {
-	height: 50vh;
+	height: 40vh;
 
     width: 100%; /* Maximum width for desktop */
 	bottom: 10% ;
