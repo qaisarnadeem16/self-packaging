@@ -28,7 +28,7 @@ export interface EditTextItem {
   constraints: { [key: string]: any } | null;
 }
 
-const defaultColorsPalette = ['#000000', '#FF5733', ];
+const defaultColorsPalette = ['#000000', '#FF5733',];
 
 enum ItemType {
   Text = 0,
@@ -59,6 +59,7 @@ export interface TextItem {
 const ItemTextContainer = styled.div``;
 
 const TextToolsContainer = styled.div`
+  align-items:center;
 	display: flex;
 	flex-direction: row;
 	grid-gap: 10px;
@@ -66,9 +67,9 @@ const TextToolsContainer = styled.div`
 `;
 
 const TextButtonsContainer = styled.div`
-	width: 50%;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
+	// width: 50%;
+	// display: grid;
+	// grid-template-columns: 1fr 1fr;
 	grid-gap: 5px;
 `;
 
@@ -78,12 +79,12 @@ const ColorPickerContainer = styled.div`
 `;
 
 const ColorsContainer = styled.div`
-  height: 50px;
-  overflow:auto;
+  height: 40px;
+  // overflow:auto;
 	display: flex;
 	flex-direction: row;
 	// padding-bottom: 20px;
-	border-bottom: 1px #ccc dotted;
+	// border-bottom: 1px #ccc dotted;
 `;
 
 const SinglePaletteItem = styled.div<{ color: string; selected: boolean }>`
@@ -172,6 +173,8 @@ const ItemText: FC<{
 
   const [fontLoading, setFontLoading] = useState(false);
   const [dirtyCharInserted, setDirtyCharInserted] = useState([] as string[]);
+  const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
+
 
   const weightData = typeof item.fontWeight === 'number' ? ['normal', 'normal'] : item.fontWeight.split(' ');
   const isBold = weightData.length > 1 ? weightData[1] === 'bold' : weightData[0] === 'bold';
@@ -222,8 +225,8 @@ const ItemText: FC<{
             )
           }
         >
-          <div style={{ width: "100%", display: 'flex', gap: '20px', alignItems: 'center', borderTop: '1px solid rgb(23, 21, 21) ', padding: '2px 10px 0 0' }} >
-            <div>
+          <div style={{ width: "100%", display: 'flex', gap: '15px', alignItems: 'center', borderTop: '2px solid #AAAAAA8C', padding: '2px 10px 0 0' }} >
+            <div style={{ marginTop: '20px' }}>
               <TextArea
                 value={isUpperCase ? item.text.toUpperCase() : item.text}
                 onChange={(e) => {
@@ -244,35 +247,71 @@ const ItemText: FC<{
               )}
             </div>
 
-
-            <div className="controller">
+            <div className="controller" style={{ marginTop: '10px' }}>
               {/* <span className="" style={{ fontWeight: "700", font: "18px", color: "#434342", width: "100%" }}>Text</span> */}
               <TextToolsContainer >
 
-                {(!constraints || constraints.canChangeFontFamily) && (
+                <div>
+                  <span>Font</span>
+
                   <FormControl label={T._('Font', 'Composer')}>
-                    <div
-                      className=""
-                      style={{ cursor: "pointer", display: "inline-block", padding: "5px 0 0 0" }}>
+                    <div style={{ cursor: 'pointer', display: 'inline-block', }}>
                       <AdvancedSelect
-                        components={
-                          {
-                            Option: FontOption,
-                            SingleValue: FontSingleValue
-                          }
-                        }
+                        components={{
+                          Option: FontOption,
+                          SingleValue: FontSingleValue,
+                          DropdownIndicator: (props) => (
+                            <components.DropdownIndicator {...props}>
+                              <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L6 6L11 1" stroke="#F2582D" strokeWidth="2" />
+                              </svg>
+                            </components.DropdownIndicator>
+                          )
+                        }}
                         styles={{
-                          container: (base) =>
-                          ({
+                          container: (base) => ({
                             ...base,
-                            width: 100,
-                          } as CSSObjectWithLabel)
+                            width: 180,
+                          }),
+                          control: (base, state) => ({
+                            ...base,
+                            borderRadius: '8px',
+                            border: '1px solid #ccc',
+                            padding: '4px 8px',
+                            boxShadow: 'none',
+                            cursor: 'pointer',
+                            minHeight: '40px',
+                            '&:hover': {
+                              borderColor: '#aaa'
+                            }
+                          }),
+                          valueContainer: (base) => ({
+                            ...base,
+                            padding: 0,
+                          }),
+                          singleValue: (base) => ({
+                            ...base,
+                            fontFamily: 'inherit', // dynamically styled by `FontSingleValue` component
+                            fontSize: '16px',
+                          }),
+                          dropdownIndicator: (base) => ({
+                            ...base,
+                            padding: '0 4px',
+                            color: '#F2582D', // matches the red arrow color
+                          }),
+                          indicatorSeparator: () => ({
+                            display: 'none',
+                          }),
+                          menu: (base) => ({
+                            ...base,
+                            zIndex: 9999, // important to keep menu on top
+                          }),
                         }}
                         isSearchable={false}
                         options={fonts}
                         isDisabled={fontLoading}
                         menuPosition='fixed'
-                        value={[fonts!.find((x) => x.name === item.fontFamily)]}
+                        value={[fonts.find((x) => x.name === item.fontFamily)]}
                         onChange={(font: any) => {
                           item.fontFamily = font.name;
                           setFontLoading(true);
@@ -284,59 +323,75 @@ const ItemText: FC<{
                       />
                     </div>
                   </FormControl>
-                )}
+                </div>
 
-                {(!disableTextColors || !(disableTextColors && textColors.length === 1)) &&
-                  !!item.constraints?.canChangeFontColor && (
-                    <FormControl label={T._('Color', 'Composer')}>
-                      <ColorsContainer>
-                        {!disableTextColors && (
-                          <ColorPickerContainer>
-                            <ColorPicker
-                              color={fillColor}
-                              onChange={(color) => {
-                                // handleFillColorChange(color);
-                                handleItemPropChange(item, 'font-color', color);
-                                setFillColor(color);
-                              }}
-                            />
-                          </ColorPickerContainer>
-                        )}
 
-                        {!disableTextColors && (
-                          <TextColorsContainer $isDefaultPalette>
-                            {defaultColorsPalette.map((hex) => (
-                              <SinglePaletteItem
-                                key={hex}
-                                onClick={() => {
-                                  handleItemPropChange(item, 'font-color', hex);
-                                  setFillColor(hex);
-                                }}
-                                selected={hex === fillColor}
-                                color={hex}
-                              />
-                            ))}
-                          </TextColorsContainer>
-                        )}
+                <div >
+                  <span>Color</span>
+                  <FormControl label={T._('Color', 'Composer')}>
 
-                        {disableTextColors && (
-                          <TextColorsContainer>
-                            {textColors.map((textColor) => (
-                              <SinglePaletteItem
-                                key={textColor.colorCode}
-                                onClick={() => {
-                                  handleItemPropChange(item, 'font-color', textColor.colorCode);
-                                  setFillColor(textColor.colorCode);
-                                }}
-                                selected={textColor.colorCode === fillColor}
-                                color={textColor.colorCode}
-                              />
-                            ))}
-                          </TextColorsContainer>
+                    <ColorsContainer>
+                      <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                        {/* The icon trigger (like the red A from your image) */}
+                        <div
+                          style={{
+                            cursor: 'pointer',
+                            color: fillColor,
+                            fontWeight: 'bold',
+                            fontSize: '30px',
+                          }}
+                          onClick={() => setIsColorDropdownOpen((prev) => !prev)}
+                        >
+                          A
+                          <div style={{ height: '6px', backgroundColor: fillColor, marginTop: '5px' }} />
+                        </div>
+
+                        {/* Dropdown menu */}
+                        {isColorDropdownOpen && (
+                          <div
+                            style={{
+                              position: 'absolute',
+                              top: '110%', // slightly below the icon
+                              left: 0,
+                              background: '#fff',
+                              border: '1px solid #ccc',
+                              padding: '8px',
+                              zIndex: 100,
+                              boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                            }}
+                          >
+                            {!disableTextColors && (
+                              <>
+                                <ColorPicker
+                                  color={fillColor}
+                                  onChange={(color) => {
+                                    handleItemPropChange(item, 'font-color', color);
+                                    setFillColor(color);
+                                  }}
+                                />
+                                <TextColorsContainer $isDefaultPalette>
+                                  {defaultColorsPalette.map((hex) => (
+                                    <SinglePaletteItem
+                                      key={hex}
+                                      onClick={() => {
+                                        handleItemPropChange(item, 'font-color', hex);
+                                        setFillColor(hex);
+                                        setIsColorDropdownOpen(false); // close dropdown on selection
+                                      }}
+                                      selected={hex === fillColor}
+                                      color={hex}
+                                    />
+                                  ))}
+                                </TextColorsContainer>
+                              </>
+                            )}
+                          </div>
                         )}
-                      </ColorsContainer>
-                    </FormControl>
-                  )}
+                      </div>
+                    </ColorsContainer>
+                  </FormControl>
+                </div>
+
 
                 {(textRestrictions.allowedBold ||
                   textRestrictions.allowedItalic ||
@@ -350,7 +405,7 @@ const ItemText: FC<{
                                 textRestrictions.allowedBold && textRestrictions.allowedItalic ? 2 : 1
                               }
                             >
-                              {textRestrictions.allowedBold && (
+                              {/* {textRestrictions.allowedBold && (
                                 <Button
                                   outline
                                   selected={isBold}
@@ -371,7 +426,7 @@ const ItemText: FC<{
                                     <path d="M1 1L5 5L9 1" stroke="#FF5733" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                   </svg>
                                 </Button>
-                              )}
+                              )} */}
 
 
                               {/* <div className="">
@@ -392,7 +447,7 @@ const ItemText: FC<{
                           </Button>
                         )} */}
 
-                              <div
+                              {/* <div
                                 className=""
                                 style={{ cursor: "pointer", display: "inline-block", padding: "10px 20px" }}
                                 onClick={() => setMoveElements?.(true)} // Optional chaining syntax>
@@ -410,6 +465,18 @@ const ItemText: FC<{
                                   <circle cx="14.0033" cy="13.9994" r="1.35484" fill="#FF5733" />
                                 </svg>
 
+                              </div> */}
+
+
+                              <div onClick={() => removeItem(item.guid)} style={{cursor:'pointer'}}>
+                                <svg width="17" height="25" viewBox="0 0 17 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M5.54594 2.4196L9.63125 1.24826C10.1094 1.11115 10.6104 1.4027 10.7495 1.89909L11.0656 3.02666L5.24779 4.69474L4.93173 3.56717C4.7926 3.07079 5.06775 2.5567 5.54594 2.4196Z" fill="white" stroke="#434342" />
+                                  <path d="M14.4476 2.06228L1.86626 5.6696C1.38784 5.80677 1.11285 6.32056 1.25205 6.81717L1.85927 8.98351C1.99847 9.48012 2.49915 9.77151 2.97757 9.63434L15.5589 6.02702C16.0373 5.88985 16.3123 5.37606 16.1731 4.87945L15.5659 2.71311C15.4267 2.2165 14.926 1.92511 14.4476 2.06228Z" fill="white" stroke="#434342" />
+                                  <path d="M2.875 11.3594H16.4546V22.9275C16.4546 23.4431 16.0362 23.8616 15.5205 23.8616H3.80908C3.29344 23.8616 2.875 23.4431 2.875 22.9275V11.3594Z" fill="white" stroke="#434342" />
+                                  <path d="M6.27344 13.7734V21.4438" stroke="#434342" />
+                                  <path d="M9.67969 13.7734V21.4438" stroke="#434342" />
+                                  <path d="M13.1406 13.7734V21.4438" stroke="#434342" />
+                                </svg>
                               </div>
                             </Columns>
                           </FormControl>

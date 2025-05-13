@@ -242,8 +242,8 @@ export const AddToCartButton = styled(Button)`
 `;
 
 export const Columns = styled.div<{ columns: number }>`
-	width: 100%;
-	display: grid;
+	// width: 100%;
+	// display: grid;
 	grid-template-columns: repeat(${(props) => props.columns}, 1fr);
 `;
 
