@@ -60,75 +60,75 @@ const ItemTextContainer = styled.div``;
 
 const TextToolsContainer = styled.div`
   align-items:center;
-	display: flex;
-	flex-direction: row;
-	grid-gap: 10px;
-	flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    grid-gap: 10px;
+    flex-wrap: wrap;
 `;
 
 const TextButtonsContainer = styled.div`
-	// width: 50%;
-	// display: grid;
-	// grid-template-columns: 1fr 1fr;
-	grid-gap: 5px;
+    // width: 50%;
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
 `;
 
 const ColorPickerContainer = styled.div`
-	margin-right: 5px;
-	width: calc(50% - 30px);
+    margin-right: 5px;
+    width: calc(50% - 30px);
 `;
 
 const ColorsContainer = styled.div`
   height: 40px;
   // overflow:auto;
-	display: flex;
-	flex-direction: row;
-	// padding-bottom: 20px;
-	// border-bottom: 1px #ccc dotted;
+    display: flex;
+    flex-direction: row;
+    // padding-bottom: 20px;
+    // border-bottom: 1px #ccc dotted;
 `;
 
 const SinglePaletteItem = styled.div<{ color: string; selected: boolean }>`
-	width: 20px;
-	height: 20px;
-	background-color: ${(props) => props.color};
-	border: 1px lightgray solid;
-	cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background-color: ${(props) => props.color};
+    border: 1px lightgray solid;
+    cursor: pointer;
 
-	${(props) => props.selected && `border: 1px black solid;`}
+    ${(props) => props.selected && `border: 1px black solid;`}
 
-	&:hover {
-		opacity: 0.6;
-	}
+    &:hover {
+        opacity: 0.6;
+    }
 `;
 
 const TextColorsContainer = styled.div<{ $isDefaultPalette?: boolean }>`
-	display: grid;
-	${(props) =>
+    display: grid;
+    ${(props) =>
     !props.$isDefaultPalette &&
     `
     grid-template-columns: repeat(auto-fill,minmax(20px,1fr));
     grid-gap: 5px;`};
-	/* grid-template-columns: repeat(auto-fill,minmax(20px,1fr)); */
-	width: 100%;
+    /* grid-template-columns: repeat(auto-fill,minmax(20px,1fr)); */
+    width: 100%;
 `;
 
 const FontCustomOption = styled.img`
-	max-width: 100%;
-	height: 24px;
-	object-fit: contain;
+    max-width: 100%;
+    height: 24px;
+    object-fit: contain;
 `;
 
 const FontCustomSingleValue = styled.img`
-	max-width: 100%;
-	height: 24px;
-	object-fit: contain;
+    max-width: 100%;
+    height: 24px;
+    object-fit: contain;
 `;
 
 const FontCustomSingleValueContainer = styled.div`
-	display: flex;
-	place-content: center;
-	width: 100%;
-	height: 100%;
+    display: flex;
+    place-content: center;
+    width: 100%;
+    height: 100%;
 `;
 
 const FontOption = (props: JSX.IntrinsicAttributes & OptionProps<any, boolean, GroupBase<any>>) => {
@@ -149,7 +149,7 @@ const FontSingleValue = (props: JSX.IntrinsicAttributes & SingleValueProps<any, 
   );
 };
 
-const ItemText: FC<{
+const ItemText2: FC<{
   item: EditTextItem;
   handleItemPropChange: PropChangeHandler;
   fonts?: FontFamily[];
@@ -225,11 +225,11 @@ const ItemText: FC<{
             )
           }
         >
-          <div style={{ width: "100%", gap: '5px', alignItems: 'center', borderTop: '2px solid #AAAAAA8C', padding: '2px 10px 0 0' }} >
+                <div style={{ width: "100%", gap: '15px',  borderTop: '2px solid #AAAAAA8C', padding: ' 0 0', alignItems: 'baseline',   justifyContent: 'space-between' }} >
 
-            <div style={{ marginTop: '10px', padding: '10px 0px 15px 0px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            {/* <div style={{ marginTop: '10px', padding: ' 0px', display: 'flex', alignItems: 'center', width:'100%', gap:'20px', justifyContent: 'space-between' }}> */}
 
-              <div>
+              {/* <div>
                 <span className="" style={{ fontWeight: "700", font: "18px", color: "#434342", width: "100%", marginTop: '50px' }}>Text</span>
               </div>
               <div style={{ cursor: 'pointer' }} onClick={() => removeItem(item.guid)}>
@@ -237,14 +237,24 @@ const ItemText: FC<{
                   <path d="M5 13L13 5M5 5L13 13" stroke="#434342" stroke-linejoin="round" />
                   <circle cx="9" cy="9" r="8.5" stroke="#434342" />
                 </svg>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
 
             <div className="controller" style={{ marginTop: '10px', padding:'0px 14px' }}>
               <TextToolsContainer >
-
+                            <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', position: 'relative', width: '100%', gap: '20px', justifyContent: 'space-between' }}>
+                                <TextArea
+                                    value={isUpperCase ? item.text.toUpperCase() : item.text}
+                                    onChange={(e) => {
+                                        e.currentTarget.value = e.currentTarget.value.replace('⠀', '');
+                                        setItemTextDebounced(e.currentTarget.value);
+                                    }}
+                                    maxLength={!item.constraints ? null : item.constraints.maxNrChars || null}
+                                    disabled={!canEdit || fontLoading}
+                                />
+                               
                 <div>
-                  <span style={{ color: '#434342', fontSize: '12px', }}>Font</span>
+                  {/* <span style={{ color: '#434342', fontSize: '12px', }}>Font</span> */}
 
                   <FormControl label={T._('Font', 'Composer')}>
                     <div style={{ cursor: 'pointer', display: 'inline-block', }}>
@@ -320,7 +330,7 @@ const ItemText: FC<{
 
 
                 <div>
-                  <span style={{ color: '#434342', fontSize: '12px' }}>Colour</span>
+                  {/* <span style={{ color: '#434342', fontSize: '12px' }}>Colour</span> */}
                   <FormControl label={T._('Color', 'Composer')}>
                     <ColorsContainer>
                       <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -379,7 +389,32 @@ const ItemText: FC<{
                     </ColorsContainer>
                   </FormControl>
                 </div>
-
+                                <div style={{
+                                    right: '10px',
+                                    padding: '2px  0 0 0',
+                                    // top: '25px',
+                                    zIndex: 1,
+                                    cursor:"pointer"
+                                }}>
+                                    <svg width="17" height="25" viewBox="0 0 17 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.54594 2.4196L9.63125 1.24826C10.1094 1.11115 10.6104 1.4027 10.7495 1.89909L11.0656 3.02666L5.24779 4.69474L4.93173 3.56717C4.7926 3.07079 5.06775 2.5567 5.54594 2.4196Z" fill="white" stroke="#434342" />
+                                        <path d="M14.4476 2.06228L1.86626 5.6696C1.38784 5.80677 1.11285 6.32056 1.25205 6.81717L1.85927 8.98351C1.99847 9.48012 2.49915 9.77151 2.97757 9.63434L15.5589 6.02702C16.0373 5.88985 16.3123 5.37606 16.1731 4.87945L15.5659 2.71311C15.4267 2.2165 14.926 1.92511 14.4476 2.06228Z" fill="white" stroke="#434342" />
+                                        <path d="M2.875 11.3594H16.4546V22.9275C16.4546 23.4431 16.0362 23.8616 15.5205 23.8616H3.80908C3.29344 23.8616 2.875 23.4431 2.875 22.9275V11.3594Z" fill="white" stroke="#434342" />
+                                        <path d="M6.27344 13.7734V21.4438" stroke="#434342" />
+                                        <path d="M9.67969 13.7734V21.4438" stroke="#434342" />
+                                        <path d="M13.1406 13.7734V21.4438" stroke="#434342" />
+                                    </svg>
+                                </div>
+                                {dirtyCharInserted.length > 0 && currentFont && (
+                                    <div style={{ color: 'red', display: 'flex', alignItems: 'center' }}>
+                                        {T._(
+                                            `The following characters have been removed as they are not supported by the font ${currentFont.name
+                                            }: ${wrapperJoin(dirtyCharInserted, ',', '"', '"')}`,
+                                            'Composer'
+                                        )}{' '}
+                                    </div>
+                                )}
+                            </div>
                 {(textRestrictions.allowedBold ||
                   textRestrictions.allowedItalic ||
                   textRestrictions.allowedCurved) && (
@@ -489,44 +524,7 @@ const ItemText: FC<{
 
             </div>
 
-            <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', position: 'relative', padding:'0px 14px' }}>
-              <TextArea
-                value={isUpperCase ? item.text.toUpperCase() : item.text}
-                onChange={(e) => {
-                  e.currentTarget.value = e.currentTarget.value.replace('⠀', '');
-                  setItemTextDebounced(e.currentTarget.value);
-                }}
-                maxLength={!item.constraints ? null : item.constraints.maxNrChars || null}
-                disabled={!canEdit || fontLoading}
-              />
-              <div
-                onClick={() => removeItem(item.guid)} style={{
-                position: 'absolute',
-                right: '10px',
-                padding:'2px 25px',
-                top: '25px',
-                zIndex: 1,
-                cursor:"pointer"
-              }}>
-                <svg width="17" height="25" viewBox="0 0 17 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5.54594 2.4196L9.63125 1.24826C10.1094 1.11115 10.6104 1.4027 10.7495 1.89909L11.0656 3.02666L5.24779 4.69474L4.93173 3.56717C4.7926 3.07079 5.06775 2.5567 5.54594 2.4196Z" fill="white" stroke="#434342" />
-                  <path d="M14.4476 2.06228L1.86626 5.6696C1.38784 5.80677 1.11285 6.32056 1.25205 6.81717L1.85927 8.98351C1.99847 9.48012 2.49915 9.77151 2.97757 9.63434L15.5589 6.02702C16.0373 5.88985 16.3123 5.37606 16.1731 4.87945L15.5659 2.71311C15.4267 2.2165 14.926 1.92511 14.4476 2.06228Z" fill="white" stroke="#434342" />
-                  <path d="M2.875 11.3594H16.4546V22.9275C16.4546 23.4431 16.0362 23.8616 15.5205 23.8616H3.80908C3.29344 23.8616 2.875 23.4431 2.875 22.9275V11.3594Z" fill="white" stroke="#434342" />
-                  <path d="M6.27344 13.7734V21.4438" stroke="#434342" />
-                  <path d="M9.67969 13.7734V21.4438" stroke="#434342" />
-                  <path d="M13.1406 13.7734V21.4438" stroke="#434342" />
-                </svg>
-              </div>
-              {dirtyCharInserted.length > 0 && currentFont && (
-                <div style={{ color: 'red', display:'flex', alignItems:'center' }}>
-                  {T._(
-                    `The following characters have been removed as they are not supported by the font ${currentFont.name
-                    }: ${wrapperJoin(dirtyCharInserted, ',', '"', '"')}`,
-                    'Composer'
-                  )}{' '}
-                </div>
-              )}
-            </div>
+          
 
           </div>
         </FormControl>
@@ -535,4 +533,4 @@ const ItemText: FC<{
   else return null;
 };
 
-export default ItemText;
+export default ItemText2;

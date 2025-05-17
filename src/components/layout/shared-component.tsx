@@ -409,19 +409,98 @@ export const SupportedFormatsList = styled.span`
 	padding-top: 5px;
 `;
 
+
+
+
+
+
+
+export const ImagesList = styled.ul`
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr)); /* 4 columns by default */
+  grid-gap: 10px;
+  overflow: auto;
+  padding: 10px ;
+
+  /* Mobile: 2 columns for screens smaller than 768px */
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+`;
+
+export const ImageItem1 = styled.li<{ isActive: boolean }>` // Added isActive prop
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: ${({ isActive }) => (isActive ? '2px solid #ff5322' : '1px solid #f4f4f4')};
+  /* padding: 10px; */
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+
+
+  &:hover {
+    border: 2px black #ff5322;
+  }
+  /* Mobile: 2 columns for screens smaller than 768px */
+  @media (max-width: 768px) {
+	height: 90px;
+    /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+	object-fit: fill;
+border-radius: 5px;
+    /* display: block; */
+    /* object-fit: contain; */
+    /* margin-bottom: 5px; */
+    background-color: #fff;
+  }
+
+  span {
+    font-size: 12px;
+  }
+`;
+
+export const AddMoreButton = styled.button`
+padding: 8px 12px;
+width: 100%;
+border: none;
+border-radius: 5px;
+background: white;
+cursor: pointer;
+font-weight: 600;
+font-family: 'Almarai', sans-serif;
+font-size: 12px;
+text-align: center;
+margin: 0 auto;
+color: #FF5733;
+margin-top: 10px;
+
+&:hover {
+  color:  #000;
+}
+`;
+
 export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
 	/* height: 40vh; */
-	width: 43%;
+	width: 56%;
 	position: fixed;
-	bottom: 20% ;
-	left: 6%;
+	bottom: 10% ;
+	left: 0;
 	/* display: flex; */
 	padding-bottom: 20px;
-	border-radius: 30px;
+	/* border-radius: 30px; */
 	/* flex-direction: column;
 	align-items: start;
 	justify-content: left; */
-	z-index: 99;
+	z-index: 10;
 	background: #f2f2f2;
 	  /* Desktop specific styles */
   @media (max-width: 769px) {

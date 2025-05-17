@@ -129,17 +129,17 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
     }} className='footer_steps'>
       <div className="menu_footer" ref={viewFooter}>
         <div className="menu_actions">
-          {/* <div className="" style={{ display: 'flex', gap: '20px' }}>
+          <div className="" style={{ display: 'flex', gap: '20px' }}>
             <div className="sale_price">
               -20%
               <span className='off_price'>Antes: 0,80€/u</span>
             </div>
             <div className="price_value">{priceFormatter.format(price)} <span className='price_value_total'>TOTAL: 0.00 €</span></div>
-          </div> */}
+          </div>
 
           <div className="add_cart">
             {/* {isBuyVisibleForQuoteRule && !isViewerMode && ( */}
-            {/* <AddToCartButton
+            <AddToCartButton
               className="cart_button"
               ref={addToCartButtonRef}
               onPointerEnter={() => {
@@ -162,7 +162,7 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
                 </span>
               )}
               {!isAddToCartLoading && isOutOfStock && <span>{T._('OUT OF STOCK', 'Composer')}</span>}
-            </AddToCartButton> */}
+            </AddToCartButton>
             {/* )}  */}
 
           </div>

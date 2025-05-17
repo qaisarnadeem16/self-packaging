@@ -165,7 +165,7 @@ const ImagesGalleryDialog: FC<{ onClose: () => void, onImageSelected: (image: an
             console.error(ex);
         }
     }
-
+    // console.log("macroCategories", macroCategories[1])
     return <Dialog
         windowDecorator={CustomWindow}
         title={T._("Image gallery", "Composer")}>

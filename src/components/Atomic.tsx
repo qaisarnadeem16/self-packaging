@@ -191,7 +191,7 @@ export const TextButton = styled.button<{
 	${(props) =>
 		props.selected &&
 		`
-    border: 1px solid black;
+    border: 1px solid #F2F2F2;
 	background-color:#F2F2F2;
   `}
 

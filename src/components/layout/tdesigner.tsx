@@ -6,7 +6,9 @@ import {
 	TemplateArea,
 	TextItem,
 	ZakekeDesigner,
-	useZakeke
+	useZakeke,
+	ImageCategory,
+	ImageMacroCategory
 } from '@zakeke/zakeke-configurator-react';
 import useStore from 'Store';
 import AdvancedSelect from 'components/widgets/AdvancedSelect';
@@ -42,13 +44,16 @@ import ItemText, { EditTextItem } from '../widgets/ItemText';
 import {
 	Center,
 	IconsAndDesignerContainer,
+	ImagesList,
+	ImageItem1,
 	SelectContainer,
 	SupportedFormatsList,
 	Template,
 	TemplatesContainer,
 	ZakekeDesignerContainer,
 	ZoomInIcon,
-	ZoomOutIcon
+	ZoomOutIcon,
+	AddMoreButton
 } from './shared-component';
 
 // Import face icons
@@ -66,6 +71,7 @@ import {
 	TopFace,
 	TopFaceActive
 } from '../../assets/icons/faceIcons';
+import ItemText2 from 'components/widgets/itemText2';
 
 export type PropChangeHandler = (
 	item: EditTextItem | EditImageItem,
@@ -208,6 +214,8 @@ const CopyrightCheckbox = styled.input`
   `;
 
 const CopyrightMandatoryMessage = styled.div``;
+
+
 
 const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const { showDialog, closeDialog } = useDialogManager();
@@ -363,6 +371,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	};
 
 	const handleAddTextClick = () => {
+		setActiveButton("text")
+		// setClipArt(false)
 		showDialog(
 			'add-text',
 			<AddTextDialog
@@ -376,6 +386,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	};
 
 	const handleAddImageFromGalleryClick = async () => {
+		setClipArt(false)
+
 		showDialog(
 			'add-image',
 			<ImagesGalleryDialog
@@ -388,11 +400,92 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		);
 	};
 
+	// Handle clip art selection (toggle selection)
+	const handleAddClipArt = (image: Image) => {
+		setSelectedImageIds((prev) => {
+			if (prev.includes(image.imageID)) {
+				// Deselect: Remove imageID
+				return prev.filter((id) => id !== image.imageID);
+			} else {
+				// Select: Add imageID
+				return [...prev, image.imageID];
+			}
+		});
+		setActiveButton('pattern');
+		addItemImage(image.imageID, actualAreaId);
+		closeDialog('add-image');
+	};
+
+
+	interface Image {
+		imageID: number;
+		name: string;
+		choiceUrl: string;
+		preferredWidth: number | null;
+		preferredHeight: number | null;
+	}
+	const { getMacroCategories, getImages } = useZakeke();
+	const [isLoading, setIsloading] = useState(false);
+	const [isClipArt, setClipArt] = useState(false);
+	const [isDesign, setDesign] = useState(false);
+	const [macroCategories, setMacroCategories] = useState<ImageMacroCategory[]>([]);
+	const [selectedMacroCategory, setSelectedMacroCategory] = useState<ImageMacroCategory | null>(null);
+	const [selectedCategory, setSelectedCategory] = useState<ImageCategory | null>();
+	const [images, setImages] = useState<Image[]>();
+	const [selectedImageIds, setSelectedImageIds] = useState<number[]>([]);
+	const [activeButton, setActiveButton] = useState<string | null>(null);
+	useEffect(() => {
+		updateCategories();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		setSelectedImageIds([]); // Clear selected images when area changes
+		setActiveButton(null); // Reset activeButton to avoid showing pattern images immediately
+	}, [actualAreaId]);
+
+	const updateCategories = async () => {
+		try {
+			setIsloading(true);
+			let macroCategories = await getMacroCategories();
+			setIsloading(false);
+			setMacroCategories(macroCategories);
+
+			// if (macroCategories.length === 1)
+				handleMacroCategoryClick(macroCategories[1]);
+		} catch (ex) {
+			console.error(ex);
+		}
+	}
+
+	const handleMacroCategoryClick = async (macroCategory: ImageMacroCategory) => {
+		setSelectedMacroCategory(macroCategory);
+
+		if (macroCategory.categories.length === 1)
+			handleCategoryClick(macroCategory.categories[0]);
+	}
+
+	const handleCategoryClick = async (category: ImageCategory) => {
+		try {
+			setIsloading(true);
+			setSelectedCategory(category);
+
+			const images: Image[] = await getImages(category.categoryID!);
+			setIsloading(false);
+			setImages(images);
+		} catch (ex) {
+			console.error(ex);
+		}
+	}
+
+
 	const handleUploadImageClick = async (
 		addItemImage: (guid: any, imageId: number) => Promise<void>,
 		createImage: (file: File, progress?: (percentage: number) => void) => Promise<ZakekeImage>
 	) => {
 		if (currentTemplate && actualAreaId) {
+			setActiveButton("images")
 			const fileFormats = getSupportedUploadFileFormats(currentTemplate.id, actualAreaId);
 			let input = document.createElement('input');
 			input.setAttribute('accept', fileFormats.join(','));
@@ -419,7 +512,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					}
 				}
 			});
-			document.body.appendChild(input);
+			// document.body.appendChild(input);
 			input.click();
 		}
 	};
@@ -519,12 +612,14 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		{ name: "top face", icon: <TopFace />, activeIcon: <TopFaceActive /> },
 		{ name: "bottom face", icon: <BottomFace />, activeIcon: <BottomFaceActive /> },
 	];
+
+	
 	return (
 		<>
 			{/* {!moveElements && ( */}
 			<DesignerContainer $isMobile={isMobile}>
 				<div className="views">
-					<button className="" onClick={() => setMoveElements(false)} 
+					<button className="" onClick={() => setMoveElements(false)}
 						style={{
 							border: `2px solid ${!moveElements ? "#f97316" : "#6b7280"}`,
 						}}>
@@ -532,10 +627,10 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					</button>
 
 					<button className="" onClick={() => setMoveElements(true)}
-					style={{
-						border: `2px solid ${moveElements ? "#f97316" : "#6b7280"}`,
+						style={{
+							border: `2px solid ${moveElements ? "#f97316" : "#6b7280"}`,
 
-					}}>
+						}}>
 						<img src="/svg/edit.svg" alt="" className="" />
 					</button>
 				</div>
@@ -556,6 +651,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					</TemplatesContainer>
 				)}
 
+				
 				{/* Areas */}
 				{/* {!isMobile && finalVisibleAreas.length > 1 && (
 						<CarouselContainer
@@ -720,7 +816,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 						<UploadButtonDiv>
 							{showAddTextButton && (
-								<TextButton onClick={handleAddTextClick}>
+								<TextButton onClick={handleAddTextClick} 
+									selected={activeButton==="text"}>
 									<TextIcon>
 										<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M39.9852 3.27734H3.76562V39.9153H39.9852V3.27734Z" fill="white" stroke="#434342" />
@@ -736,7 +833,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							)}
 
 							{showGalleryButton && (
-								<TextButton onClick={handleAddImageFromGalleryClick}>
+								<TextButton onClick={() => setActiveButton("pattern")}
+									selected={activeButton === "pattern"}>
+
 									<TextIcon>
 										<svg width="45" height="35" viewBox="0 0 45 35" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M42.3792 4.38672H2.63711C1.74159 4.38672 1.01562 5.11877 1.01562 6.0218V32.8637C1.01562 33.7667 1.74159 34.4988 2.63711 34.4988H42.3792C43.2747 34.4988 44.0007 33.7667 44.0007 32.8637V6.0218C44.0007 5.11877 43.2747 4.38672 42.3792 4.38672Z" fill="white" stroke="#434342" />
@@ -758,9 +857,10 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 												? !copyrightMandatoryCheckbox
 												: false
 										}
+										onClick={() => setActiveButton("images")}
+										// onClick={() => handleUploadImageClick(addItemImage, createImage)}
+										selected={activeButton === "images"}>
 
-										onClick={() => handleUploadImageClick(addItemImage, createImage)}
-									>
 										<TextIcon>
 											<svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M0.5 2C0.5 1.17157 1.17157 0.5 2 0.5H35C35.8284 0.5 36.5 1.17157 36.5 2V35C36.5 35.8284 35.8284 36.5 35 36.5H2C1.17157 36.5 0.5 35.8284 0.5 35V2Z" fill="white" stroke="#434342" />
@@ -806,14 +906,16 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 												: false
 										}
 
-										onClick={() => handleUploadImageClick(addItemImage, createImage)}
-									>
+										// eslint-disable-next-line no-sequences
+										onClick={()=>setActiveButton("design")}
+										selected={activeButton === "design"}>
+
 										<TextIcon>
 											<svg width="44" height="42" viewBox="0 0 44 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M0 11.5L22 0.5L43.5 11.5L35 16L34.5 16.5L43.5 21L35.5 25L34.5 26L43.5 30.5L21.5 41.5L0.5 30.5L9.5 26L0 21L10 16.5L0 11.5Z" fill="white" stroke='black'/>
+												<path d="M0 11.5L22 0.5L43.5 11.5L35 16L34.5 16.5L43.5 21L35.5 25L34.5 26L43.5 30.5L21.5 41.5L0.5 30.5L9.5 26L0 21L10 16.5L0 11.5Z" fill="white" stroke='black' />
 												<path d="M1.08105 21.1689L1.05957 21.21L0.651367 21.001L0.998047 20.8242L1.08105 21.1689Z" fill="#434342" stroke="#434342" />
 												<path d="M1.08105 30.7217L1.05957 30.7627L0.651367 30.5537L0.998047 30.376L1.08105 30.7217Z" fill="#434342" stroke="#434342" />
-												<path d="M5.92218 14.5325C5.79435 14.5325 5.66653 14.4642 5.60539 14.339C5.51091 14.1568 5.5776 13.9348 5.75545 13.8381L26.5522 2.4658C26.7301 2.36904 26.9468 2.43734 27.0413 2.61948C27.1358 2.80162 27.0691 3.0236 26.8912 3.12036L6.08891 14.4869C6.03333 14.5154 5.97776 14.5325 5.92218 14.5325Z" fill="#FF5733" stroke=''/>
+												<path d="M5.92218 14.5325C5.79435 14.5325 5.66653 14.4642 5.60539 14.339C5.51091 14.1568 5.5776 13.9348 5.75545 13.8381L26.5522 2.4658C26.7301 2.36904 26.9468 2.43734 27.0413 2.61948C27.1358 2.80162 27.0691 3.0236 26.8912 3.12036L6.08891 14.4869C6.03333 14.5154 5.97776 14.5325 5.92218 14.5325Z" fill="#FF5733" stroke='' />
 												<path d="M11.1609 17.3154C11.0275 17.3154 10.9052 17.2414 10.8385 17.1162C10.7441 16.934 10.8163 16.712 10.9942 16.6153L32.041 5.41377C32.2189 5.317 32.4356 5.391 32.5301 5.57314C32.619 5.75527 32.5523 5.97726 32.3745 6.07402L11.3276 17.2755C11.272 17.304 11.2165 17.3154 11.1609 17.3154Z" fill="#FF5733" />
 												<path d="M16.462 19.8358C16.3286 19.8358 16.2008 19.7618 16.1396 19.6309C16.0507 19.4487 16.1229 19.2268 16.3008 19.1357L37.6867 8.15616C37.8645 8.06509 38.0813 8.13909 38.1702 8.32122C38.2591 8.50336 38.1869 8.72534 38.009 8.81641L16.6231 19.7959C16.5731 19.8244 16.5175 19.8358 16.462 19.8358Z" fill="#FF5733" />
 												<mask id="path-7-inside-1_6317_5462" fill="black" stroke='black'>
@@ -836,6 +938,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 									</TextButton>
 								</>
 							)}
+
+
 							{/* <SupportedFormatsList>
 								{T._('Supported file formats:', 'Composer') + ' ' + supportedFileFormats}
 							</SupportedFormatsList> */}
@@ -865,6 +969,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 						</UploadButtonDiv>
 					</UploadButtons>
 				)}
+
+			
 				{isMobile && translatedTemplates.length > 1 && (
 					<SelectContainer>
 						<FormControl label={T._('Templates', 'Composer')}>
@@ -917,11 +1023,115 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 				{itemsFiltered.length === 0 && !(showAddTextButton || showUploadButton || showGalleryButton) && (
 					<Center>{T._('No customizable items', 'Composer')}</Center>
 				)}
+				{/* Text Items and Add More Button */}
+				{activeButton === 'text' && showAddTextButton && (
+					<div>
+						{itemsFiltered.map((item) => {
+							if (item.type === 0 && isItemEditable(item, currentTemplateArea)) {
+								return (
+									<ItemText
+										key={item.guid}
+										handleItemPropChange={handleItemPropChange}
+										item={item as TextItem}
+										setMoveElements={setMoveElements}
+									/>
+								);
+							}
+							return null;
+						})}
+						
+						{ itemsFiltered.filter(
+								(item) => item.type === 0 && isItemEditable(item, currentTemplateArea)
+							).length > 0 && (
+							<AddMoreButton onClick={handleAddTextClick}>+ Add more text</AddMoreButton>
+						)}
+					</div>
+				)}
 
-				{itemsFiltered.map((item) => {
+				{activeButton === 'images' && showAddTextButton && (
+					<div>
+						<div onClick={() => handleUploadImageClick(addItemImage, createImage)} style={{display:'flex' , gap:'10px', alignItems:"center" , justifyContent:"center", cursor:"pointer", paddingTop:"10px"}} >
+							<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<rect x="0.5" y="0.5" width="27" height="27" rx="4.5" fill="white" stroke="#434342" />
+								<g clip-path="url(#clip0_6317_5074)">
+									<path d="M21.3448 6.60156H6.64844V21.4348H21.3448V6.60156Z" fill="white" stroke="#434342" stroke-miterlimit="10" />
+									<path d="M21.4807 18.4877L18.3788 16.1754L16.6271 18.0805L9.75031 12.3633L6.64844 15.359V21.4834H21.4807V18.4877Z" fill="#434342" />
+									<path d="M18.6529 11.5028C19.3975 11.5028 20.0011 10.8935 20.0011 10.142C20.0011 9.39048 19.3975 8.78125 18.6529 8.78125C17.9083 8.78125 17.3047 9.39048 17.3047 10.142C17.3047 10.8935 17.9083 11.5028 18.6529 11.5028Z" fill="#434342" />
+									<path d="M6.67188 6.08717V4" stroke="#FF5733" stroke-miterlimit="10" />
+									<path d="M6.67188 24.0012V21.9141" stroke="#FF5733" stroke-miterlimit="10" />
+									<path d="M6.06792 6.66016H4" stroke="#FF5733" stroke-miterlimit="10" />
+									<path d="M6.06792 21.3516H4" stroke="#FF5733" stroke-miterlimit="10" />
+									<path d="M21.3125 21.9141V24.0012" stroke="#FF5733" stroke-miterlimit="10" />
+									<path d="M21.9375 21.3516H24.0034" stroke="#FF5733" stroke-miterlimit="10" />
+									<path d="M21.3125 4V6.08717" stroke="#FF5733" stroke-miterlimit="10" />
+									<path d="M21.7656 6.66016H23.8335" stroke="#FF5733" stroke-miterlimit="10" />
+								</g>
+								<defs>
+									<clipPath id="clip0_6317_5074">
+										<rect width="20" height="20" fill="white" transform="translate(4 4)" />
+									</clipPath>
+								</defs>
+							</svg>
+							Upload image 
+							<svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="8.5" cy="8.5" r="8.5" fill="#FF5733" />
+								<path d="M9.53321 7.492H13.1152V9.418H9.53321V13H7.60721V9.418H4.02521V7.492H7.60721V3.91H9.53321V7.492Z" fill="white" />
+							</svg>
+</div>
+
+						{itemsFiltered.map((item) => {
+							if (item.type === 1 && isItemEditable(item, currentTemplateArea))
+								return (
+									<ItemImage
+										uploadImgDisabled={
+											copyrightMessage && copyrightMessage.additionalData.enabled
+												? !copyrightMandatoryCheckbox
+												: false
+										}
+										key={item.guid}
+										handleItemPropChange={handleItemPropChange}
+										item={item as ImageItem}
+										currentTemplateArea={currentTemplateArea!}
+									/>
+								)
+							return null;
+						})}
+
+					
+					</div>
+				)}
+				{activeButton === 'pattern' && showGalleryButton && selectedCategory && images && (
+					<>
+						{isLoading ? (
+							<p>Loading...</p>
+						) : (
+							<ImagesList>
+								{images.map((image) => (
+									<ImageItem1
+										isActive={selectedImageIds.includes(image.imageID)}
+										key={image.imageID.toString()}
+										onClick={() => handleAddClipArt(image)}
+									>
+										<img src={image.choiceUrl} alt={image.name} />
+										{/* <span>{image.name}</span> */}
+									</ImageItem1>
+								))}
+							</ImagesList>
+						)}
+					</>
+				)}
+
+
+				{activeButton ==="design" && itemsFiltered.map((item) => {
 					if (item.type === 0 && isItemEditable(item, currentTemplateArea))
 						return (
-							<ItemText
+							// <ItemText
+							// 	key={item.guid}
+							// 	handleItemPropChange={handleItemPropChange}
+							// 	item={item as TextItem}
+							// 	setMoveElements={setMoveElements}
+							// />
+							<ItemText2
 								key={item.guid}
 								handleItemPropChange={handleItemPropChange}
 								item={item as TextItem}
