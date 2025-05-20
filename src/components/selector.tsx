@@ -433,7 +433,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 overflowY: "hidden",
               }),
             }}>
-            {/* <div className="menu_group">
+            <div className="menu_group">
               {groups1.map((group) => {
                 const handleGroupClick = (group: any) => {
                   selectGroup(group.id);
@@ -453,7 +453,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   </div>
                 );
               })}
-            </div> */}
+            </div>
             {selectedGroup && (
               <>
                 {filteredAttributes.map((step) => {
