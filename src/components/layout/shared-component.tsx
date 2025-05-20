@@ -489,8 +489,8 @@ margin-top: 10px;
 `;
 
 export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
-	/* height: 40vh; */
-	width: 56%;
+	/* height: 75%; */
+	width: 55.2%;
 	position: fixed;
 	bottom: 10% ;
 	left: 0;
@@ -504,7 +504,7 @@ export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
 	background: #f2f2f2;
 	  /* Desktop specific styles */
   @media (max-width: 769px) {
-	height: 40vh;
+	height: 100%;
 
     width: 100%; /* Maximum width for desktop */
 	bottom: 10% ;
