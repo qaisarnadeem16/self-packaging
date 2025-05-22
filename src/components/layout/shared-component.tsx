@@ -489,7 +489,7 @@ margin-top: 10px;
 `;
 
 export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
-	/* height: 75%; */
+	min-height: 75%; 
 	width: 55.2%;
 	position: fixed;
 	bottom: 10% ;
@@ -504,23 +504,24 @@ export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
 	background: #f2f2f2;
 	  /* Desktop specific styles */
   @media (max-width: 769px) {
-	height: 100%;
+	/* height: 50%; */
 
     width: 100%; /* Maximum width for desktop */
 	bottom: 10% ;
 	right: 0;
   }
-	${(props) =>
+	/* ${(props) =>
 		props.$isMobile &&
 		`
         position:fixed;
 	width: 100%;
 	border-radius: 10px;
 		bottom: 0;
-	
+	// min-height: 75%;
+
         inset:0;
         z-index:13;
-    `}
+    `} */
 `;
 
 export const IconsAndDesignerContainer = styled.div`

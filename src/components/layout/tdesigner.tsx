@@ -245,7 +245,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		getTemplateUploadRestrictictions,
 		eventMessages,
 		setCopyrightMessageAccepted,
-		getCopyrightMessageAccepted
+		getCopyrightMessageAccepted ,
+		defaultColor,
+		fonts
 	} = useZakeke();
 	const customizerRef = useRef<any | null>(null);
 	const [selectedCarouselSlide, setSelectedCarouselSlide] = useState<number>(0);
@@ -370,20 +372,52 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		else return common || image;
 	};
 
+	// const handleAddTextClick = () => {
+	// 	setActiveButton("text")
+	// 	// setClipArt(false)
+	// 	showDialog(
+	// 		'add-text',
+	// 		<AddTextDialog
+	// 			onClose={() => closeDialog('add-text')}
+	// 			onConfirm={(item) => {
+	// 				addItemText(item, actualAreaId);
+	// 				closeDialog('add-text');
+	// 			}}
+	// 		/>
+	// 	);
+	// };
 	const handleAddTextClick = () => {
-		setActiveButton("text")
-		// setClipArt(false)
-		showDialog(
-			'add-text',
-			<AddTextDialog
-				onClose={() => closeDialog('add-text')}
-				onConfirm={(item) => {
-					addItemText(item, actualAreaId);
-					closeDialog('add-text');
-				}}
-			/>
-		);
+		setActiveButton("text");
+ // if outside hook, pass fonts & defaultColor as props/context
+
+		const defaultItem: EditTextItem = {
+			guid: '', // Unique ID
+			name: '',
+			text: "Text",
+			fillColor: defaultColor,
+			fontFamily: fonts[0]?.name ,
+			fontSize: 48,
+			fontWeight: 'normal normal',
+			isTextOnPath: false,
+			constraints: null,
+		};
+
+		// Directly add item without showing the dialog
+		addItemText(defaultItem, actualAreaId);
+
+		// Show dialog to optionally edit it
+		// showDialog(
+		// 	'add-text',
+		// 	<AddTextDialog
+		// 		onClose={() => closeDialog('add-text')}
+		// 		onConfirm={(item) => {
+		// 			addItemText(item, actualAreaId); // optionally re-add/replace if user edits it
+		// 			closeDialog('add-text');
+		// 		}}
+		// 	/>
+		// );
 	};
+	
 
 	const handleAddImageFromGalleryClick = async () => {
 		setClipArt(false)
