@@ -489,7 +489,7 @@ margin-top: 10px;
 `;
 
 export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
-	min-height: 75%; 
+	/* min-height: 75%;  */
 	width: 55.2%;
 	position: fixed;
 	bottom: 10% ;
