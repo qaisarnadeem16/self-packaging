@@ -1058,7 +1058,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					<Center>{T._('No customizable items', 'Composer')}</Center>
 				)}
 				{/* Text Items and Add More Button */}
-				{activeButton === 'text' && showAddTextButton && (
+				{moveElements && activeButton === 'text' && showAddTextButton && (
 					<div>
 						{itemsFiltered.map((item) => {
 							if (item.type === 0 && isItemEditable(item, currentTemplateArea)) {
@@ -1082,7 +1082,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					</div>
 				)}
 
-				{activeButton === 'images' && showAddTextButton && (
+				{moveElements && activeButton === 'images' && showAddTextButton && (
 					<div>
 						<div onClick={() => handleUploadImageClick(addItemImage, createImage)} style={{display:'flex' , gap:'10px', alignItems:"center" , justifyContent:"center", cursor:"pointer", paddingTop:"10px"}} >
 							<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1134,7 +1134,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					
 					</div>
 				)}
-				{activeButton === 'pattern' && showGalleryButton && selectedCategory && images && (
+				{moveElements && activeButton === 'pattern' && showGalleryButton && selectedCategory && images && (
 					<>
 						{isLoading ? (
 							<p>Loading...</p>
@@ -1156,7 +1156,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 				)}
 
 
-				{activeButton ==="design" && itemsFiltered.map((item) => {
+				{ moveElements && activeButton ==="design" && itemsFiltered.map((item) => {
 					if (item.type === 0 && isItemEditable(item, currentTemplateArea))
 						return (
 							// <ItemText

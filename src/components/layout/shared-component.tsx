@@ -488,12 +488,15 @@ margin-top: 10px;
 }
 `;
 
+
+
 export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
 	 min-height: 85dvh;  
 	width: 55.2%;
 	position: fixed;
 	bottom: 10% ;
 	left: 0;
+	margin: auto;
 	/* top: 20%; */
 	/* display: flex; */
 	padding-bottom: 20px;
