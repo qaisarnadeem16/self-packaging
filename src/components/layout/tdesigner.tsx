@@ -761,7 +761,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							})}
 						</CarouselContainer>
 					)} */}
-				{finalVisibleAreas.length > 1 && (<div className="">
+				{moveElements && finalVisibleAreas.length > 1 && (<div className="">
 					<div className=""
 
 						style={{
@@ -834,7 +834,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					<hr />
 				</div>
 				)}
-				{(showAddTextButton || showUploadButton || showGalleryButton) && (
+				{moveElements && (showAddTextButton || showUploadButton || showGalleryButton) && (
 					<UploadButtons>
 
 						<div className="">
@@ -1205,7 +1205,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			{/* )} */}
 			{moveElements && (
 				<ZakekeDesignerContainer $isMobile={isMobile} className="zakeke-container">
-					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
+					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId}  />
 					{/* <IconsAndDesignerContainer>
 						<ZoomIconIn hoverable onClick={() => customizerRef.current.zoomIn()}>
 							<SearchPlusSolid />
