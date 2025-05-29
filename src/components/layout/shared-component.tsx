@@ -488,38 +488,61 @@ margin-top: 10px;
 }
 `;
 
+export const ZakekeDesignerContainer = styled.div`
+    height: 100%;
+    max-width: 55%;
+    min-width: 55%;
+    width: 55%;
+    position: fixed;
+    bottom: 18%;
+    left: 0;
+    margin: auto;
+    padding-bottom: 20px;
+    z-index: 10;
+    background: #f2f2f2;
+    /* Desktop specific styles */
+    @media (max-width: 769px) {
+        width: 100%; /* Maximum width for desktop */
+        min-width: 100%;
+        max-width: 100%;
+        bottom: 10%;
+        right: 0;
+        margin: unset;
 
-
-export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
-	 min-height: 85dvh;  
-	width: 55.2%;
-	position: fixed;
-	bottom: 10% ;
-	left: 0;
-	margin: auto;
-	padding-bottom: 20px;
-	z-index: 10;
-	background: #f2f2f2;
-	  /* Desktop specific styles */
-  @media (max-width: 769px) {
-
-    width: 100%; /* Maximum width for desktop */
-	bottom: 10% ;
-	right: 0;
-  }
-	/* ${(props) =>
-		props.$isMobile &&
-		`
-        position:fixed;
-	width: 100%;
-	border-radius: 10px;
-		bottom: 0;
-	// min-height: 75%;
-
-        inset:0;
-        z-index:13;
-    `} */
+ 
+    }
 `;
+
+// export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
+// 	 min-height: 85dvh;  
+// 	width: 55.2%;
+// 	position: fixed;
+// 	bottom: 10% ;
+// 	left: 0;
+// 	margin: auto;
+// 	padding-bottom: 20px;
+// 	z-index: 10;
+// 	background: #f2f2f2;
+// 	  /* Desktop specific styles */
+//   @media (max-width: 769px) {
+
+//     width: 100%; /* Maximum width for desktop */
+// 	bottom: 10% ;
+// 	right: 0;
+//   }
+// 	/* ${(props) =>
+// 		props.$isMobile &&
+// 		`
+//         position:fixed;
+// 	width: 100%;
+// 	border-radius: 10px;
+// 		bottom: 0;
+// 	// min-height: 75%;
+
+//         inset:0;
+//         z-index:13;
+//     `} */
+// `;
 
 export const IconsAndDesignerContainer = styled.div`
 	position: absolute;
