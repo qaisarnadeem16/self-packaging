@@ -534,7 +534,7 @@ div {
 .views {
     position: fixed;
     left: 25%;
-    top: 5%;
+    top: 3%;
     display: flex;
     gap: 10px;
     align-items: center;
