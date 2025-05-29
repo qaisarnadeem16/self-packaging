@@ -488,7 +488,7 @@ margin-top: 10px;
 }
 `;
 
-export const ZakekeDesignerContainer = styled.div`
+export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
     height: 100%;
     max-width: 55%;
     min-width: 55%;
