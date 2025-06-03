@@ -5,7 +5,7 @@
 	"homepage": ".",
 	"dependencies": {
 		"@testing-library/react": "^14.1.2",
-		"@zakeke/zakeke-configurator-react": "npm:zakeke-configurator-react@0.1.313",
+		"@zakeke/zakeke-configurator-react": "npm:zakeke-configurator-react@^0.1.320",
 		"ajv": "^8.14.0",
 		"immutability-helper": "^3.1.1",
 		"immutable": "^4.3.4",
