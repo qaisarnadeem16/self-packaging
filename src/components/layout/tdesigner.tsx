@@ -1214,9 +1214,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							<SearchMinusSolid />
 						</ZoomIconOut>
 					</IconsAndDesignerContainer> */}
-					<button onClick={() => setMoveElements(false)} className='btn'>
+					{/* <button onClick={() => setMoveElements(false)} className='btn'>
 						<span>{T._('OK', 'Composer')} </span>
-					</button>
+					</button> */}
 				</ZakekeDesignerContainer>
 			)}
 		</>

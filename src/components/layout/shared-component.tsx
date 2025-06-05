@@ -66,6 +66,7 @@ export const GroupItem = styled.div`
 	}
 `;
 
+
 export const GroupIcon = styled.img`
 	width: 100%;
 	height: 40px;

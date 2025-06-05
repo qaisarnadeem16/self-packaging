@@ -10,7 +10,7 @@ const ColorPickerContainer = styled.div`
     justify-content: center;
     padding: 10px;
     background-color: white;
-    z-index: 2;
+    z-index: 999;
     border-radius: 5px;
     // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -199,7 +199,7 @@ const ColorPickerDropdown: FC<{ color: string, onChange: (color: string) => void
                 <HexInput color={color ?? "#000000"} prefixed onChange={handleColorChange} />
             </InputContainer>
 
-            <RgbValuesContainer>
+            {/* <RgbValuesContainer>
                 <InputContainer>
                     <InputLabel>R</InputLabel>
                     <RgbInput
@@ -234,7 +234,7 @@ const ColorPickerDropdown: FC<{ color: string, onChange: (color: string) => void
                         }}
                     />
                 </InputContainer>
-            </RgbValuesContainer>
+            </RgbValuesContainer> */}
         </HexPickerContainer>
     </ColorPickerContainer>
 }

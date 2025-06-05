@@ -539,6 +539,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       >
 
                         {/* {closeAttribute && step.id === selectedStepId && ( */}
+                      
                         <>
 
                           {Array.from(new Map(step.options.map((attribute) => [attribute.id, attribute])).values())
@@ -639,9 +640,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
             {selectedGroupId === -2 && <Designer />}
 
             <div className="share_button_desktop">
-              <div className="" style={{ cursor: 'pointer' }}>
+              {/* <div className="" style={{ cursor: 'pointer' }}>
                 <EyeIcon />
-              </div>
+              </div> */}
               <div className="" style={{ cursor: 'pointer' }} onClick={handleShareClick}>
                 <ShareIcon />
               </div>

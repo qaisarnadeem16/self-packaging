@@ -353,13 +353,13 @@ const ItemText: FC<{
                             <div
                               style={{
                                 position: 'absolute',
-                                top: '100%',
+                                bottom: '110%',
                                 right: 0,
                                 left: 0,
                                 marginTop: '8px',
-                                zIndex: 40,
+                                zIndex: 9999,
                                 background: '#fff',
-                                padding: '8px',
+                                padding: '3px',
                                 // border: '1px solid #ccc',
                                 // boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
                               }}

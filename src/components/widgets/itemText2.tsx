@@ -363,13 +363,20 @@ const ItemText2: FC<{
                             <div
                               style={{
                                 position: 'absolute',
-                                top: '100%',
-                                right: 0,
-                                left: 0,
-                                marginTop: '8px',
-                                zIndex: 40,
-                                background: '#fff',
-                                padding: '8px',
+                                  bottom: '110%',
+                                  right: '-20px',
+                                  // left: 0,
+                                  marginTop: '8px',
+                                  zIndex: 9999,
+                                  background: '#fff',
+                                  padding: '3px',
+                                // top: '100%',
+                                // right: 0,
+                                // left: 0,
+                                // marginTop: '8px',
+                                // zIndex: 40,
+                                // background: '#fff',
+                                // padding: '8px',
                                 // border: '1px solid #ccc',
                                 // boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
                               }}
@@ -389,7 +396,8 @@ const ItemText2: FC<{
                     </ColorsContainer>
                   </FormControl>
                 </div>
-                                <div style={{
+                                <div
+                    onClick={() => removeItem(item.guid)} style={{
                                     right: '10px',
                                     padding: '2px  0 0 0',
                                     // top: '25px',
