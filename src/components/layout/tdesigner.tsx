@@ -72,6 +72,7 @@ import {
 	TopFaceActive
 } from '../../assets/icons/faceIcons';
 import ItemText2 from 'components/widgets/itemText2';
+import { useActualGroups } from 'helper';
 
 export type PropChangeHandler = (
 	item: EditTextItem | EditImageItem,
@@ -371,6 +372,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		if (item.type === 0) return common || text;
 		else return common || image;
 	};
+	const [isDarkColor, setIsDarkColor] = useState(false);
 
 	// const handleAddTextClick = () => {
 	// 	setActiveButton("text")
@@ -394,7 +396,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			guid: '', // Unique ID
 			name: '',
 			text: "Text",
-			fillColor: defaultColor,
+			fillColor: isDarkColor ? "white" : defaultColor,
 			fontFamily: fonts[0]?.name ,
 			fontSize: 48,
 			fontWeight: 'normal normal',
@@ -404,6 +406,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 		// Directly add item without showing the dialog
 		addItemText(defaultItem, actualAreaId);
+		setActiveButton("design")
 
 		// Show dialog to optionally edit it
 		// showDialog(
@@ -467,7 +470,35 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const [selectedCategory, setSelectedCategory] = useState<ImageCategory | null>();
 	const [images, setImages] = useState<Image[]>();
 	const [selectedImageIds, setSelectedImageIds] = useState<number[]>([]);
-	const [activeButton, setActiveButton] = useState<string | null>(null);
+	const [activeButton, setActiveButton] = useState<string | null>('design');
+
+	  const groups = useActualGroups();
+
+	useEffect(() => {
+		if (!groups || !Array.isArray(groups)) return;
+
+		// Find the group named "Color"
+		const colorGroup = groups.find(group => group.name === 'Color');
+console.log(colorGroup)
+		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
+			const options = colorGroup.attributes[0].options;
+
+			if (options && Array.isArray(options)) {
+				const blackOption = options.find(opt => opt.name.toLowerCase() === 'black');
+				console.log(blackOption)
+
+				if (blackOption && blackOption.selected === true) {
+					setIsDarkColor(true);
+					return;
+				}
+			}
+		}
+
+		setIsDarkColor(false);
+	}, [groups]);
+
+
+	
 	useEffect(() => {
 		updateCategories();
 
@@ -546,6 +577,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					}
 				}
 			});
+			setActiveButton("design")
 			// document.body.appendChild(input);
 			input.click();
 		}
@@ -761,7 +793,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							})}
 						</CarouselContainer>
 					)} */}
-				{moveElements && finalVisibleAreas.length > 1 && (<div className="">
+				{finalVisibleAreas.length > 1 && (<div className="">
 					<div className=""
 
 						style={{
@@ -834,7 +866,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					<hr />
 				</div>
 				)}
-				{moveElements && (showAddTextButton || showUploadButton || showGalleryButton) && (
+				{ (showAddTextButton || showUploadButton || showGalleryButton) && (
 					<UploadButtons>
 
 						<div className="">
@@ -891,8 +923,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 												? !copyrightMandatoryCheckbox
 												: false
 										}
-										onClick={() => setActiveButton("images")}
-										// onClick={() => handleUploadImageClick(addItemImage, createImage)}
+										// onClick={() => setActiveButton("images")}
+										onClick={() => handleUploadImageClick(addItemImage, createImage)}
 										selected={activeButton === "images"}>
 
 										<TextIcon>
@@ -1058,7 +1090,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					<Center>{T._('No customizable items', 'Composer')}</Center>
 				)}
 				{/* Text Items and Add More Button */}
-				{moveElements && activeButton === 'text' && showAddTextButton && (
+				{/* {moveElements && activeButton === 'text' && showAddTextButton && (
 					<div>
 						{itemsFiltered.map((item) => {
 							if (item.type === 0 && isItemEditable(item, currentTemplateArea)) {
@@ -1080,9 +1112,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							<AddMoreButton onClick={handleAddTextClick}>+ Add more text</AddMoreButton>
 						)}
 					</div>
-				)}
+				)} */}
 
-				{moveElements && activeButton === 'images' && showAddTextButton && (
+				{/* {moveElements && activeButton === 'images' && showAddTextButton && (
 					<div>
 						<div onClick={() => handleUploadImageClick(addItemImage, createImage)} style={{display:'flex' , gap:'10px', alignItems:"center" , justifyContent:"center", cursor:"pointer", paddingTop:"10px"}} >
 							<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1133,8 +1165,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 					
 					</div>
-				)}
-				{moveElements && activeButton === 'pattern' && showGalleryButton && selectedCategory && images && (
+				)} */}
+				{ activeButton === 'pattern' && showGalleryButton && selectedCategory && images && (
 					<>
 						{isLoading ? (
 							<p>Loading...</p>
@@ -1156,7 +1188,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 				)}
 
 
-				{ moveElements && activeButton ==="design" && itemsFiltered.map((item) => {
+				{  activeButton ==="design" && itemsFiltered.map((item) => {
 					if (item.type === 0 && isItemEditable(item, currentTemplateArea))
 						return (
 							// <ItemText
@@ -1205,18 +1237,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			{/* )} */}
 			{moveElements && (
 				<ZakekeDesignerContainer $isMobile={isMobile} className="zakeke-container">
-					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId}  />
-					{/* <IconsAndDesignerContainer>
-						<ZoomIconIn hoverable onClick={() => customizerRef.current.zoomIn()}>
-							<SearchPlusSolid />
-						</ZoomIconIn>
-						<ZoomIconOut hoverable onClick={() => customizerRef.current.zoomOut()}>
-							<SearchMinusSolid />
-						</ZoomIconOut>
-					</IconsAndDesignerContainer> */}
-					{/* <button onClick={() => setMoveElements(false)} className='btn'>
-						<span>{T._('OK', 'Composer')} </span>
-					</button> */}
+					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
 				</ZakekeDesignerContainer>
 			)}
 		</>

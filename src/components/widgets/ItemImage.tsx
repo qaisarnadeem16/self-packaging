@@ -119,7 +119,7 @@ const ItemImage: FC<{ item: ImageItem, handleItemPropChange: any, currentTemplat
                         {T._("Edit", "Composer")}
                     </AddMoreButton>
                 )}
-                {showUploadButton && <AddMoreButton disabled={uploadImgDisabled} onClick={handleGalleryClick}>{T._("Edit", "Composer")}</AddMoreButton>}
+                {/* {showUploadButton && <AddMoreButton disabled={uploadImgDisabled} onClick={handleGalleryClick}>{T._("Edit", "Composer")}</AddMoreButton>} */}
                 {showGalleryButton && <div style={{ cursor: "pointer" }} onClick={() => removeItem(item.guid)}>
                     <svg width="17" height="25" viewBox="0 0 17 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5.54594 2.4196L9.63125 1.24826C10.1094 1.11115 10.6104 1.4027 10.7495 1.89909L11.0656 3.02666L5.24779 4.69474L4.93173 3.56717C4.7926 3.07079 5.06775 2.5567 5.54594 2.4196Z" fill="white" stroke="#434342" />

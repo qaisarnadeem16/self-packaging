@@ -427,7 +427,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
             style={{
               background: "white", padding: "30px 18px", border: 'none',
               height: '100%',
-              overflowY: "auto",
+              // overflowY: "auto",
+              overflowY: 'scroll',
               // borderRadius: '18px 18px 18px 0px',
               ...(window.innerWidth <= 768 && {
                 overflowY: "hidden",

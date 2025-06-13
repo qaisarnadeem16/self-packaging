@@ -176,24 +176,32 @@ html {
   gap: 10px;
 }
 
+.text-editor-scroll-container {
+  overflow-y: scroll;
+  /* ✅ Forces scrollbar always visible */
+  /* max-height: 300px; */
+  /* Optional, control height */
+  scrollbar-width: thin;
+  scrollbar-color: #FF5733 gray;
+}
+
+/* Chrome, Edge, Safari */
 .text-editor-scroll-container::-webkit-scrollbar {
   width: 5px;
 }
+
 .text-editor-scroll-container::-webkit-scrollbar-thumb {
   background-color: #FF5733;
   border-radius: 10px;
 }
+
 .text-editor-scroll-container::-webkit-scrollbar-track {
-  background: transparent;
+  background: #000;
 }
+
 .text-editor-scroll-container::-webkit-scrollbar-button {
   display: none;
 }
-.text-editor-scroll-container {
-  scrollbar-width: thin;
-  scrollbar-color: #FF5733 transparent;
-}
-
 
 /* .controller{
   position: absolute;
