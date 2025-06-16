@@ -437,7 +437,7 @@ div {
     }
 
     .viewer_zoom {
-        display: flex;
+        display: none;
         flex-direction: row;
     }
 
@@ -478,7 +478,7 @@ div {
     }
 
     .share_button {
-        display: flex;
+        display: none;
         gap: 5px;
     }
 

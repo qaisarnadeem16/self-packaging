@@ -59,14 +59,15 @@ export const TextArea = styled.textarea`
 	color: #434342;
 	font-size: 16px;
 	border: 2px #AAAAAA8C solid;
-	width: 100%;
+	/* width: 100%; */
 	// min-height: 35px;
 	margin-top: 14px;
 	border-radius: 7px;
-	align-items:center;
+	align-items: center;
 	font-family: 'Almarai';
 	outline: none;
 	resize: none;
+	min-width: 50%;
 
 	&:hover {
 		border: 1px var(--template-primary--400) solid;
@@ -74,6 +75,10 @@ export const TextArea = styled.textarea`
 
 	&:focus {
 		border-bottom: 1px var(--template-primary--400) solid;
+	}
+
+	@media (max-width: 767px) {
+		min-width: 100%;
 	}
 `;
 

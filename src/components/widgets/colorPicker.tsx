@@ -199,7 +199,7 @@ const ColorPickerDropdown: FC<{ color: string, onChange: (color: string) => void
                 <HexInput color={color ?? "#000000"} prefixed onChange={handleColorChange} />
             </InputContainer>
 
-            {/* <RgbValuesContainer>
+            <RgbValuesContainer>
                 <InputContainer>
                     <InputLabel>R</InputLabel>
                     <RgbInput
@@ -234,7 +234,7 @@ const ColorPickerDropdown: FC<{ color: string, onChange: (color: string) => void
                         }}
                     />
                 </InputContainer>
-            </RgbValuesContainer> */}
+            </RgbValuesContainer>
         </HexPickerContainer>
     </ColorPickerContainer>
 }

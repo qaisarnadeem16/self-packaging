@@ -242,7 +242,7 @@ const ItemText2: FC<{
 
             <div className="controller" style={{ marginTop: '10px', padding:'0px 14px' }}>
               <TextToolsContainer >
-                            <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', position: 'relative', width: '100%', gap: '20px', justifyContent: 'space-between' }}>
+                            <div style={{ marginTop: '20px', display: 'flex', flexWrap:"wrap", alignItems: 'center', position: 'relative', width: '100%', gap: '20px', justifyContent: 'space-' }}>
                                 <TextArea
                                     value={isUpperCase ? item.text.toUpperCase() : item.text}
                                     onChange={(e) => {
