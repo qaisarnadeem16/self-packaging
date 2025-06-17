@@ -150,13 +150,14 @@ const FontSingleValue = (props: JSX.IntrinsicAttributes & SingleValueProps<any, 
 };
 
 const ItemText2: FC<{
+  isDarkColor?:boolean
   item: EditTextItem;
   handleItemPropChange: PropChangeHandler;
   fonts?: FontFamily[];
   inDialog?: boolean;
   hideRemoveButton?: boolean;
   setMoveElements?: (value: boolean) => void
-}> = ({ item, handleItemPropChange, inDialog, hideRemoveButton, setMoveElements }) => {
+}> = ({ item, handleItemPropChange, inDialog, hideRemoveButton, setMoveElements, isDarkColor }) => {
   const { removeItem, fonts, disableTextColors, textColors, getPrintingMethodsRestrictions, getSanitationText } =
     useZakeke();
 
@@ -331,6 +332,7 @@ const ItemText2: FC<{
 
                 <div>
                   {/* <span style={{ color: '#434342', fontSize: '12px' }}>Colour</span> */}
+                    {!isDarkColor && 
                   <FormControl label={T._('Color', 'Composer')}>
                     <ColorsContainer>
                       <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -395,6 +397,7 @@ const ItemText2: FC<{
                       </div>
                     </ColorsContainer>
                   </FormControl>
+                  }
                 </div>
                                 <div
                     onClick={() => removeItem(item.guid)} style={{

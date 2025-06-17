@@ -450,7 +450,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       handleGroupClick(group);
                     }}
                   >
-                    {group.id === -2 ? "Customize" : group.name}
+                    {group.id === -2 ? "Design" : group.name}
                   </div>
                 );
               })}

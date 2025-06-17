@@ -55,12 +55,12 @@ export const TextArea = styled.textarea`
 	// padding: 5px;
 	font-family: 'Almarai';
 	// padding-left: 10px;
-	padding: 13px 0px 0px 10px;
+	padding: 10px 0px 0px 10px;
 	color: #434342;
 	font-size: 16px;
 	border: 2px #AAAAAA8C solid;
 	/* width: 100%; */
-	// min-height: 35px;
+	max-height: 40px;
 	margin-top: 14px;
 	border-radius: 7px;
 	align-items: center;

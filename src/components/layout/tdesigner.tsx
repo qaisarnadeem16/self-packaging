@@ -476,9 +476,12 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	useEffect(() => {
 		if (!groups || !Array.isArray(groups)) return;
+		// console.log(groups)
 
 		// Find the group named "Color"
-		const colorGroup = groups.find(group => group.name === 'Color');
+		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
+		// console.log("Group names:", groups.map(g => g.name));
+
 console.log(colorGroup)
 		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
 			const options = colorGroup.attributes[0].options;
@@ -1198,6 +1201,7 @@ console.log(colorGroup)
 							// 	setMoveElements={setMoveElements}
 							// />
 							<ItemText2
+								isDarkColor={isDarkColor}
 								key={item.guid}
 								handleItemPropChange={handleItemPropChange}
 								item={item as TextItem}
@@ -1237,7 +1241,10 @@ console.log(colorGroup)
 			{/* )} */}
 			{moveElements && (
 				<ZakekeDesignerContainer $isMobile={isMobile} className="zakeke-container">
-					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
+					{/* <div className="" style={{background:"black"}}> */}
+						<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
+
+					{/* </div> */}
 				</ZakekeDesignerContainer>
 			)}
 		</>
