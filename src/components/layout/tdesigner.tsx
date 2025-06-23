@@ -474,33 +474,68 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	  const groups = useActualGroups();
 
+// 	useEffect(() => {
+// 		if (!groups || !Array.isArray(groups)) return;
+// 		// console.log(groups)
+
+// 		// Find the group named "Color"
+// 		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
+// 		// console.log("Group names:", groups.map(g => g.name));
+
+// console.log(colorGroup)
+// 		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
+// 			const options = colorGroup.attributes[0].options;
+
+// 			if (options && Array.isArray(options)) {
+// 				const blackOption = options.find(opt => opt.name.toLowerCase() === 'black');
+// 				console.log(blackOption)
+
+// 				if (blackOption && blackOption.selected === true) {
+// 					setIsDarkColor(true);
+// 					return;
+// 				}
+// 			}
+// 		}
+
+// 		setIsDarkColor(false);
+// 	}, [groups]);
+
 	useEffect(() => {
 		if (!groups || !Array.isArray(groups)) return;
-		// console.log(groups)
 
-		// Find the group named "Color"
+		const darkColors = [
+			"black",
+			"midnight blue",
+			"green",
+			"metallic anthracite",
+			"burgundy",
+			"brown",
+		];
+
 		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
-		// console.log("Group names:", groups.map(g => g.name));
 
-console.log(colorGroup)
-		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
+		if (
+			colorGroup &&
+			Array.isArray(colorGroup.attributes) &&
+			colorGroup.attributes.length > 0
+		) {
 			const options = colorGroup.attributes[0].options;
 
 			if (options && Array.isArray(options)) {
-				const blackOption = options.find(opt => opt.name.toLowerCase() === 'black');
-				console.log(blackOption)
+				const isDarkSelected = options.some(
+					(opt) =>
+						darkColors.includes(opt.name.toLowerCase()) &&
+						opt.selected === true
+				);
 
-				if (blackOption && blackOption.selected === true) {
-					setIsDarkColor(true);
-					return;
-				}
+				setIsDarkColor(isDarkSelected);
+				return;
 			}
 		}
 
 		setIsDarkColor(false);
 	}, [groups]);
-
-
+  
 	
 	useEffect(() => {
 		updateCategories();
@@ -885,7 +920,11 @@ console.log(colorGroup)
 
 						<UploadButtonDiv>
 							{showAddTextButton && (
-								<TextButton onClick={handleAddTextClick} 
+								<TextButton onClick={() => {
+									handleAddTextClick();
+									setMoveElements(true);
+								}}
+								  
 									selected={activeButton==="text"}>
 									<TextIcon>
 										<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -902,9 +941,12 @@ console.log(colorGroup)
 							)}
 
 							{showGalleryButton && (
-								<TextButton onClick={() => setActiveButton("pattern")}
-									selected={activeButton === "pattern"}>
-
+								<TextButton 
+									selected={activeButton === "pattern"}
+									onClick={() => {
+										setActiveButton("pattern");
+										setMoveElements(true);
+									}} >
 									<TextIcon>
 										<svg width="45" height="35" viewBox="0 0 45 35" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M42.3792 4.38672H2.63711C1.74159 4.38672 1.01562 5.11877 1.01562 6.0218V32.8637C1.01562 33.7667 1.74159 34.4988 2.63711 34.4988H42.3792C43.2747 34.4988 44.0007 33.7667 44.0007 32.8637V6.0218C44.0007 5.11877 43.2747 4.38672 42.3792 4.38672Z" fill="white" stroke="#434342" />
@@ -927,8 +969,12 @@ console.log(colorGroup)
 												: false
 										}
 										// onClick={() => setActiveButton("images")}
-										onClick={() => handleUploadImageClick(addItemImage, createImage)}
-										selected={activeButton === "images"}>
+										
+										selected={activeButton === "images"}
+										onClick={() => {
+											handleUploadImageClick(addItemImage, createImage)
+											setMoveElements(true);
+										}}>
 
 										<TextIcon>
 											<svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
