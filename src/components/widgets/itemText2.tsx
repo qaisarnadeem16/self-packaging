@@ -180,6 +180,7 @@ const ItemText2: FC<{
   const weightData = typeof item.fontWeight === 'number' ? ['normal', 'normal'] : item.fontWeight.split(' ');
   const isBold = weightData.length > 1 ? weightData[1] === 'bold' : weightData[0] === 'bold';
   const isItalic = weightData.length > 1 ? weightData[0] === 'italic' : false;
+  const [textAreaLength, setTextAreaLength] = useState(item.text.length);
 
   const setItemTextDebounced = (value: string) => {
     handleItemPropChange?.(item, 'text', isUpperCase ? value.toUpperCase() : value);
@@ -210,7 +211,21 @@ const ItemText2: FC<{
     handleFontChange(item.fontFamily);
     //eslint-disable-next-line
   }, []);
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    let stringWithZeroWidthSpace = e.target.value.replace(/\u200B/g, "");
 
+    // console.log(stringWithZeroWidthSpace.length);
+
+    setTextAreaLength(e.target.value.length);
+    if (handleItemPropChange)
+      handleItemPropChange(
+        item as TextItem,
+        "text",
+        isUpperCase
+          ? e.currentTarget.value.toUpperCase()
+          : e.currentTarget.value
+      );
+  };
   if (item)
     return (
       <ItemTextContainer>
@@ -243,7 +258,7 @@ const ItemText2: FC<{
 
             <div className="controller" style={{ marginTop: '10px', padding:'0px 14px' }}>
               <TextToolsContainer >
-                            <div style={{ marginTop: '20px', display: 'flex', flexWrap:"wrap", alignItems: 'center', position: 'relative', width: '100%', gap: '20px', justifyContent: 'space-' }}>
+                            <div style={{ marginTop: '20px', display: 'flex', flexWrap:"wrap", alignItems: 'center', position: 'relative', width: '100%', gap: '10px', justifyContent: 'space-between' }}>
                                 <TextArea
                                     value={isUpperCase ? item.text.toUpperCase() : item.text}
                                     onChange={(e) => {
@@ -253,169 +268,181 @@ const ItemText2: FC<{
                                     maxLength={!item.constraints ? null : item.constraints.maxNrChars || null}
                                     disabled={!canEdit || fontLoading}
                                 />
+                  {/* <TextArea
+                    value={isUpperCase ? item.text.toUpperCase() : item.text}
+                    onChange={handleChange}
+                    maxLength={
+                      !item.constraints ? null : item.constraints.maxNrChars || null
+                    }
+                    // disabled={!canEdit}
+                    disabled={!canEdit || fontLoading}
+
+                  /> */}
                                
-                <div>
-                  {/* <span style={{ color: '#434342', fontSize: '12px', }}>Font</span> */}
+                  <div className="" style={{  display: 'flex', flexWrap: "wrap", alignItems: 'center', position: 'relative',  gap: '20px', padding:"0 5px" }}>
+                    <div>
+                      {/* <span style={{ color: '#434342', fontSize: '12px', }}>Font</span> */}
 
-                  <FormControl label={T._('Font', 'Composer')}>
-                    <div style={{ cursor: 'pointer', display: 'inline-block', }}>
-                      <AdvancedSelect
-                        components={{
-                          Option: FontOption,
-                          SingleValue: FontSingleValue,
-                          DropdownIndicator: (props) => (
-                            <components.DropdownIndicator {...props}>
-                              <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L6 6L11 1" stroke="#FF5733" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg>
-                            </components.DropdownIndicator>
-                          )
-                        }}
-                        styles={{
-                          container: (base) => ({
-                            ...base,
-                            width: 190,
-                          }),
-                          control: (base, state) => ({
-                            ...base,
-                            borderRadius: '8px',
-                            border: '1px solid #ccc',
-                            padding: '4px 8px',
-                            boxShadow: 'none',
-                            cursor: 'pointer',
-                            minHeight: '35px',
-                            '&:hover': {
-                              borderColor: '#aaa'
-                            }
-                          }),
-                          valueContainer: (base) => ({
-                            ...base,
-                            padding: 0,
-                            
-                          }),
-                          singleValue: (base) => ({
-                            ...base,
-                            fontFamily: 'inherit', // dynamically styled by `FontSingleValue` component
-                            fontSize: '16px',
-                          }),
-                          dropdownIndicator: (base) => ({
-                            ...base,     
-                            padding: '0 4px',
-                            color: '#F2582D', // matches the red arrow color
-                          }),
-                          indicatorSeparator: () => ({
-                            display: 'none',
-                          }),
-                          menu: (base) => ({
-                            ...base,
-                            zIndex: 9999, // important to keep menu on top
-                          }),
-                        }}
-                        isSearchable={false}
-                        options={fonts}
-                        isDisabled={fontLoading}
-                        menuPosition='fixed'
-                        value={[fonts.find((x) => x.name === item.fontFamily)]}
-                        onChange={(font: any) => {
-                          item.fontFamily = font.name;
-                          setFontLoading(true);
-                          handleFontChange(font.name);
-                          setTimeout(() => {
-                            setFontLoading(false);
-                          }, 2000);
-                        }}
-                      />
-                    </div>
-                  </FormControl>
-                </div>
-
-
-                <div>
-                  {/* <span style={{ color: '#434342', fontSize: '12px' }}>Colour</span> */}
-                    {!isDarkColor && 
-                  <FormControl label={T._('Color', 'Composer')}>
-                    <ColorsContainer>
-                      <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                        {/* The icon trigger (like the red A from your image) */}
-                        <div style={{ position: 'relative', display: 'inline-block' }}>
-                          {/* Clickable "A" icon */}
-                          <div
-                            style={{
-                              cursor: 'pointer',
-                              color: fillColor, // Reflects the selected color
-                              fontWeight: 'bold',
-                              fontSize: '30px',
-                              textAlign: 'center',
+                      <FormControl label={T._('Font', 'Composer')}>
+                        <div style={{ cursor: 'pointer', display: 'inline-block', }}>
+                          <AdvancedSelect
+                            components={{
+                              Option: FontOption,
+                              SingleValue: FontSingleValue,
+                              DropdownIndicator: (props) => (
+                                <components.DropdownIndicator {...props}>
+                                  <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1L6 6L11 1" stroke="#FF5733" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                  </svg>
+                                </components.DropdownIndicator>
+                              )
                             }}
-                            onClick={() => setIsColorPickerVisible((prev) => !prev)} // Toggle visibility
-                          >
-                            A
-                            <div
-                              style={{
-                                height: '6px',
-                                backgroundColor: fillColor, // Reflects the selected color
-                                marginTop: '5px',
-                                width: '100%',
-                              }}
-                            />
-                          </div>
+                            styles={{
+                              container: (base) => ({
+                                ...base,
+                                width: 190,
+                              }),
+                              control: (base, state) => ({
+                                ...base,
+                                borderRadius: '8px',
+                                border: '1px solid #ccc',
+                                padding: '4px 8px',
+                                boxShadow: 'none',
+                                cursor: 'pointer',
+                                minHeight: '35px',
+                                '&:hover': {
+                                  borderColor: '#aaa'
+                                }
+                              }),
+                              valueContainer: (base) => ({
+                                ...base,
+                                padding: 0,
 
-                          {/* Color Picker shown when isColorPickerVisible is true */}
-                          {isColorPickerVisible && (
-                            <div
-                              style={{
-                                position: 'absolute',
-                                  bottom: '110%',
-                                  right: '-20px',
-                                  // left: 0,
-                                  marginTop: '8px',
-                                  zIndex: 9999,
-                                  background: '#fff',
-                                  padding: '3px',
-                                // top: '100%',
-                                // right: 0,
-                                // left: 0,
-                                // marginTop: '8px',
-                                // zIndex: 40,
-                                // background: '#fff',
-                                // padding: '8px',
-                                // border: '1px solid #ccc',
-                                // boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-                              }}
-                            >
-                              <ColorPicker
-                                color={fillColor}
-                                onChange={(color) => {
-                                  handleItemPropChange(item, 'font-color', color); // Update the item's font color
-                                  setFillColor(color); // Update the local state to reflect the color change in the UI
-                                  setIsColorPickerVisible(false); // Close the color picker after selecting a color
-                                }}
-                              />
-                            </div>
-                          )}
+                              }),
+                              singleValue: (base) => ({
+                                ...base,
+                                fontFamily: 'inherit', // dynamically styled by `FontSingleValue` component
+                                fontSize: '16px',
+                              }),
+                              dropdownIndicator: (base) => ({
+                                ...base,
+                                padding: '0 4px',
+                                color: '#F2582D', // matches the red arrow color
+                              }),
+                              indicatorSeparator: () => ({
+                                display: 'none',
+                              }),
+                              menu: (base) => ({
+                                ...base,
+                                zIndex: 9999, // important to keep menu on top
+                              }),
+                            }}
+                            isSearchable={false}
+                            options={fonts}
+                            isDisabled={fontLoading}
+                            menuPosition='fixed'
+                            value={[fonts.find((x) => x.name === item.fontFamily)]}
+                            onChange={(font: any) => {
+                              item.fontFamily = font.name;
+                              setFontLoading(true);
+                              handleFontChange(font.name);
+                              setTimeout(() => {
+                                setFontLoading(false);
+                              }, 2000);
+                            }}
+                          />
                         </div>
-                      </div>
-                    </ColorsContainer>
-                  </FormControl>
-                  }
-                </div>
+                      </FormControl>
+                    </div>
+
+
+                    <div>
+                      {/* <span style={{ color: '#434342', fontSize: '12px' }}>Colour</span> */}
+                      {!isDarkColor &&
+                        <FormControl label={T._('Color', 'Composer')}>
+                          <ColorsContainer>
+                            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                              {/* The icon trigger (like the red A from your image) */}
+                              <div style={{ position: 'relative', display: 'inline-block' }}>
+                                {/* Clickable "A" icon */}
                                 <div
-                    onClick={() => removeItem(item.guid)} style={{
-                                    right: '10px',
-                                    padding: '2px  0 0 0',
-                                    // top: '25px',
-                                    zIndex: 1,
-                                    cursor:"pointer"
-                                }}>
-                                    <svg width="17" height="25" viewBox="0 0 17 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5.54594 2.4196L9.63125 1.24826C10.1094 1.11115 10.6104 1.4027 10.7495 1.89909L11.0656 3.02666L5.24779 4.69474L4.93173 3.56717C4.7926 3.07079 5.06775 2.5567 5.54594 2.4196Z" fill="white" stroke="#434342" />
-                                        <path d="M14.4476 2.06228L1.86626 5.6696C1.38784 5.80677 1.11285 6.32056 1.25205 6.81717L1.85927 8.98351C1.99847 9.48012 2.49915 9.77151 2.97757 9.63434L15.5589 6.02702C16.0373 5.88985 16.3123 5.37606 16.1731 4.87945L15.5659 2.71311C15.4267 2.2165 14.926 1.92511 14.4476 2.06228Z" fill="white" stroke="#434342" />
-                                        <path d="M2.875 11.3594H16.4546V22.9275C16.4546 23.4431 16.0362 23.8616 15.5205 23.8616H3.80908C3.29344 23.8616 2.875 23.4431 2.875 22.9275V11.3594Z" fill="white" stroke="#434342" />
-                                        <path d="M6.27344 13.7734V21.4438" stroke="#434342" />
-                                        <path d="M9.67969 13.7734V21.4438" stroke="#434342" />
-                                        <path d="M13.1406 13.7734V21.4438" stroke="#434342" />
-                                    </svg>
+                                  style={{
+                                    cursor: 'pointer',
+                                    color: fillColor, // Reflects the selected color
+                                    fontWeight: 'bold',
+                                    fontSize: '30px',
+                                    textAlign: 'center',
+                                  }}
+                                  onClick={() => setIsColorPickerVisible((prev) => !prev)} // Toggle visibility
+                                >
+                                  A
+                                  <div
+                                    style={{
+                                      height: '6px',
+                                      backgroundColor: fillColor, // Reflects the selected color
+                                      marginTop: '5px',
+                                      width: '100%',
+                                    }}
+                                  />
                                 </div>
+
+                                {/* Color Picker shown when isColorPickerVisible is true */}
+                                {isColorPickerVisible && (
+                                  <div
+                                    style={{
+                                      position: 'absolute',
+                                      bottom: '110%',
+                                      right: '-20px',
+                                      // left: 0,
+                                      marginTop: '8px',
+                                      zIndex: 9999,
+                                      background: '#fff',
+                                      padding: '3px',
+                                      // top: '100%',
+                                      // right: 0,
+                                      // left: 0,
+                                      // marginTop: '8px',
+                                      // zIndex: 40,
+                                      // background: '#fff',
+                                      // padding: '8px',
+                                      // border: '1px solid #ccc',
+                                      // boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                                    }}
+                                  >
+                                    <ColorPicker
+                                      color={fillColor}
+                                      onChange={(color) => {
+                                        handleItemPropChange(item, 'font-color', color); // Update the item's font color
+                                        setFillColor(color); // Update the local state to reflect the color change in the UI
+                                        setIsColorPickerVisible(false); // Close the color picker after selecting a color
+                                      }}
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </ColorsContainer>
+                        </FormControl>
+                      }
+                    </div>
+                    <div
+                      onClick={() => removeItem(item.guid)} style={{
+                        right: '10px',
+                        padding: '2px  0 0 0',
+                        // top: '25px',
+                        zIndex: 1,
+                        cursor: "pointer"
+                      }}>
+                      <svg width="17" height="25" viewBox="0 0 17 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.54594 2.4196L9.63125 1.24826C10.1094 1.11115 10.6104 1.4027 10.7495 1.89909L11.0656 3.02666L5.24779 4.69474L4.93173 3.56717C4.7926 3.07079 5.06775 2.5567 5.54594 2.4196Z" fill="white" stroke="#434342" />
+                        <path d="M14.4476 2.06228L1.86626 5.6696C1.38784 5.80677 1.11285 6.32056 1.25205 6.81717L1.85927 8.98351C1.99847 9.48012 2.49915 9.77151 2.97757 9.63434L15.5589 6.02702C16.0373 5.88985 16.3123 5.37606 16.1731 4.87945L15.5659 2.71311C15.4267 2.2165 14.926 1.92511 14.4476 2.06228Z" fill="white" stroke="#434342" />
+                        <path d="M2.875 11.3594H16.4546V22.9275C16.4546 23.4431 16.0362 23.8616 15.5205 23.8616H3.80908C3.29344 23.8616 2.875 23.4431 2.875 22.9275V11.3594Z" fill="white" stroke="#434342" />
+                        <path d="M6.27344 13.7734V21.4438" stroke="#434342" />
+                        <path d="M9.67969 13.7734V21.4438" stroke="#434342" />
+                        <path d="M13.1406 13.7734V21.4438" stroke="#434342" />
+                      </svg>
+                    </div>
+          </div>
                                 {dirtyCharInserted.length > 0 && currentFont && (
                                     <div style={{ color: 'red', display: 'flex', alignItems: 'center' }}>
                                         {T._(
