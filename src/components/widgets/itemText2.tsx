@@ -358,7 +358,7 @@ const ItemText2: FC<{
 
                     <div>
                       {/* <span style={{ color: '#434342', fontSize: '12px' }}>Colour</span> */}
-                      {!isDarkColor &&
+                      {/* {!isDarkColor && */}
                         <FormControl label={T._('Color', 'Composer')}>
                           <ColorsContainer>
                             <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
@@ -423,7 +423,7 @@ const ItemText2: FC<{
                             </div>
                           </ColorsContainer>
                         </FormControl>
-                      }
+                      {/* } */}
                     </div>
                     <div
                       onClick={() => removeItem(item.guid)} style={{

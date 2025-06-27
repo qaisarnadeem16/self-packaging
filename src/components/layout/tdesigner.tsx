@@ -473,7 +473,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const [activeButton, setActiveButton] = useState<string | null>('design');
 
 	  const groups = useActualGroups();
-
+// console.log(product.sku)
 // 	useEffect(() => {
 // 		if (!groups || !Array.isArray(groups)) return;
 // 		// console.log(groups)
@@ -717,6 +717,58 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		{ name: "bottom face", icon: <BottomFace />, activeIcon: <BottomFaceActive /> },
 	];
 
+	// SKU to Default Face mapping
+	const skuFaceMap: Record<string, string> = {
+		"75": "top face",
+		"2213": "top face",
+		"5024": "top face",
+		"2519": "top face",
+		"706": "top face",
+		"2247": "top face",
+		"72": "top face",
+		"2210": "top face",
+		"3542": "top face",
+		"2285": "top face",
+		"256": "front face",
+		"2221": "front face",
+		"37": "front face",
+		"0280": "front face",
+		"854": "front face",
+		"4003": "front face",
+		"1004": "top face",
+		"2262": "top face",
+		"74": "top face",
+		"2212": "top face",
+		"3442": "top face",
+		"2291": "top face",
+		"42": "front face",
+		"0436": "front face",
+		"77": "front face",
+		"2215": "front face",
+		"66": "top face",
+		"1901": "top face",
+		"1005": "top face",
+		"2263": "top face",
+		"3187": "top face",
+		"2293": "top face",
+	};
+
+	// Auto-select default face based on SKU
+	useEffect(() => {
+		if (!product?.sku || !finalVisibleAreas?.length) return;
+
+		const defaultFaceName = skuFaceMap[product.sku];
+		if (!defaultFaceName) return;
+
+		const matchedArea = finalVisibleAreas.find(
+			(area) => T._d(area.name).trim().toLowerCase() === defaultFaceName
+		);
+
+		if (matchedArea) {
+			setActualAreaId(matchedArea.id);
+		}
+	}, [product?.sku, finalVisibleAreas]);
+	
 	
 	return (
 		<>
