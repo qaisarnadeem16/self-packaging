@@ -767,7 +767,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		if (matchedArea) {
 			setActualAreaId(matchedArea.id);
 		}
-	}, [product?.sku, finalVisibleAreas]);
+	}, []);
 	
 	
 	return (
