@@ -372,6 +372,8 @@ const ItemText2: FC<{
                                     fontWeight: 'bold',
                                     fontSize: '30px',
                                     textAlign: 'center',
+                                  // WebkitTextStroke: '1px black', // stroke effect
+                                  textShadow: '0 0 1px black', // optional fallback
                                   }}
                                   onClick={() => setIsColorPickerVisible((prev) => !prev)} // Toggle visibility
                                 >
@@ -379,7 +381,9 @@ const ItemText2: FC<{
                                   <div
                                     style={{
                                       height: '6px',
-                                      backgroundColor: fillColor, // Reflects the selected color
+                                      backgroundColor: fillColor,
+                                    boxShadow: '0 0 1px black', // optional fallback
+                                  // Reflects the selected color
                                       marginTop: '5px',
                                       width: '100%',
                                     }}
