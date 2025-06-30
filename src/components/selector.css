@@ -157,10 +157,12 @@ div {
 
 
 .footer_steps {
+    background-image: none;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     width: 100%;
+    /* display: none; */
     height: 14%;
     position: absolute;
     right: 0;
@@ -497,7 +499,7 @@ div {
 
     .menu_actions {
         margin: 0% !important;
-        gap: 25px;
+        gap: 35px;
         padding-right: 0px !important;
     }
 
@@ -569,11 +571,13 @@ div {
     }
 
     .footer_steps {
+        background-image:url('assets/images/footer.svg') !important;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
         width: auto;
-        height: 90px;
+        padding: 0px !important;
+        height: 110px;
         position: relative;
         right: 0;
         bottom: 0;

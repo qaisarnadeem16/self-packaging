@@ -22,7 +22,8 @@ const PriceInfoTextContainer = styled.div`
 
 const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
   const { showDialog, closeDialog } = useDialogManager();
-  const addToCartButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileButtonRef = useRef<HTMLButtonElement>(null);
+  const desktopButtonRef = useRef<HTMLButtonElement>(null);
   const [disableButtonsByVisibleMessages, setDisableButtonsByVisibleMessages] = useState(false);
   const [openOutOfStockTooltip, closeOutOfStockTooltip,] = useDropdown();
   const { isAddToCartLoading, addToCart, price, useLegacyScreenshot, setQuantity, product, isMandatoryPD, quantity, nftSettings, eventMessages, isOutOfStock, visibleEventMessages, sellerSettings } = useZakeke();
@@ -124,8 +125,7 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
   return (
     <div style={{
       background: 'white',
-      padding:'20px 10px',
-      // backgroundImage: `url(${footerBg})`,
+      padding: '20px 10px',
     }} className='footer_steps'>
       <div className="menu_footer" ref={viewFooter}>
         <div className="menu_actions">
@@ -141,10 +141,10 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
             {/* {isBuyVisibleForQuoteRule && !isViewerMode && ( */}
             <AddToCartButton
               className="cart_button"
-              ref={addToCartButtonRef}
+              ref={desktopButtonRef}
               onPointerEnter={() => {
                 if (isOutOfStock)
-                  openOutOfStockTooltip(addToCartButtonRef.current!, 'top', 'top');
+                  openOutOfStockTooltip(desktopButtonRef.current!, 'top', 'top');
               }}
               onPointerLeave={() => {
                 closeOutOfStockTooltip();
@@ -180,34 +180,34 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
             )}
           </div> */}
 
-          {/* <div className="cart"> */}
+          <div className="cart">
             {/* {isBuyVisibleForQuoteRule && !isViewerMode && ( */}
-            {/* <AddToCartButton
-              className="cart_button"
-              ref={addToCartButtonRef}
-              onPointerEnter={() => {
-                if (isOutOfStock)
-                  openOutOfStockTooltip(addToCartButtonRef.current!, 'top', 'top');
-              }}
-              onPointerLeave={() => {
-                closeOutOfStockTooltip();
-              }}
-              disabled={disableButtonsByVisibleMessages || isAddToCartLoading || isOutOfStock}
-              primary
-              onClick={!isAddToCartLoading ? () => handleAddToCart() : () => null}
-            >
-              {isAddToCartLoading && <TailSpin color='#FFFFFF' height='25px' />}
-              {!isAddToCartLoading && !isOutOfStock && (
-                <span>
-                  {isDraftEditor || isEditorMode
-                    ? T._('Save', 'Composer')
-                    : T._(' comprar', 'Composer')}
-                </span>
-              )}
-              {!isAddToCartLoading && isOutOfStock && <span>{T._('OUT OF STOCK', 'Composer')}</span>}
-            </AddToCartButton> */}
-            {/* )}  */}
-          {/* </div> */}
+              <AddToCartButton
+                className="cart_button"
+                ref={mobileButtonRef}
+                onPointerEnter={() => {
+                  if (isOutOfStock)
+                    openOutOfStockTooltip(mobileButtonRef.current!, 'top', 'top');
+                }}
+                onPointerLeave={() => {
+                  closeOutOfStockTooltip();
+                }}
+                disabled={disableButtonsByVisibleMessages || isAddToCartLoading || isOutOfStock}
+                primary
+                onClick={!isAddToCartLoading ? () => handleAddToCart() : () => null}
+              >
+                {isAddToCartLoading && <TailSpin color='#FFFFFF' height='25px' />}
+                {!isAddToCartLoading && !isOutOfStock && (
+                  <span>
+                    {isDraftEditor || isEditorMode
+                      ? T._('Save', 'Composer')
+                      : T._(' comprar', 'Composer')}
+                  </span>
+                )}
+                {!isAddToCartLoading && isOutOfStock && <span>{T._('OUT OF STOCK', 'Composer')}</span>}
+              </AddToCartButton>
+            {/* )} */}
+          </div>
         </div>
       </div>
     </div>
