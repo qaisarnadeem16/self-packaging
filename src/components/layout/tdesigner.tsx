@@ -13,7 +13,7 @@ import {
 import useStore from 'Store';
 import AdvancedSelect from 'components/widgets/AdvancedSelect';
 import { FormControl } from 'components/widgets/FormControl';
-import { FC, JSX, useEffect, useRef, useState } from 'react';
+import { FC, JSX, SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
 import { CSSObjectWithLabel, GroupBase, OptionProps, SingleValueProps, components } from 'react-select';
 import styled from 'styled-components';
 import { T } from '../../Helpers';
@@ -296,11 +296,15 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	let currentTemplateArea = currentTemplate!.areas.find((x) => x.id === actualAreaId);
 	let itemsFiltered = items.filter((item) => item.areaId === actualAreaId);
+
+		
 	const allStaticElements = !itemsFiltered.some((item) => {
 		return (
 			!item.constraints || item.constraints.canMove || item.constraints.canRotate || item.constraints.canResize
 		);
 	});
+
+	
 	const showAddTextButton = !currentTemplateArea || currentTemplateArea.canAddText;
 	const showUploadButton =
 		!currentTemplateArea ||
@@ -448,7 +452,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 				return [...prev, image.imageID];
 			}
 		});
-		setActiveButton('pattern');
+		setActiveButton("design")
+
 		addItemImage(image.imageID, actualAreaId);
 		closeDialog('add-image');
 	};
@@ -769,6 +774,12 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		}
 	}, []);
 	
+
+	const handleAreaClick=(id: SetStateAction<number>)=>{
+		setActualAreaId(id)
+    		setActiveButton("design")
+
+	}
 	
 	return (
 		<>
@@ -943,7 +954,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 									<Area
 										key={area.id}
 										selected={isSelected}
-										onClick={() => setActualAreaId(area.id)}
+										onClick={() => handleAreaClick(area.id)}
 									>
 										{Icon}
 										<span style={{ /* your styles */ }}>{displayName}</span>
@@ -1300,7 +1311,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 				)}
 
 
-				{  activeButton ==="design" && itemsFiltered.map((item) => {
+				{activeButton !=="pattern" && itemsFiltered.map((item) => {
 					if (item.type === 0 && isItemEditable(item, currentTemplateArea))
 						return (
 							// <ItemText
