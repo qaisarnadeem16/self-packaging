@@ -215,3 +215,23 @@ html {
       bottom: 0;
     }
 }
+
+
+.textAreaBox {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  /* default: no wrap */
+}
+
+@media (max-width: 1024px)  {
+  .textAreaBox {
+    flex-wrap: wrap;
+    /* wrap only on tablets */
+  }
+}

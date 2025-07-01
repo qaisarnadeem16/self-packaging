@@ -150,7 +150,7 @@ const FontSingleValue = (props: JSX.IntrinsicAttributes & SingleValueProps<any, 
 };
 
 const ItemText2: FC<{
-  isDarkColor?:boolean
+  isDarkColor?: boolean
   item: EditTextItem;
   handleItemPropChange: PropChangeHandler;
   fonts?: FontFamily[];
@@ -241,11 +241,11 @@ const ItemText2: FC<{
             )
           }
         >
-                <div style={{ width: "100%", gap: '15px',  borderTop: '2px solid #AAAAAA8C', padding: ' 0 0', alignItems: 'baseline',   justifyContent: 'space-between' }} >
+          <div style={{ width: "100%", gap: '15px', borderTop: '2px solid #AAAAAA8C', padding: ' 0 0', alignItems: 'baseline', justifyContent: 'space-between' }} >
 
             {/* <div style={{ marginTop: '10px', padding: ' 0px', display: 'flex', alignItems: 'center', width:'100%', gap:'20px', justifyContent: 'space-between' }}> */}
 
-              {/* <div>
+            {/* <div>
                 <span className="" style={{ fontWeight: "700", font: "18px", color: "#434342", width: "100%", marginTop: '50px' }}>Text</span>
               </div>
               <div style={{ cursor: 'pointer' }} onClick={() => removeItem(item.guid)}>
@@ -256,18 +256,18 @@ const ItemText2: FC<{
               </div> */}
             {/* </div> */}
 
-            <div className="controller" style={{ marginTop: '10px', padding:'0px 14px' }}>
+            <div className="controller" style={{ marginTop: '10px', padding: '0px 14px' }}>
               <TextToolsContainer >
-                            <div style={{ marginTop: '20px', display: 'flex', flexWrap:"wrap", alignItems: 'center', position: 'relative', width: '100%', gap: '10px', justifyContent: 'space-between' }}>
-                                <TextArea
-                                    value={isUpperCase ? item.text.toUpperCase() : item.text}
-                                    onChange={(e) => {
-                                        e.currentTarget.value = e.currentTarget.value.replace('⠀', '');
-                                        setItemTextDebounced(e.currentTarget.value);
-                                    }}
-                                    maxLength={!item.constraints ? null : item.constraints.maxNrChars || null}
-                                    disabled={!canEdit || fontLoading}
-                                />
+                <div className='textAreaBox'>
+                  <TextArea
+                    value={isUpperCase ? item.text.toUpperCase() : item.text}
+                    onChange={(e) => {
+                      e.currentTarget.value = e.currentTarget.value.replace('⠀', '');
+                      setItemTextDebounced(e.currentTarget.value);
+                    }}
+                    maxLength={!item.constraints ? null : item.constraints.maxNrChars || null}
+                    disabled={!canEdit || fontLoading}
+                  />
                   {/* <TextArea
                     value={isUpperCase ? item.text.toUpperCase() : item.text}
                     onChange={handleChange}
@@ -278,8 +278,8 @@ const ItemText2: FC<{
                     disabled={!canEdit || fontLoading}
 
                   /> */}
-                               
-                  <div className="" style={{  display: 'flex', flexWrap: "wrap", alignItems: 'center', position: 'relative',  gap: '20px', padding:"0 5px" }}>
+
+                  <div className="" style={{ display: 'flex',  alignItems: 'center', position: 'relative', gap: '20px', padding: "0 5px" }}>
                     <div>
                       {/* <span style={{ color: '#434342', fontSize: '12px', }}>Font</span> */}
 
@@ -358,81 +358,81 @@ const ItemText2: FC<{
 
                     <div>
                       {/* <span style={{ color: '#434342', fontSize: '12px' }}>Colour</span> */}
-                      {/* {!isDarkColor && */}
-                        <FormControl label={T._('Color', 'Composer')}>
-                          <ColorsContainer>
-                            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                              {/* The icon trigger (like the red A from your image) */}
-                              <div style={{ position: 'relative', display: 'inline-block' }}>
-                                {/* Clickable "A" icon */}
-                                <div
-                                  style={{
-                                    cursor: 'pointer',
-                                    color: fillColor, // Reflects the selected color
-                                    fontWeight: 'bold',
-                                    fontSize: '30px',
-                                    textAlign: 'center',
+                      {fillColor && fillColor !== 'white' &&
+                      <FormControl label={T._('Color', 'Composer')}>
+                        <ColorsContainer>
+                          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                            {/* The icon trigger (like the red A from your image) */}
+                            <div style={{ position: 'relative', display: 'inline-block' }}>
+                              {/* Clickable "A" icon */}
+                              <div
+                                style={{
+                                  cursor: 'pointer',
+                                  color: fillColor, // Reflects the selected color
+                                  fontWeight: 'bold',
+                                  fontSize: '30px',
+                                  textAlign: 'center',
                                   // WebkitTextStroke: '1px black', // stroke effect
                                   textShadow: '0 0 1px black', // optional fallback
-                                  }}
-                                  onClick={() => setIsColorPickerVisible((prev) => !prev)} // Toggle visibility
-                                >
-                                  A
-                                  <div
-                                    style={{
-                                      height: '6px',
-                                      backgroundColor: fillColor,
+                                }}
+                                onClick={() => setIsColorPickerVisible((prev) => !prev)} // Toggle visibility
+                              >
+                                A
+                                <div
+                                  style={{
+                                    height: '6px',
+                                    backgroundColor: fillColor,
                                     boxShadow: '0 0 1px black', // optional fallback
-                                  // Reflects the selected color
-                                      marginTop: '5px',
-                                      width: '100%',
+                                    // Reflects the selected color
+                                    marginTop: '5px',
+                                    width: '100%',
+                                  }}
+                                />
+                              </div>
+
+                              {/* Color Picker shown when isColorPickerVisible is true */}
+                              {isColorPickerVisible && (
+                                <div
+                                  style={{
+                                    position: 'absolute',
+                                    bottom: '110%',
+                                    right: '-20px',
+                                    // left: 0,
+                                    marginTop: '8px',
+                                    zIndex: 9999,
+                                    background: '#fff',
+                                    padding: '3px',
+                                    // top: '100%',
+                                    // right: 0,
+                                    // left: 0,
+                                    // marginTop: '8px',
+                                    // zIndex: 40,
+                                    // background: '#fff',
+                                    // padding: '8px',
+                                    // border: '1px solid #ccc',
+                                    // boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                                  }}
+                                >
+                                  <ColorPicker
+                                    color={fillColor}
+                                    onChange={(color) => {
+                                      handleItemPropChange(item, 'font-color', color); // Update the item's font color
+                                      setFillColor(color); // Update the local state to reflect the color change in the UI
+                                      setIsColorPickerVisible(false); // Close the color picker after selecting a color
                                     }}
                                   />
                                 </div>
-
-                                {/* Color Picker shown when isColorPickerVisible is true */}
-                                {isColorPickerVisible && (
-                                  <div
-                                    style={{
-                                      position: 'absolute',
-                                      bottom: '110%',
-                                      right: '-20px',
-                                      // left: 0,
-                                      marginTop: '8px',
-                                      zIndex: 9999,
-                                      background: '#fff',
-                                      padding: '3px',
-                                      // top: '100%',
-                                      // right: 0,
-                                      // left: 0,
-                                      // marginTop: '8px',
-                                      // zIndex: 40,
-                                      // background: '#fff',
-                                      // padding: '8px',
-                                      // border: '1px solid #ccc',
-                                      // boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-                                    }}
-                                  >
-                                    <ColorPicker
-                                      color={fillColor}
-                                      onChange={(color) => {
-                                        handleItemPropChange(item, 'font-color', color); // Update the item's font color
-                                        setFillColor(color); // Update the local state to reflect the color change in the UI
-                                        setIsColorPickerVisible(false); // Close the color picker after selecting a color
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                              </div>
+                              )}
                             </div>
-                          </ColorsContainer>
-                        </FormControl>
-                      {/* } */}
+                          </div>
+                        </ColorsContainer>
+                      </FormControl>
+                       } 
                     </div>
                     <div
                       onClick={() => removeItem(item.guid)} style={{
                         right: '10px',
-                        padding: '2px  0 0 0',
+                        padding: '4px  0 0 0',
                         // top: '25px',
                         zIndex: 1,
                         cursor: "pointer"
@@ -446,17 +446,17 @@ const ItemText2: FC<{
                         <path d="M13.1406 13.7734V21.4438" stroke="#434342" />
                       </svg>
                     </div>
-          </div>
-                                {dirtyCharInserted.length > 0 && currentFont && (
-                                    <div style={{ color: 'red', display: 'flex', alignItems: 'center' }}>
-                                        {T._(
-                                            `The following characters have been removed as they are not supported by the font ${currentFont.name
-                                            }: ${wrapperJoin(dirtyCharInserted, ',', '"', '"')}`,
-                                            'Composer'
-                                        )}{' '}
-                                    </div>
-                                )}
-                            </div>
+                  </div>
+                  {dirtyCharInserted.length > 0 && currentFont && (
+                    <div style={{ color: 'red', display: 'flex', alignItems: 'center' }}>
+                      {T._(
+                        `The following characters have been removed as they are not supported by the font ${currentFont.name
+                        }: ${wrapperJoin(dirtyCharInserted, ',', '"', '"')}`,
+                        'Composer'
+                      )}{' '}
+                    </div>
+                  )}
+                </div>
                 {(textRestrictions.allowedBold ||
                   textRestrictions.allowedItalic ||
                   textRestrictions.allowedCurved) && (
@@ -566,7 +566,7 @@ const ItemText2: FC<{
 
             </div>
 
-          
+
 
           </div>
         </FormControl>
