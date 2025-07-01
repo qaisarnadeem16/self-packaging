@@ -382,7 +382,7 @@ const ItemText2: FC<{
                                   style={{
                                     height: '6px',
                                     backgroundColor: fillColor,
-                                    boxShadow: '0 0 1px black', // optional fallback
+                                    // boxShadow: '0 0 1px black', // optional fallback
                                     // Reflects the selected color
                                     marginTop: '5px',
                                     width: '100%',
