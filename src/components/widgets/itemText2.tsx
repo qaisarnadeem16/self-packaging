@@ -373,7 +373,7 @@ const ItemText2: FC<{
                                   fontSize: '30px',
                                   textAlign: 'center',
                                   // WebkitTextStroke: '1px black', // stroke effect
-                                  textShadow: '0 0 1px black', // optional fallback
+                                  // textShadow: '0 0 1px black', // optional fallback
                                 }}
                                 onClick={() => setIsColorPickerVisible((prev) => !prev)} // Toggle visibility
                               >
