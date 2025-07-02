@@ -246,7 +246,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		getTemplateUploadRestrictictions,
 		eventMessages,
 		setCopyrightMessageAccepted,
-		getCopyrightMessageAccepted ,
+		getCopyrightMessageAccepted,
 		defaultColor,
 		fonts
 	} = useZakeke();
@@ -297,14 +297,14 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	let currentTemplateArea = currentTemplate!.areas.find((x) => x.id === actualAreaId);
 	let itemsFiltered = items.filter((item) => item.areaId === actualAreaId);
 
-		
+
 	const allStaticElements = !itemsFiltered.some((item) => {
 		return (
 			!item.constraints || item.constraints.canMove || item.constraints.canRotate || item.constraints.canResize
 		);
 	});
 
-	
+
 	const showAddTextButton = !currentTemplateArea || currentTemplateArea.canAddText;
 	const showUploadButton =
 		!currentTemplateArea ||
@@ -394,14 +394,14 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	// };
 	const handleAddTextClick = () => {
 		// setActiveButton("text");
- // if outside hook, pass fonts & defaultColor as props/context
+		// if outside hook, pass fonts & defaultColor as props/context
 
 		const defaultItem: EditTextItem = {
 			guid: '', // Unique ID
 			name: '',
 			text: "Text",
 			fillColor: isDarkColor ? "white" : defaultColor,
-			fontFamily: fonts[0]?.name ,
+			fontFamily: fonts[0]?.name,
 			fontSize: 48,
 			fontWeight: 'normal normal',
 			isTextOnPath: false,
@@ -424,7 +424,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		// 	/>
 		// );
 	};
-	
+
 
 	const handleAddImageFromGalleryClick = async () => {
 		setClipArt(false)
@@ -477,33 +477,33 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const [selectedImageIds, setSelectedImageIds] = useState<number[]>([]);
 	const [activeButton, setActiveButton] = useState<string | null>('design');
 
-	  const groups = useActualGroups();
-// console.log(product.sku)
-// 	useEffect(() => {
-// 		if (!groups || !Array.isArray(groups)) return;
-// 		// console.log(groups)
+	const groups = useActualGroups();
+	// console.log(product.sku)
+	// 	useEffect(() => {
+	// 		if (!groups || !Array.isArray(groups)) return;
+	// 		// console.log(groups)
 
-// 		// Find the group named "Color"
-// 		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
-// 		// console.log("Group names:", groups.map(g => g.name));
+	// 		// Find the group named "Color"
+	// 		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
+	// 		// console.log("Group names:", groups.map(g => g.name));
 
-// console.log(colorGroup)
-// 		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
-// 			const options = colorGroup.attributes[0].options;
+	// console.log(colorGroup)
+	// 		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
+	// 			const options = colorGroup.attributes[0].options;
 
-// 			if (options && Array.isArray(options)) {
-// 				const blackOption = options.find(opt => opt.name.toLowerCase() === 'black');
-// 				console.log(blackOption)
+	// 			if (options && Array.isArray(options)) {
+	// 				const blackOption = options.find(opt => opt.name.toLowerCase() === 'black');
+	// 				console.log(blackOption)
 
-// 				if (blackOption && blackOption.selected === true) {
-// 					setIsDarkColor(true);
-// 					return;
-// 				}
-// 			}
-// 		}
+	// 				if (blackOption && blackOption.selected === true) {
+	// 					setIsDarkColor(true);
+	// 					return;
+	// 				}
+	// 			}
+	// 		}
 
-// 		setIsDarkColor(false);
-// 	}, [groups]);
+	// 		setIsDarkColor(false);
+	// 	}, [groups]);
 
 	useEffect(() => {
 		if (!groups || !Array.isArray(groups)) return;
@@ -540,8 +540,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 		setIsDarkColor(false);
 	}, [groups]);
-  
-	
+
+
 	useEffect(() => {
 		updateCategories();
 
@@ -561,7 +561,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			setMacroCategories(macroCategories);
 
 			// if (macroCategories.length === 1)
-				handleMacroCategoryClick(macroCategories[1]);
+			handleMacroCategoryClick(macroCategories[1]);
 		} catch (ex) {
 			console.error(ex);
 		}
@@ -773,14 +773,14 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			setActualAreaId(matchedArea.id);
 		}
 	}, []);
-	
 
-	const handleAreaClick=(id: SetStateAction<number>)=>{
+
+	const handleAreaClick = (id: SetStateAction<number>) => {
 		setActualAreaId(id)
-    		setActiveButton("design")
+		setActiveButton("design")
 
 	}
-	
+
 	return (
 		<>
 			{/* {!moveElements && ( */}
@@ -818,7 +818,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					</TemplatesContainer>
 				)}
 
-				
+
 				{/* Areas */}
 				{/* {!isMobile && finalVisibleAreas.length > 1 && (
 						<CarouselContainer
@@ -967,7 +967,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					<hr />
 				</div>
 				)}
-				{ (showAddTextButton || showUploadButton || showGalleryButton) && (
+				{(showAddTextButton || showUploadButton || showGalleryButton) && (
 					<UploadButtons>
 
 						<div className="">
@@ -982,47 +982,6 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 						</div>
 
 						<UploadButtonDiv>
-							{showAddTextButton && (
-								<TextButton onClick={() => {
-									handleAddTextClick();
-									setMoveElements(true);
-								}}
-								  
-									selected={activeButton==="text"}>
-									<TextIcon>
-										<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M39.9852 3.27734H3.76562V39.9153H39.9852V3.27734Z" fill="white" stroke="#434342" />
-											<path d="M18.6442 11.9697H16.6163C15.4053 11.9697 14.5185 12.1015 13.9495 12.3652C13.3806 12.6288 12.9038 13.1529 12.516 13.9407C12.1282 14.7284 11.8962 15.6576 11.8135 16.7379H9.80469V9.79297H33.9426V16.7379H31.9338C31.5555 14.8667 31.0215 13.6031 30.3318 12.9504C29.6452 12.2977 28.5486 11.9697 27.042 11.9697H24.96V29.2067C24.96 30.3224 25.1476 31.1005 25.5195 31.5378C25.8945 31.9751 26.6796 32.1937 27.8779 32.1937H28.5009V34.1904H15.1764V32.1937H15.7454C16.9564 32.1937 17.7415 31.9686 18.1039 31.5185C18.4662 31.0684 18.6474 30.2967 18.6474 29.2067V11.9697H18.6442Z" stroke="#434342" />
-											<path d="M42.1055 37.375H38.0402C37.5434 37.375 37.1406 37.7824 37.1406 38.2849V42.0821C37.1406 42.5847 37.5434 42.9921 38.0402 42.9921H42.1055C42.6023 42.9921 43.0051 42.5847 43.0051 42.0821V38.2849C43.0051 37.7824 42.6023 37.375 42.1055 37.375Z" fill="white" stroke="#FF5733" />
-											<path d="M42.1055 1H38.0402C37.5434 1 37.1406 1.40738 37.1406 1.90992V5.70715C37.1406 6.20968 37.5434 6.61707 38.0402 6.61707H42.1055C42.6023 6.61707 43.0051 6.20968 43.0051 5.70715V1.90992C43.0051 1.40738 42.6023 1 42.1055 1Z" fill="white" stroke="#FF5733" />
-											<path d="M5.9649 37.375H1.89953C1.40273 37.375 1 37.7824 1 38.2849V42.0821C1 42.5847 1.40273 42.9921 1.89953 42.9921H5.9649C6.4617 42.9921 6.86443 42.5847 6.86443 42.0821V38.2849C6.86443 37.7824 6.4617 37.375 5.9649 37.375Z" fill="white" stroke="#FF5733" />
-											<path d="M5.9649 1H1.89953C1.40273 1 1 1.40738 1 1.90992V5.70715C1 6.20968 1.40273 6.61707 1.89953 6.61707H5.9649C6.4617 6.61707 6.86443 6.20968 6.86443 5.70715V1.90992C6.86443 1.40738 6.4617 1 5.9649 1Z" fill="white" stroke="#FF5733" />
-										</svg>
-									</TextIcon>
-									<span style={{ paddingTop: '2px' }}>{T._('Text', 'Composer')}</span>
-								</TextButton>
-							)}
-
-							{showGalleryButton && (
-								<TextButton 
-									selected={activeButton === "pattern"}
-									onClick={() => {
-										setActiveButton("pattern");
-										setMoveElements(true);
-									}} >
-									<TextIcon>
-										<svg width="45" height="35" viewBox="0 0 45 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M42.3792 4.38672H2.63711C1.74159 4.38672 1.01562 5.11877 1.01562 6.0218V32.8637C1.01562 33.7667 1.74159 34.4988 2.63711 34.4988H42.3792C43.2747 34.4988 44.0007 33.7667 44.0007 32.8637V6.0218C44.0007 5.11877 43.2747 4.38672 42.3792 4.38672Z" fill="white" stroke="#434342" />
-											<path d="M29.1327 17.0156H19.7812V25.8168H29.1327V17.0156Z" fill="white" stroke="#434342" stroke-width="0.82" />
-											<path d="M32.7846 28.5225C35.6212 28.5225 37.9207 26.2037 37.9207 23.3433C37.9207 20.4829 35.6212 18.1641 32.7846 18.1641C29.948 18.1641 27.6484 20.4829 27.6484 23.3433C27.6484 26.2037 29.948 28.5225 32.7846 28.5225Z" fill="white" stroke="#434342" />
-											<path d="M29.7246 7.73047L31.3131 12.874H36.457L32.2952 16.0517L33.8864 21.1952L29.7246 18.0147L25.5628 21.1952L27.154 16.0517L22.9922 12.874H28.136L29.7246 7.73047Z" fill="white" stroke="#FF5733" />
-											<path d="M1.00123 6.16478C1.16423 4.01928 1.32438 1.10093 8.37369 3.06188C14.302 4.70849 14.8167 1 14.8167 1L14.8453 26.5067C14.6795 28.6493 14.4392 31.8474 7.47287 29.6096C0.186194 27.268 1.02982 32.6779 1.02982 32.6779L1.00123 6.1619V6.16478Z" fill="white" stroke="#434342" stroke-width="0.92" />
-										</svg>
-									</TextIcon>
-									<span style={{ paddingTop: '8px' }}>{T._('Pattern', 'Composer')}</span>
-								</TextButton>
-							)}
-
 							{showUploadButton && (
 								<>
 									<TextButton
@@ -1032,7 +991,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 												: false
 										}
 										// onClick={() => setActiveButton("images")}
-										
+
 										selected={activeButton === "images"}
 										onClick={() => {
 											handleUploadImageClick(addItemImage, createImage)
@@ -1074,6 +1033,47 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 										</span>
 									</TextButton>
 								</>
+							)}
+
+							{showGalleryButton && (
+								<TextButton
+									selected={activeButton === "pattern"}
+									onClick={() => {
+										setActiveButton("pattern");
+										setMoveElements(true);
+									}} >
+									<TextIcon>
+										<svg width="45" height="35" viewBox="0 0 45 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M42.3792 4.38672H2.63711C1.74159 4.38672 1.01562 5.11877 1.01562 6.0218V32.8637C1.01562 33.7667 1.74159 34.4988 2.63711 34.4988H42.3792C43.2747 34.4988 44.0007 33.7667 44.0007 32.8637V6.0218C44.0007 5.11877 43.2747 4.38672 42.3792 4.38672Z" fill="white" stroke="#434342" />
+											<path d="M29.1327 17.0156H19.7812V25.8168H29.1327V17.0156Z" fill="white" stroke="#434342" stroke-width="0.82" />
+											<path d="M32.7846 28.5225C35.6212 28.5225 37.9207 26.2037 37.9207 23.3433C37.9207 20.4829 35.6212 18.1641 32.7846 18.1641C29.948 18.1641 27.6484 20.4829 27.6484 23.3433C27.6484 26.2037 29.948 28.5225 32.7846 28.5225Z" fill="white" stroke="#434342" />
+											<path d="M29.7246 7.73047L31.3131 12.874H36.457L32.2952 16.0517L33.8864 21.1952L29.7246 18.0147L25.5628 21.1952L27.154 16.0517L22.9922 12.874H28.136L29.7246 7.73047Z" fill="white" stroke="#FF5733" />
+											<path d="M1.00123 6.16478C1.16423 4.01928 1.32438 1.10093 8.37369 3.06188C14.302 4.70849 14.8167 1 14.8167 1L14.8453 26.5067C14.6795 28.6493 14.4392 31.8474 7.47287 29.6096C0.186194 27.268 1.02982 32.6779 1.02982 32.6779L1.00123 6.1619V6.16478Z" fill="white" stroke="#434342" stroke-width="0.92" />
+										</svg>
+									</TextIcon>
+									<span style={{ paddingTop: '8px' }}>{T._('Pattern', 'Composer')}</span>
+								</TextButton>
+							)}
+
+							{showAddTextButton && (
+								<TextButton onClick={() => {
+									handleAddTextClick();
+									setMoveElements(true);
+								}}
+
+									selected={activeButton === "text"}>
+									<TextIcon>
+										<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M39.9852 3.27734H3.76562V39.9153H39.9852V3.27734Z" fill="white" stroke="#434342" />
+											<path d="M18.6442 11.9697H16.6163C15.4053 11.9697 14.5185 12.1015 13.9495 12.3652C13.3806 12.6288 12.9038 13.1529 12.516 13.9407C12.1282 14.7284 11.8962 15.6576 11.8135 16.7379H9.80469V9.79297H33.9426V16.7379H31.9338C31.5555 14.8667 31.0215 13.6031 30.3318 12.9504C29.6452 12.2977 28.5486 11.9697 27.042 11.9697H24.96V29.2067C24.96 30.3224 25.1476 31.1005 25.5195 31.5378C25.8945 31.9751 26.6796 32.1937 27.8779 32.1937H28.5009V34.1904H15.1764V32.1937H15.7454C16.9564 32.1937 17.7415 31.9686 18.1039 31.5185C18.4662 31.0684 18.6474 30.2967 18.6474 29.2067V11.9697H18.6442Z" stroke="#434342" />
+											<path d="M42.1055 37.375H38.0402C37.5434 37.375 37.1406 37.7824 37.1406 38.2849V42.0821C37.1406 42.5847 37.5434 42.9921 38.0402 42.9921H42.1055C42.6023 42.9921 43.0051 42.5847 43.0051 42.0821V38.2849C43.0051 37.7824 42.6023 37.375 42.1055 37.375Z" fill="white" stroke="#FF5733" />
+											<path d="M42.1055 1H38.0402C37.5434 1 37.1406 1.40738 37.1406 1.90992V5.70715C37.1406 6.20968 37.5434 6.61707 38.0402 6.61707H42.1055C42.6023 6.61707 43.0051 6.20968 43.0051 5.70715V1.90992C43.0051 1.40738 42.6023 1 42.1055 1Z" fill="white" stroke="#FF5733" />
+											<path d="M5.9649 37.375H1.89953C1.40273 37.375 1 37.7824 1 38.2849V42.0821C1 42.5847 1.40273 42.9921 1.89953 42.9921H5.9649C6.4617 42.9921 6.86443 42.5847 6.86443 42.0821V38.2849C6.86443 37.7824 6.4617 37.375 5.9649 37.375Z" fill="white" stroke="#FF5733" />
+											<path d="M5.9649 1H1.89953C1.40273 1 1 1.40738 1 1.90992V5.70715C1 6.20968 1.40273 6.61707 1.89953 6.61707H5.9649C6.4617 6.61707 6.86443 6.20968 6.86443 5.70715V1.90992C6.86443 1.40738 6.4617 1 5.9649 1Z" fill="white" stroke="#FF5733" />
+										</svg>
+									</TextIcon>
+									<span style={{ paddingTop: '2px' }}>{T._('Text', 'Composer')}</span>
+								</TextButton>
 							)}
 							{/* {showUploadButton && (
 								<>
@@ -1148,7 +1148,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					</UploadButtons>
 				)}
 
-			
+
 				{isMobile && translatedTemplates.length > 1 && (
 					<SelectContainer>
 						<FormControl label={T._('Templates', 'Composer')}>
@@ -1278,40 +1278,40 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					
 					</div>
 				)} */}
-				{ activeButton === 'pattern' && showGalleryButton && selectedCategory && images && (
+				{activeButton === 'pattern' && showGalleryButton && selectedCategory && images && (
 					<>
 						{isLoading ? (
 							<p>Loading...</p>
 						) : (
-								<div className="">
-									<div className="" style={{ color:"black", display: 'flex', flexWrap: "wrap", alignItems: 'center', position: 'relative', width: '100%', gap: '10px', justifyContent: 'space-between' }}>
+							<div className="">
+								<div className="" style={{ color: "black", display: 'flex', flexWrap: "wrap", alignItems: 'center', position: 'relative', width: '100%', gap: '10px', justifyContent: 'space-between' }}>
 									<h2 className="">Pattern</h2>
-										<button style={{ background: 'white' , border:"0"}} onClick={() => setActiveButton("design")} className=""><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M5 13L13 5M5 5L13 13" stroke="#434342" stroke-linejoin="round" />
-											<circle cx="9" cy="9" r="8.5" stroke="#434342" />
-										</svg>
-</button>
-									</div>
-									<ImagesList>
-
-										{images.map((image) => (
-											<ImageItem1
-												isActive={selectedImageIds.includes(image.imageID)}
-												key={image.imageID.toString()}
-												onClick={() => handleAddClipArt(image)}
-											>
-												<img src={image.choiceUrl} alt={image.name} />
-												{/* <span>{image.name}</span> */}
-											</ImageItem1>
-										))}
-									</ImagesList>
+									<button style={{ background: 'white', border: "0" }} onClick={() => setActiveButton("design")} className=""><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M5 13L13 5M5 5L13 13" stroke="#434342" stroke-linejoin="round" />
+										<circle cx="9" cy="9" r="8.5" stroke="#434342" />
+									</svg>
+									</button>
 								</div>
+								<ImagesList>
+
+									{images.map((image) => (
+										<ImageItem1
+											isActive={selectedImageIds.includes(image.imageID)}
+											key={image.imageID.toString()}
+											onClick={() => handleAddClipArt(image)}
+										>
+											<img src={image.choiceUrl} alt={image.name} />
+											{/* <span>{image.name}</span> */}
+										</ImageItem1>
+									))}
+								</ImagesList>
+							</div>
 						)}
 					</>
 				)}
 
 
-				{activeButton !=="pattern" && itemsFiltered.map((item) => {
+				{activeButton !== "pattern" && itemsFiltered.map((item) => {
 					if (item.type === 0 && isItemEditable(item, currentTemplateArea))
 						return (
 							// <ItemText
@@ -1362,7 +1362,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			{moveElements && (
 				<ZakekeDesignerContainer $isMobile={isMobile} className="zakeke-container">
 					{/* <div className="" style={{background:"black"}}> */}
-						<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
+					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
 
 					{/* </div> */}
 				</ZakekeDesignerContainer>
