@@ -450,7 +450,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       handleGroupClick(group);
                     }}
                   >
-                    {group.id === -2 ? "Design" : group.name}
+                    {group.id === -2 ? T._d("Design") :T._d(group.name) }
                   </div>
                 );
               })}
@@ -582,7 +582,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                       }}
                                     >
 
-                                      {isShadeSize ? attribute.name.replace(/[a-zA-Z]/g, "") : T._(attribute.name, 'Composer')}
+                                      {isShadeSize ? T._d(attribute.name.replace(/[a-zA-Z]/g, "")) : T._d(attribute.name)}
                                     </div>
                                   ) : (
                                     <div className="menu_choice_option_image_container">
@@ -622,7 +622,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                     textAlign: "center",
                                   }}
                                 >
-                                  {T._(attribute.name , 'Composer')}   
+                                  {T._d(attribute.name)}   
                                 </div>
                               </div>
                             ))}

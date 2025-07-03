@@ -243,7 +243,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		addItemText,
 		addItemImage,
 		createImage,
-		getTemplateUploadRestrictictions,
+		// getTemplateUploadRestrictictions,
 		eventMessages,
 		setCopyrightMessageAccepted,
 		getCopyrightMessageAccepted,
@@ -337,19 +337,33 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [finalVisibleAreas]);
 
-	function getSupportedUploadFileFormats(templateId: number, areaId: number) {
-		const restrictions = getTemplateUploadRestrictictions(templateId, areaId);
-		const fileFormats: string[] = [];
+	// function getSupportedUploadFileFormats(templateId: number, areaId: number) {
+	// 	const restrictions = getTemplateUploadRestrictictions(templateId, areaId);
+	// 	const fileFormats: string[] = [];
 
-		if (restrictions.isJpgAllowed) fileFormats.push('.jpg', '.jpeg');
-		if (restrictions.isPngAllowed) fileFormats.push('.png');
-		if (restrictions.isSvgAllowed) fileFormats.push('.svg');
-		if (restrictions.isEpsAllowed) fileFormats.push('.eps');
-		if (restrictions.isPdfAllowed) fileFormats.push('.pdf');
+	// 	if (restrictions.isJpgAllowed) fileFormats.push('.jpg', '.jpeg');
+	// 	if (restrictions.isPngAllowed) fileFormats.push('.png');
+	// 	if (restrictions.isSvgAllowed) fileFormats.push('.svg');
+	// 	if (restrictions.isEpsAllowed) fileFormats.push('.eps');
+	// 	if (restrictions.isPdfAllowed) fileFormats.push('.pdf');
+
+	// 	return fileFormats;
+	// }
+	function getSupportedUploadFileFormats(templateId: number, areaId: number) {
+		// You can create custom logic here if needed based on templateId and areaId
+		// For now, we’ll return a fixed set or use conditional logic
+
+		// Example: allow everything
+		const fileFormats: string[] = ['.jpg', '.jpeg', '.png', '.svg', '.eps', '.pdf'];
+
+		// Optional: create different rules for specific template + area combinations
+		// if (templateId === 123 && areaId === 456) {
+		//   return ['.jpg', '.png'];
+		// }
 
 		return fileFormats;
 	}
-
+	  
 	const isItemEditable = (item: Item, templateArea?: TemplateArea) => {
 		if (!item.constraints) return false;
 
@@ -589,8 +603,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 
 	const handleUploadImageClick = async (
-		addItemImage: (guid: any, imageId: number) => Promise<void>,
-		createImage: (file: File, progress?: (percentage: number) => void) => Promise<ZakekeImage>
+		// addItemImage: (guid: any, imageId: number) => Promise<void>,
+		// createImage: (file: File, progress?: (percentage: number) => void) => Promise<ZakekeImage>
 	) => {
 		if (currentTemplate && actualAreaId) {
 			setActiveButton("images")
@@ -923,7 +937,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							paddingRight: '5px',
 							maxWidth: '100px',
 							fontFamily: "Almarai, sans-serif"
-						}}>{T._('TOTAL', 'Composer')} </span>
+						}}>{T._d('TOTAL')} </span>
 						<div className=""
 							style={{
 								color: "inherit",
@@ -957,7 +971,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 										onClick={() => handleAreaClick(area.id)}
 									>
 										{Icon}
-										<span style={{ /* your styles */ }}>{displayName}</span>
+										<span style={{ /* your styles */ }}>{T._d(displayName)}</span>
 									</Area>
 								);
 							})}
@@ -994,7 +1008,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 										selected={activeButton === "images"}
 										onClick={() => {
-											handleUploadImageClick(addItemImage, createImage)
+											handleUploadImageClick()
 											setMoveElements(true);
 										}}>
 
