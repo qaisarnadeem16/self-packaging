@@ -923,7 +923,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							paddingRight: '5px',
 							maxWidth: '100px',
 							fontFamily: "Almarai, sans-serif"
-						}}>Die-cut Face</span>
+						}}>{T._('TOTAL', 'Composer')} </span>
 						<div className=""
 							style={{
 								color: "inherit",

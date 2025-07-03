@@ -42,7 +42,7 @@ import { AiIcon, ArIcon } from "./layout/tlayoutStyles";
 import Zoom from "./Zoom/Zoom";
 import ShareDialog from "./dialogs/ShareDialog";
 import { PRODUCT_FULL_SUIT, scrollDownOnClick } from "../Helpers";
-import { useActualGroups } from "helper";
+import { T, useActualGroups } from "helper";
 import textIcon from '../../assets/icons/font-solid.svg';
 import savedCompositionsIcon from '../../assets/icons/saved_designs.svg';
 import star from '../../assets/icons/star.svg';
@@ -399,7 +399,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
           <div className="full_screen" onClick={fullScreen} style={{}}>
             <FullScreen />
-            <div className="ff_zoom_description">Full screen</div>
+            <div className="ff_zoom_description" >{T._('Full screen', 'Composer')} </div>
           </div>
         </div>
 
@@ -582,7 +582,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                       }}
                                     >
 
-                                      {isShadeSize ? attribute.name.replace(/[a-zA-Z]/g, "") : attribute.name}
+                                      {isShadeSize ? attribute.name.replace(/[a-zA-Z]/g, "") : T._(attribute.name, 'Composer')}
                                     </div>
                                   ) : (
                                     <div className="menu_choice_option_image_container">
@@ -622,7 +622,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                     textAlign: "center",
                                   }}
                                 >
-                                  {attribute.name}
+                                  {T._(attribute.name , 'Composer')}   
                                 </div>
                               </div>
                             ))}
