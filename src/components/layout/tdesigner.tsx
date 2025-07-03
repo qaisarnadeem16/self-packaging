@@ -803,16 +803,34 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					<button className="" onClick={() => setMoveElements(false)}
 						style={{
 							border: `2px solid ${!moveElements ? "#f97316" : "#6b7280"}`,
+							background:"white",
+							borderRadius:"10px",
+							padding:"0",
+							display:"flex",
+							flexDirection:"column",
+							gap:'1px',
 						}}>
-						<img src="/svg/3d.svg" alt="" className="" />
+						<span className="" style={{ color: 'black', textAlign: "center", fontSize: "12px" }}>{T._d('3D')}</span>
+
+						<img src="/svg/3d1.svg" alt="" className="" />
+
+
+						<span className="" style={{ color: 'black', textAlign: "center", fontSize: "12px" }}>{T._d('View')}</span>
 					</button>
 
 					<button className="" onClick={() => setMoveElements(true)}
 						style={{
 							border: `2px solid ${moveElements ? "#f97316" : "#6b7280"}`,
-
+							background: "white",
+							borderRadius: "10px",
+							padding: "0",
+							display: "flex",
+							flexDirection: "column",
+							gap: '1px',
 						}}>
-						<img src="/svg/edit.svg" alt="" className="" />
+						<img src="/svg/edit1.svg" alt="" className="" />
+						<span className="" style={{ color: 'black', textAlign: "center", fontSize: "12px" }}>{T._d('Edit')}</span>
+
 					</button>
 				</div>
 				{/* Templates */}
