@@ -495,7 +495,7 @@ export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
     min-width: 52%;
     width: 52%;
     position: fixed;
-    bottom: 15%;
+    bottom: 16%;
     left: 2%;
     margin: auto;
     padding-bottom: 20px;
