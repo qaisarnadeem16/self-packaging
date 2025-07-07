@@ -829,7 +829,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							gap: '1px',
 						}}>
 						<img src="/svg/edit1.svg" alt="" className="" />
-						<span className="" style={{ color: 'black', textAlign: "center", fontSize: "12px" }}>{T._d('Edit')}</span>
+						<span className="" style={{ color: 'black', textAlign: "center", fontSize: "12px" }}> {T._("Edit", "Composer")}</span>
 
 					</button>
 				</div>
