@@ -363,7 +363,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 		return fileFormats;
 	}
-	  
+
 	const isItemEditable = (item: Item, templateArea?: TemplateArea) => {
 		if (!item.constraints) return false;
 
@@ -803,19 +803,20 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					<button className="" onClick={() => setMoveElements(false)}
 						style={{
 							border: `2px solid ${!moveElements ? "#f97316" : "#6b7280"}`,
-							background:"white",
-							borderRadius:"10px",
-							padding:"0",
-							display:"flex",
-							flexDirection:"column",
-							gap:'1px',
+							background: "white",
+							borderRadius: "10px",
+							padding: "0",
+							display: "flex",
+							flexDirection: "column",
+							gap: '1px',
 						}}>
 						<span className="" style={{ color: 'black', textAlign: "center", fontSize: "12px" }}>{T._d('3D')}</span>
 
 						<img src="/svg/3d1.svg" alt="" className="" />
 
 
-						<span className="" style={{ color: 'black', textAlign: "center", fontSize: "12px" }}>{T._d('View')}</span>
+						<span className="" style={{ color: 'black', textAlign: "center", fontSize: "12px" }}>							{T._("View", "Composer")}
+						</span>
 					</button>
 
 					<button className="" onClick={() => setMoveElements(true)}
