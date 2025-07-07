@@ -399,7 +399,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
           <div className="full_screen" onClick={fullScreen} style={{}}>
             <FullScreen />
-            <div className="ff_zoom_description" >{T._('Full screen', 'Composer')} </div>
+            <div className="ff_zoom_description" >{T._d('Full screen')} </div>
           </div>
         </div>
 
