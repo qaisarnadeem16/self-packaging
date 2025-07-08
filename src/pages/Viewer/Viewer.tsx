@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef } from "react";
+import React, { FunctionComponent, useEffect, useRef } from "react";
 import styled from "styled-components";
 import {
   ZakekeEnvironment,
@@ -11,6 +11,7 @@ import Selector from "../../components/selector";
 import ExplodeSolid from "../../assets/icons/expand-arrows-alt-solid.js";
 
 import { Icon } from '../../components/Atomic';
+import { T } from "Helpers";
 
 const zakekeEnvironment = new ZakekeEnvironment();
 
@@ -29,7 +30,8 @@ const ExplodeIcon = styled(Icon)`
 
 const Viewer: FunctionComponent<{}> = () => {
   const {
-    isSceneLoading
+    isSceneLoading,
+    translations
   } = useZakeke();
 
   const viewElement = useRef<HTMLDivElement | null>(null);
@@ -37,7 +39,13 @@ const Viewer: FunctionComponent<{}> = () => {
   const fullScreen = () => {
     (viewElement.current!).requestFullscreen()
   }
-  
+  // for translations
+  useEffect(() => {
+    if (translations) {
+      T.translations = translations;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [translations]);
   return (
     <>
       <div className="layout">

@@ -14,7 +14,8 @@ import { ReactComponent as CloseIcon } from '../../assets/icons/times-solid.svg'
 import AdvancedSelect from './AdvancedSelect';
 import { FormControl } from './FormControl';
 import ColorPicker from './colorPicker';
-import { T, wrapperJoin } from 'helper';
+import { T } from 'Helpers';
+import { wrapperJoin } from 'helper';
 
 export interface EditTextItem {
   guid: string;

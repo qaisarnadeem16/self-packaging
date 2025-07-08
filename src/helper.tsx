@@ -2,6 +2,7 @@
 import _ from 'lodash';
 import useStore from 'Store';
 import { Group, Option, SellerSettings, useZakeke } from '@zakeke/zakeke-configurator-react';
+import { T } from 'Helpers';
 
 let isRegisteringUndoStep = false;
 export interface UndoRedoStep {
@@ -133,34 +134,34 @@ export interface Translations {
     dynamics: Map<string, string>;
 }
 
-export class T {
-    public static translations: Translations | null = null;
+// export class T {
+//     public static translations: Translations | null = null;
 
-    public static _(str: string, domain: string) {
-        if (this.translations?.statics) {
-            const keys = Array.from(this.translations?.statics.keys());
-            for (let key of keys) {
-                if (key.toLowerCase() === str.toLowerCase()) return this.translations.statics.get(key);
-            }
-        }
+//     public static _(str: string, domain: string) {
+//         if (this.translations?.statics) {
+//             const keys = Array.from(this.translations?.statics.keys());
+//             for (let key of keys) {
+//                 if (key.toLowerCase() === str.toLowerCase()) return this.translations.statics.get(key);
+//             }
+//         }
 
-        let gt = (window as any).gt;
-        return gt ? gt.dgettext(domain, str) : str;
-    }
+//         let gt = (window as any).gt;
+//         return gt ? gt.dgettext(domain, str) : str;
+//     }
 
-    public static _d(str: string) {
-        let string = str;
-        if (this.translations?.dynamics) {
-            const keys = Array.from(this.translations?.dynamics.keys());
-            for (let key of keys) {
-                if (key.toLowerCase() === str.toLowerCase()) {
-                    if (this.translations.dynamics.get(key)) string = this.translations.dynamics.get(key) as string;
-                }
-            }
-        }
-        return string;
-    }
-}
+//     public static _d(str: string) {
+//         let string = str;
+//         if (this.translations?.dynamics) {
+//             const keys = Array.from(this.translations?.dynamics.keys());
+//             for (let key of keys) {
+//                 if (key.toLowerCase() === str.toLowerCase()) {
+//                     if (this.translations.dynamics.get(key)) string = this.translations.dynamics.get(key) as string;
+//                 }
+//             }
+//         }
+//         return string;
+//     }
+// }
 
 export const range = (actualIndex: number, maxItems: number, array: any) => {
     let result = [];
