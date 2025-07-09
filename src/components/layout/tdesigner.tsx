@@ -1011,7 +1011,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 								paddingRight: '5px',
 								maxWidth: '100px',
 								fontFamily: "Almarai, sans-serif !important"
-							}}>Custom  tool</span>
+							}}>{T._d('Custom  tool')}</span>
 						</div>
 
 						<UploadButtonDiv>

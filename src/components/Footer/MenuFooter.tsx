@@ -132,9 +132,9 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
           <div className="" style={{ display: 'flex', gap: '20px' }}>
             <div className="sale_price">
               -20%
-              <span className='off_price'>{T._('Antes', 'Composer')} : 0,80€/u</span>
+              <span className='off_price'>{T._d('Before')} : 0,80€/u</span>
             </div>
-            <div className="price_value">{priceFormatter.format(price)} <span className='price_value_total'>{T._('Total', 'Composer')} : 0.00 €</span></div>
+            <div className="price_value">{priceFormatter.format(price)} <span className='price_value_total'>{T._d('Total')} : 0.00 €</span></div>
           </div>
 
           <div className="add_cart">
@@ -158,7 +158,7 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
                 <span>
                   {isDraftEditor || isEditorMode
                     ? T._('Save', 'Composer')
-                    : T._(' añadir a carrito', 'Composer')}
+                    : T._('Add to cart', 'Composer')}
                 </span>
               )}
               {!isAddToCartLoading && isOutOfStock && <span>{T._('OUT OF STOCK', 'Composer')}</span>}
