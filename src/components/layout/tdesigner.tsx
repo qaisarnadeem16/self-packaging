@@ -956,7 +956,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							paddingRight: '5px',
 							maxWidth: '100px',
 							fontFamily: "Almarai, sans-serif"
-						}}>{T._d('Die-cut face')} </span>
+						}}>{T._d('Die-cut faces')} </span>
 						<div className=""
 							style={{
 								color: "inherit",
