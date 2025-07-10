@@ -1318,7 +1318,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 						) : (
 							<div className="">
 								<div className="" style={{ color: "black", display: 'flex', flexWrap: "wrap", alignItems: 'center', position: 'relative', width: '100%', gap: '10px', justifyContent: 'space-between' }}>
-									<h2 className="">Pattern</h2>
+										<h2 className="">{T._d('Pattern')}</h2>
 									<button style={{ background: 'white', border: "0" }} onClick={() => setActiveButton("design")} className=""><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M5 13L13 5M5 5L13 13" stroke="#434342" stroke-linejoin="round" />
 										<circle cx="9" cy="9" r="8.5" stroke="#434342" />
