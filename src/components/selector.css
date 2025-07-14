@@ -199,8 +199,8 @@ div {
 
 .price_value {
     color: #434342;
-    font-size: 34px;
-    font-weight: 700;
+    font-size:24px;
+    font-weight: 500;
     display: flex;
     flex-direction: column;
     gap: 10px;

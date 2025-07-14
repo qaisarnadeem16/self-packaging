@@ -134,7 +134,10 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
               -20%
               <span className='off_price'>{T._d('Before')} : 0,80€/u</span>
             </div> */}
-            <div className="price_value">{priceFormatter.format(price)} <span className='price_value_total'>{T._d('Total')} : {priceFormatter.format(price)}</span></div>
+            <div className="price_value">
+              {/* 0,80 € /un */}
+              {priceFormatter.format(price)} /un
+              <span className='price_value_total'>{T._d('Total')} : {priceFormatter.format(price)}</span></div>
           </div>
 
           <div className="add_cart">
