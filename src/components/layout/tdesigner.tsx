@@ -1084,7 +1084,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 											<path d="M1.00123 6.16478C1.16423 4.01928 1.32438 1.10093 8.37369 3.06188C14.302 4.70849 14.8167 1 14.8167 1L14.8453 26.5067C14.6795 28.6493 14.4392 31.8474 7.47287 29.6096C0.186194 27.268 1.02982 32.6779 1.02982 32.6779L1.00123 6.1619V6.16478Z" fill="white" stroke="#434342" stroke-width="0.92" />
 										</svg>
 									</TextIcon>
-									<span style={{ paddingTop: '8px' }}>{T._('Pattern', 'Composer')}</span>
+									<span style={{ paddingTop: '8px' }}>{T._d('Pattern')}</span>
 								</TextButton>
 							)}
 
