@@ -248,7 +248,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		setCopyrightMessageAccepted,
 		getCopyrightMessageAccepted,
 		defaultColor,
-		fonts
+		fonts ,
+		getPrintingMethods ,
+		setPrintingMethod
 	} = useZakeke();
 	const customizerRef = useRef<any | null>(null);
 	const [selectedCarouselSlide, setSelectedCarouselSlide] = useState<number>(0);
@@ -257,6 +259,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	let finalVisibleAreas: ProductArea[] = [];
 
 	const [moveElements, setMoveElements] = useState(false);
+
+
 
 	const translatedTemplates = templates.map((template) => {
 		return { id: template.id, name: T._d(template.name), areas: template.areas };
@@ -541,19 +545,24 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			const options = colorGroup.attributes[0].options;
 
 			if (options && Array.isArray(options)) {
-				const isDarkSelected = options.some(
-					(opt) =>
-						darkColors.includes(opt.name.toLowerCase()) &&
-						opt.selected === true
-				);
+				// Find selected color
+				const selectedOption = options.find(opt => opt.selected === true);
 
-				setIsDarkColor(isDarkSelected);
-				return;
+				if (selectedOption) {
+					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
+
+					setIsDarkColor(isDark); // ✅ Set dark color state
+					handleColorSelection(selectedOption.name); // ✅ Always call function with selected color
+					return;
+				}
 			}
 		}
 
+		// No selected color or color group found
 		setIsDarkColor(false);
-	}, [groups]);
+	}, []); // 👈 Include `groups` as dependency
+
+
 
 
 	useEffect(() => {
@@ -794,6 +803,43 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		setActiveButton("design")
 
 	}
+
+
+
+	const printingMethods = getPrintingMethods();
+	// console.log('-----p', printingMethods)
+
+	const handleColorSelection = async (colorName: string) => {
+		// Define engraving colors
+		const engravingColors = [
+			"black",
+			"midnight blue",
+			"green",
+			"metallic anthracite",
+			"burgundy",
+			"brown",
+		];
+
+		// Check if selected color is engraving type
+		const isEngraving = engravingColors.includes(colorName.toLowerCase());
+		// console.log(isEngraving)
+
+		// Determine keyword based on color type
+		const keyword = isEngraving ? "white-only" : "full-color";
+
+		// Find matching printing method
+		const method = printingMethods.find(pm =>
+			pm.name.toLowerCase().includes(keyword)
+		);
+// console.log(method)
+		if (method) {
+			await setPrintingMethod(method.printMethodId, actualAreaId);
+		} else {
+			console.warn(`No matching printing method found for keyword: ${keyword}`);
+		}
+	};
+
+
 
 	return (
 		<>
