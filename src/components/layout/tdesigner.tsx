@@ -531,12 +531,12 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			"midnight blue",
 			"green",
 			"metallic anthracite",
+			// "metalic anthracita", 
 			"burgundy",
 			"brown",
 		];
 
 		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
-
 		if (
 			colorGroup &&
 			Array.isArray(colorGroup.attributes) &&
@@ -547,6 +547,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			if (options && Array.isArray(options)) {
 				// Find selected color
 				const selectedOption = options.find(opt => opt.selected === true);
+				console.log(selectedOption)
 
 				if (selectedOption) {
 					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
