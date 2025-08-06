@@ -250,10 +250,7 @@ const ItemText2: FC<{
   // Fix: Only call handleFontChange when fonts are available and after initial render
   useEffect(() => {
     if (fonts && fonts.length > 0 && item.fontFamily) {
-      // Use setTimeout to ensure the component is fully initialized
-      setTimeout(() => {
         handleFontChange(item.fontFamily);
-      }, 50);
     }
     //eslint-disable-next-line
   }, [fonts]);
