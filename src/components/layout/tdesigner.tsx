@@ -527,14 +527,32 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		if (!groups || !Array.isArray(groups)) return;
 
 		const darkColors = [
-			"BORGOÑA", "NEGRO", "MARRÓN", "VERDE", "ANTRACITA METALIZADO",
-			"BORGOGNA", "NERO", "MARRONE", "VERDE", "ANTRACITE METALLIZZATO",
-			"BOURGOGNE", "NOIR", "MARRON", "VERT", "ANTHRACITE MÉTALLISÉ",
-			"BURGUNDY", "BLACK", "BROWN", "GREEN", "METALLIC ANTHRACITE",
-			"BURGUNDROT", "SCHWARZ", "BRAUN", "GRÜN", "ANTHRAZIT-METALLIC"
-		]
-
-		
+			"borgoña",
+			"negro",
+			"marrón",
+			"verde",
+			"antracita metalizado",
+			"borgogna",
+			"nero",
+			"marrone",
+			"antracite metallizzato",
+			"bourgogne",
+			"noir",
+			"marron",
+			"vert",
+			"anthracite métallisé",
+			"burgundy",
+			"black",
+			"brown",
+			"green",
+			"metallic anthracite",
+			"burgundrot",
+			"schwarz",
+			"braun",
+			"grün",
+			"anthrazit-metallic",
+			"midnight blue"
+		]	
 		// [
 		// 	"black",
 		// 	"midnight blue",
@@ -821,11 +839,31 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const handleColorSelection = async (colorName: string) => {
 		// Define engraving colors
 		const engravingColors = [
-			"BORGOÑA", "NEGRO", "MARRÓN", "VERDE", "ANTRACITA METALIZADO",
-			"BORGOGNA", "NERO", "MARRONE", "VERDE", "ANTRACITE METALLIZZATO",
-			"BOURGOGNE", "NOIR", "MARRON", "VERT", "ANTHRACITE MÉTALLISÉ",
-			"BURGUNDY", "BLACK", "BROWN", "GREEN", "METALLIC ANTHRACITE",
-			"BURGUNDROT", "SCHWARZ", "BRAUN", "GRÜN", "ANTHRAZIT-METALLIC"
+			"borgoña",
+			"negro",
+			"marrón",
+			"verde",
+			"antracita metalizado",
+			"borgogna",
+			"nero",
+			"marrone",
+			"antracite metallizzato",
+			"bourgogne",
+			"noir",
+			"marron",
+			"vert",
+			"anthracite métallisé",
+			"burgundy",
+			"black",
+			"brown",
+			"green",
+			"metallic anthracite",
+			"burgundrot",
+			"schwarz",
+			"braun",
+			"grün",
+			"anthrazit-metallic",
+			"midnight blue"
 		]
 
 
