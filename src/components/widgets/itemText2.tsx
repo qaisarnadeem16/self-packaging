@@ -167,7 +167,10 @@ const ItemText2: FC<{
   const hasCurvedText = item.isTextOnPath;
   const isUpperCase = constraints?.toUppercase ?? false;
 
-  let currentFont = fonts?.find((x) => x.name === item.fontFamily);
+  const [currentFont, setCurrentFont] = useState<FontFamily | undefined>(() => 
+    fonts?.find((x) => x.name === item.fontFamily)
+  );
+  // let currentFont = fonts?.find((x) => x.name === item.fontFamily);
 
   const textRestrictions = getPrintingMethodsRestrictions();
   // Used for performance cache
@@ -202,16 +205,66 @@ const ItemText2: FC<{
     }, 500)();
   };
 
-  const handleFontChange = (font: string) => {
-    handleItemPropChange(item, 'font-family', font);
-    currentFont = fonts?.find((x) => x.name === font);
-    setItemTextDebounced(item.text);
+  const handleFontChange = (fontName: string) => {
+    // Fix: Add validation before processing
+    if (!fonts || fonts.length === 0) {
+      console.warn('Fonts not loaded yet, deferring font change');
+      return;
+    }
+
+    const foundFont = fonts.find((x) => x.name === fontName);
+    
+    if (!foundFont) {
+      console.warn(`Font "${fontName}" not found in available fonts`);
+      // Set a default font if available
+      const defaultFont = fonts[0];
+      if (defaultFont) {
+        setCurrentFont(defaultFont);
+        handleItemPropChange(item, 'font-family', defaultFont.name);
+      }
+      return;
+    }
+
+    // Update the current font state FIRST
+    setCurrentFont(foundFont);
+    
+    // Call the prop change handler for font family
+    handleItemPropChange(item, 'font-family', fontName);
+    
+    // Wait for the font to be set before setting text
+    setTimeout(() => {
+      if (foundFont) {
+        setItemTextDebounced(item.text);
+      }
+    }, 100);
   };
 
+  // Fix: Update currentFont when fonts load or item changes
   useEffect(() => {
-    handleFontChange(item.fontFamily);
+    if (fonts && fonts.length > 0 && item.fontFamily) {
+      const foundFont = fonts.find((x) => x.name === item.fontFamily);
+      setCurrentFont(foundFont);
+    }
+  }, [fonts, item.fontFamily]);
+
+  // Fix: Only call handleFontChange when fonts are available and after initial render
+  useEffect(() => {
+    if (fonts && fonts.length > 0 && item.fontFamily) {
+        handleFontChange(item.fontFamily);
+    }
     //eslint-disable-next-line
-  }, []);
+  }, [fonts]);
+
+  // const handleFontChange = (font: string) => {
+  //   handleItemPropChange(item, 'font-family', font);
+  //   currentFont = fonts?.find((x) => x.name === font);
+  //   setItemTextDebounced(item.text);
+  // };
+
+  // useEffect(() => {
+  //   handleFontChange(item.fontFamily);
+  //   //eslint-disable-next-line
+  // }, []);
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     let stringWithZeroWidthSpace = e.target.value.replace(/\u200B/g, "");
 
