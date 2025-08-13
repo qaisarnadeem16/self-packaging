@@ -551,7 +551,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			"braun",
 			"grün",
 			"anthrazit-metallic",
-			"midnight blue"
+			"midnight blue",
+			"azul noche"
 		]	
 		// [
 		// 	"black",
@@ -863,7 +864,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			"braun",
 			"grün",
 			"anthrazit-metallic",
-			"midnight blue"
+			"midnight blue",
+			"azul noche"
 		]
 
 
