@@ -285,13 +285,21 @@ const Selector: FunctionComponent<SelectorProps> = ({
   );
 
   // Open the first group and the first step when loaded
-  useEffect(() => {
-    if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {
-      selectGroup(groups1[0].id);
+  // useEffect(() => {
+  //   if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {
+  //     selectGroup(groups1[0].id);
 
-      if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
-    }
-  }, [selectedGroup, groups1]);
+  //     if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
+  //   }
+  // }, [selectedGroup, groups1]);
+  useEffect(() => {
+  
+      if (!selectedGroup && groups1.length > 0 && groups1[groups1.length - 1].id === -2) {
+        selectGroup(groups1[groups1.length - 1].id);
+
+        if (groups1[groups1.length - 1].steps.length > 0) selectStep(groups1[groups1.length - 1].steps[0].id);
+      }
+    }, [selectedGroup, groups1]);
 
   // Select attribute first time
   useEffect(() => {
