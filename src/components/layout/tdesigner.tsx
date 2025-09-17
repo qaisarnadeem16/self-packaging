@@ -579,8 +579,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	}; // 👈 Include `groups` as dependency
 
 
-
-	processColorSelection(groups);
+	useEffect(() => {
+		processColorSelection(groups);
+	}, [groups]);
 	useEffect(() => {
 		updateCategories();
 
