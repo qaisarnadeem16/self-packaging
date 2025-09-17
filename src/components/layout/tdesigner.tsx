@@ -580,12 +580,14 @@ const hasProcessed = useRef(false);
   };
 
   // Run processColorSelection only once when groups is first available
-  useEffect(() => {
-    if (!hasProcessed.current && groups && Array.isArray(groups)) {
-      processColorSelection(groups);
-      hasProcessed.current = true; // Mark as processed
-    }
-  }, []);
+
+	useEffect(() => {
+		// run only once, the first time valid groups arrive
+		if (!hasProcessed.current && Array.isArray(groups) && groups.length > 0) {
+			processColorSelection(groups);
+			hasProcessed.current = true;
+		}
+	}, [groups]); 
 	useEffect(() => {
 		updateCategories();
 
