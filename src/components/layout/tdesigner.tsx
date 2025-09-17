@@ -565,11 +565,13 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
 		if (
-			colorGroup 
+			colorGroup &&
+			Array.isArray(colorGroup.attributes) &&
+			colorGroup.attributes.length > 0
 		) {
 			const options = colorGroup.attributes[0].options;
 
-			if (options && Array.isArray(options)) {
+			// if (options && Array.isArray(options)) {
 				// Find selected color
 				const selectedOption = options.find(opt => opt.selected === true);
 				console.log('selectedOptionselectedOptionselectedOption---',selectedOption)
@@ -582,13 +584,11 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					handleColorSelection(selectedOption.name); // ✅ Always call function with selected color
 					return;
 				}
-			}
-		}else{
-			// No selected color or color group found
-			setIsDarkColor(false);
+			// }
 		}
 
-		
+		// No selected color or color group found
+		// setIsDarkColor(false);
 	}, []); // 👈 Include `groups` as dependency
 
 
