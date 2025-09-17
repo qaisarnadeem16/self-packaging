@@ -522,7 +522,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	// 		setIsDarkColor(false);
 	// 	}, [groups]);
-
+console.log(groups)
 	useEffect(() => {
 		if (!groups || !Array.isArray(groups)) return;
 
@@ -574,10 +574,11 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			if (options && Array.isArray(options)) {
 				// Find selected color
 				const selectedOption = options.find(opt => opt.selected === true);
-				console.log(selectedOption)
+				console.log('selectedOptionselectedOptionselectedOption---',selectedOption)
 
 				if (selectedOption) {
 					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
+					console.log('isDark---', isDark)
 
 					setIsDarkColor(isDark); // ✅ Set dark color state
 					handleColorSelection(selectedOption.name); // ✅ Always call function with selected color
@@ -1022,6 +1023,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							})}
 						</CarouselContainer>
 					)} */}
+					<h2>Testing....</h2>
 				{finalVisibleAreas.length > 1 && (<div className="">
 					<div className=""
 

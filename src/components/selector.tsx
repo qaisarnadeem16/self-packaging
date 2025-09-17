@@ -285,12 +285,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
   );
 
   // Open the first group and the first step when loaded
-  // NEWSEL-369: modificado para abrir el último grupo, ya que será el de diseño
   useEffect(() => {
-    if (!selectedGroup && groups1.length > 0 && groups1[groups1.length - 1].id === -2) {
-      selectGroup(groups1[groups1.length - 1].id);
+    if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {
+      selectGroup(groups1[0].id);
 
-      if (groups1[groups1.length - 1].steps.length > 0) selectStep(groups1[groups1.length - 1].steps[0].id);
+      if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
     }
   }, [selectedGroup, groups1]);
 
@@ -446,10 +445,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   <div
                     className={`menu_item ${group.id === selectedGroupId ? "selected" : ""}`}
                     key={group.id}
-                    {/* NEWSEL-369: ocultar todos los botones */}
-                    style={{
-                      display: "none",
-                    }}
 
                     onClick={() => {
                       scrollDownOnClick(checkOnce, setCheckOnce);
