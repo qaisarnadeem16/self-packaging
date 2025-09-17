@@ -445,7 +445,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   <div
                     className={`menu_item ${group.id === selectedGroupId ? "selected" : ""}`}
                     key={group.id}
-
+                    style={{ display: "none" }}
                     onClick={() => {
                       scrollDownOnClick(checkOnce, setCheckOnce);
                       handleGroupClick(group);
