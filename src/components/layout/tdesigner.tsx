@@ -866,7 +866,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		const keyword = isEngraving ? "white-only" : "full-color";
 
 		// Find matching printing method
-		const method = printingMethods[1];
+		const method = printingMethods.find(pm =>
+			pm.name.toLowerCase().includes(keyword)
+		);
 		console.log('Find matching printing method',method)
 		if (method) {
 			await setPrintingMethod(method.printMethodId, actualAreaId);
