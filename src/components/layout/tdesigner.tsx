@@ -559,7 +559,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 				if (selectedOption) {
 					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
 					console.log("[processColorSelection] isDark:", isDark);
-					setIsDarkColor(isDark);
+					// setIsDarkColor(isDark);
 					handleColorSelection(selectedOption.name);
 					return;
 				}
