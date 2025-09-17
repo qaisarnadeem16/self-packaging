@@ -559,8 +559,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 				if (selectedOption) {
 					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
 					console.log("[processColorSelection] isDark:", isDark);
-					setIsDarkColor(isDark);
-					// handleColorSelection(selectedOption.name);
+					// setIsDarkColor(isDark);
+					handleColorSelection(selectedOption.name);
 					return;
 				}
 			}
@@ -576,7 +576,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 		if (!hasProcessed.current && groups.length > 0) {
 			console.log("[useEffect] Running processColorSelection");
-			// processColorSelection(groups);
+			processColorSelection(groups);
 			hasProcessed.current = true;
 			console.log("[useEffect] hasProcessed set to true");
 		}
@@ -824,7 +824,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 
 	const printingMethods = getPrintingMethods();
-	// console.log('-----p', printingMethods)
+	console.log('-----p', printingMethods)
 
 	const handleColorSelection = async (colorName: string) => {
 		// Define engraving colors
@@ -860,7 +860,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 		// Check if selected color is engraving type
 		const isEngraving = engravingColors.includes(colorName.toLowerCase());
-		// console.log(isEngraving)
+		console.log(isEngraving)
 
 		// Determine keyword based on color type
 		const keyword = isEngraving ? "white-only" : "full-color";
