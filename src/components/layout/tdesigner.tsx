@@ -524,70 +524,64 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	// 		setIsDarkColor(false);
 	// 	}, [groups]);
 	console.log('groups-',groups)
-const hasProcessed = useRef(false);
+	const hasProcessed = useRef(false);
 
-  // Process color selection
-  const processColorSelection = (groups: any) => {
-    const darkColors = [
-      'borgoña',
-      'negro',
-      'marrón',
-      'verde',
-      'antracita metalizado',
-      'borgogna',
-      'nero',
-      'marrone',
-      'antracite metallizzato',
-      'bourgogne',
-      'noir',
-      'marron',
-      'vert',
-      'anthracite métallisé',
-      'burgundy',
-      'black',
-      'brown',
-      'green',
-      'metallic anthracite',
-      'burgundrot',
-      'schwarz',
-      'braun',
-      'grün',
-      'anthrazit-metallic',
-      'midnight blue',
-      'azul noche',
-    ];
+	// Process color selection
+	const processColorSelection = (groups: any) => {
+		console.log("[processColorSelection] called with groups:", groups);
 
-    if (!groups || !Array.isArray(groups)) {
-      setIsDarkColor(false);
-      return;
-    }
+		const darkColors = [
+			"borgoña", "negro", "marrón", "verde", "antracita metalizado",
+			"borgogna", "nero", "marrone", "antracite metallizzato",
+			"bourgogne", "noir", "marron", "vert", "anthracite métallisé",
+			"burgundy", "black", "brown", "green", "metallic anthracite",
+			"burgundrot", "schwarz", "braun", "grün", "anthrazit-metallic",
+			"midnight blue", "azul noche",
+		];
 
-    const colorGroup = groups.find((group: any) => group.name.toLowerCase() === 'color');
-    if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
-      const options = colorGroup.attributes[0].options;
-      if (options && Array.isArray(options)) {
-        const selectedOption = options.find((opt: any) => opt.selected === true);
-        if (selectedOption) {
-          const isDark = darkColors.includes(selectedOption.name.toLowerCase());
-          setIsDarkColor(isDark);
-          handleColorSelection(selectedOption.name);
-          return;
-        }
-      }
-    }
+		if (!groups || !Array.isArray(groups)) {
+			console.log("[processColorSelection] groups invalid → setIsDarkColor(false)");
+			setIsDarkColor(false);
+			return;
+		}
 
-    setIsDarkColor(false);
-  };
+		const colorGroup = groups.find((group: any) => group.name.toLowerCase() === "color");
+		console.log("[processColorSelection] colorGroup:", colorGroup);
 
-  // Run processColorSelection only once when groups is first available
+		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
+			const options = colorGroup.attributes[0].options;
+			console.log("[processColorSelection] options:", options);
 
+			if (options && Array.isArray(options)) {
+				const selectedOption = options.find((opt: any) => opt.selected === true);
+				console.log("[processColorSelection] selectedOption:", selectedOption);
+
+				if (selectedOption) {
+					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
+					console.log("[processColorSelection] isDark:", isDark);
+					setIsDarkColor(isDark);
+					handleColorSelection(selectedOption.name);
+					return;
+				}
+			}
+		}
+
+		console.log("[processColorSelection] No matching color → setIsDarkColor(false)");
+		setIsDarkColor(false);
+	};
+
+	// Run processColorSelection only once when groups is first available
 	useEffect(() => {
-		// run only once, the first time valid groups arrive
+		console.log("[useEffect] fired. hasProcessed:", hasProcessed.current, "groups:", groups);
+
 		if (!hasProcessed.current && Array.isArray(groups) && groups.length > 0) {
+			console.log("[useEffect] Running processColorSelection");
 			processColorSelection(groups);
 			hasProcessed.current = true;
+			console.log("[useEffect] hasProcessed set to true");
 		}
-	}, [groups]); 
+	}, [groups]);
+
 	useEffect(() => {
 		updateCategories();
 
