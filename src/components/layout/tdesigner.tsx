@@ -863,7 +863,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		console.log(isEngraving)
 
 		// Determine keyword based on color type
-		const keyword = isEngraving ? "white-only" : "full-color";
+		const keyword = isEngraving ? "full-color" : "white-only";
 
 		// Find matching printing method
 		const method = printingMethods.find(pm =>
