@@ -495,7 +495,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const [selectedImageIds, setSelectedImageIds] = useState<number[]>([]);
 	const [activeButton, setActiveButton] = useState<string | null>('design');
 
-	const groups = useActualGroups();
+	// const groups = useActualGroups();
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const groups = useMemo(() => useActualGroups(), [/* dependencies of useActualGroups */]);
 	// console.log(product.sku)
 	// 	useEffect(() => {
 	// 		if (!groups || !Array.isArray(groups)) return;
@@ -522,7 +524,57 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	// 		setIsDarkColor(false);
 	// 	}, [groups]);
-	// console.log('groups-',groups)
+	console.log('groups-',groups)
+	const handleColorSelection = async (colorName: string) => {
+		// Define engraving colors
+		const engravingColors = [
+			"borgoña",
+			"negro",
+			"marrón",
+			"verde",
+			"antracita metalizado",
+			"borgogna",
+			"nero",
+			"marrone",
+			"antracite metallizzato",
+			"bourgogne",
+			"noir",
+			"marron",
+			"vert",
+			"anthracite métallisé",
+			"burgundy",
+			"black",
+			"brown",
+			"green",
+			"metallic anthracite",
+			"burgundrot",
+			"schwarz",
+			"braun",
+			"grün",
+			"anthrazit-metallic",
+			"midnight blue",
+			"azul noche"
+		]
+
+
+		// Check if selected color is engraving type
+		const isEngraving = engravingColors.includes(colorName.toLowerCase());
+		// console.log(isEngraving)
+
+		// Determine keyword based on color type
+		const keyword = isEngraving ? "white-only" : "full-color";
+
+		// Find matching printing method
+		const method = printingMethods.find(pm =>
+			pm.name.toLowerCase().includes(keyword)
+		);
+		// console.log(method)
+		if (method) {
+			await setPrintingMethod(method.printMethodId, actualAreaId);
+		} else {
+			console.warn(`No matching printing method found for keyword: ${keyword}`);
+		}
+	};
 	useEffect(() => {
 		if (!groups || !Array.isArray(groups)) return;
 
@@ -564,28 +616,21 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		// ];
 
 		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
-		if (
-			colorGroup 
-		) {
+		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
 			const options = colorGroup.attributes[0].options;
-				// Find selected color
+			if (options && Array.isArray(options)) {
 				const selectedOption = options.find(opt => opt.selected === true);
-				console.log('selectedOptionselectedOptionselectedOption---',selectedOption)
-
 				if (selectedOption) {
 					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
-					console.log('isDark---', isDark)
-
-					setIsDarkColor(isDark); // ✅ Set dark color state
-					// handleColorSelection(selectedOption.name); // ✅ Always call function with selected color
+					setIsDarkColor(isDark);
+					handleColorSelection(selectedOption.name);
 					return;
 				}
+			}
 		}
 
-		// No selected color or color group found
-		// setIsDarkColor(false);
-	}, []); // 👈 Include `groups` as dependency
-
+		setIsDarkColor(false);
+	}, [groups]);
 
 
 
@@ -833,56 +878,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const printingMethods = getPrintingMethods();
 	// console.log('-----p', printingMethods)
 
-	const handleColorSelection = async (colorName: string) => {
-		// Define engraving colors
-		const engravingColors = [
-			"borgoña",
-			"negro",
-			"marrón",
-			"verde",
-			"antracita metalizado",
-			"borgogna",
-			"nero",
-			"marrone",
-			"antracite metallizzato",
-			"bourgogne",
-			"noir",
-			"marron",
-			"vert",
-			"anthracite métallisé",
-			"burgundy",
-			"black",
-			"brown",
-			"green",
-			"metallic anthracite",
-			"burgundrot",
-			"schwarz",
-			"braun",
-			"grün",
-			"anthrazit-metallic",
-			"midnight blue",
-			"azul noche"
-		]
 
-
-		// Check if selected color is engraving type
-		const isEngraving = engravingColors.includes(colorName.toLowerCase());
-		// console.log(isEngraving)
-
-		// Determine keyword based on color type
-		const keyword = isEngraving ? "white-only" : "full-color";
-
-		// Find matching printing method
-		const method = printingMethods.find(pm =>
-			pm.name.toLowerCase().includes(keyword)
-		);
-// console.log(method)
-		if (method) {
-			await setPrintingMethod(method.printMethodId, actualAreaId);
-		} else {
-			console.warn(`No matching printing method found for keyword: ${keyword}`);
-		}
-	};
 
 
 
