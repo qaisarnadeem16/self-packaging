@@ -522,7 +522,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	// 		setIsDarkColor(false);
 	// 	}, [groups]);
-	console.log('groups-',groups)
+	// console.log('groups-',groups)
 	useEffect(() => {
 		if (!groups || !Array.isArray(groups)) return;
 
@@ -565,13 +565,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
 		if (
-			colorGroup &&
-			Array.isArray(colorGroup.attributes) &&
-			colorGroup.attributes.length > 0
+			colorGroup 
 		) {
 			const options = colorGroup.attributes[0].options;
-
-			// if (options && Array.isArray(options)) {
 				// Find selected color
 				const selectedOption = options.find(opt => opt.selected === true);
 				console.log('selectedOptionselectedOptionselectedOption---',selectedOption)
@@ -581,10 +577,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					console.log('isDark---', isDark)
 
 					setIsDarkColor(isDark); // ✅ Set dark color state
-					handleColorSelection(selectedOption.name); // ✅ Always call function with selected color
+					// handleColorSelection(selectedOption.name); // ✅ Always call function with selected color
 					return;
 				}
-			// }
 		}
 
 		// No selected color or color group found
