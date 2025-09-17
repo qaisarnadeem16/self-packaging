@@ -523,9 +523,10 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	// 		setIsDarkColor(false);
 	// 	}, [groups]);
-	console.log('groups-',groups)
+	// console.log('groups-',groups)
+	const hasProcessed = useRef(false);
 
-	
+	// Process color selection
 	const processColorSelection = (groups: any) => {
 		const darkColors = [
 			'borgoña',
@@ -576,11 +577,14 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		}
 
 		setIsDarkColor(false);
-	}; // 👈 Include `groups` as dependency
+	};
 
-
+	// Run processColorSelection only once when groups is first available
 	useEffect(() => {
-		processColorSelection(groups);
+		if (!hasProcessed.current && groups && Array.isArray(groups)) {
+			processColorSelection(groups);
+			hasProcessed.current = true; // Mark as processed
+		}
 	}, [groups]);
 	useEffect(() => {
 		updateCategories();
