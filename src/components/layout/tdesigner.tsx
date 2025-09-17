@@ -869,7 +869,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		const method = printingMethods.find(pm =>
 			pm.name.toLowerCase().includes(keyword)
 		);
-// console.log(method)
+		console.log('Find matching printing method',method)
 		if (method) {
 			await setPrintingMethod(method.printMethodId, actualAreaId);
 		} else {
