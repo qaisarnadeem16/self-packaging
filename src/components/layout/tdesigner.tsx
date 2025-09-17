@@ -521,25 +521,49 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	// 		}
 
 	// 		setIsDarkColor(false);
-	// 	}, [groups]);// Track the previously–selected color
-	const prevSelectedColorRef = useRef<string | null>(null);
-
+	// 	}, [groups]);
+	console.log('groups-',groups)
 	useEffect(() => {
 		if (!groups || !Array.isArray(groups)) return;
 
 		const darkColors = [
-			"borgoña", "negro", "marrón", "verde", "antracita metalizado",
-			"borgogna", "nero", "marrone", "antracite metallizzato",
-			"bourgogne", "noir", "marron", "vert", "anthracite métallisé",
-			"burgundy", "black", "brown", "green", "metallic anthracite",
-			"burgundrot", "schwarz", "braun", "grün", "anthrazit-metallic",
-			"midnight blue", "azul noche"
-		];
+			"borgoña",
+			"negro",
+			"marrón",
+			"verde",
+			"antracita metalizado",
+			"borgogna",
+			"nero",
+			"marrone",
+			"antracite metallizzato",
+			"bourgogne",
+			"noir",
+			"marron",
+			"vert",
+			"anthracite métallisé",
+			"burgundy",
+			"black",
+			"brown",
+			"green",
+			"metallic anthracite",
+			"burgundrot",
+			"schwarz",
+			"braun",
+			"grün",
+			"anthrazit-metallic",
+			"midnight blue",
+			"azul noche"
+		]	
+		// [
+		// 	"black",
+		// 	"midnight blue",
+		// 	"green",
+		// 	"metallic anthracite",
+		// 	"burgundy",
+		// 	"brown",
+		// ];
 
-		const colorGroup = groups.find(
-			group => group.name?.toLowerCase() === "color"
-		);
-
+		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
 		if (
 			colorGroup &&
 			Array.isArray(colorGroup.attributes) &&
@@ -547,18 +571,17 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		) {
 			const options = colorGroup.attributes[0].options;
 
-			if (Array.isArray(options)) {
-				const selectedOption = options.find(opt => opt.selected);
-				if (selectedOption) {
-					const selectedColor = selectedOption.name.toLowerCase();
-					const isDark = darkColors.includes(selectedColor);
+			if (options && Array.isArray(options)) {
+				// Find selected color
+				const selectedOption = options.find(opt => opt.selected === true);
+				console.log('selectedOptionselectedOptionselectedOption---',selectedOption)
 
-					// Only run if the selected color actually changed
-					if (selectedColor !== prevSelectedColorRef.current) {
-						setIsDarkColor(isDark);
-						handleColorSelection(selectedOption.name);
-						prevSelectedColorRef.current = selectedColor;
-					}
+				if (selectedOption) {
+					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
+					console.log('isDark---', isDark)
+
+					setIsDarkColor(isDark); // ✅ Set dark color state
+					handleColorSelection(selectedOption.name); // ✅ Always call function with selected color
 					return;
 				}
 			}
@@ -566,9 +589,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 		// No selected color or color group found
 		setIsDarkColor(false);
-		prevSelectedColorRef.current = null;
-	}, [groups]); // ✅ depend only on `groups`
-
+	}, [handleAddClipArt,handleAddTextClick]); // 👈 Include `groups` as dependency
 
 
 
