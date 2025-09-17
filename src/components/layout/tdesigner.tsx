@@ -521,142 +521,57 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	// 		}
 
 	// 		setIsDarkColor(false);
-	// // 	}, [groups]);
-	// console.log('groups-',groups)
-	// useEffect(() => {
-	// 	if (!groups || !Array.isArray(groups)) return;
+	// 	}, [groups]);// Track the previously–selected color
+	const prevSelectedColorRef = useRef<string | null>(null);
 
-	// 	const darkColors = [
-	// 		"borgoña",
-	// 		"negro",
-	// 		"marrón",
-	// 		"verde",
-	// 		"antracita metalizado",
-	// 		"borgogna",
-	// 		"nero",
-	// 		"marrone",
-	// 		"antracite metallizzato",
-	// 		"bourgogne",
-	// 		"noir",
-	// 		"marron",
-	// 		"vert",
-	// 		"anthracite métallisé",
-	// 		"burgundy",
-	// 		"black",
-	// 		"brown",
-	// 		"green",
-	// 		"metallic anthracite",
-	// 		"burgundrot",
-	// 		"schwarz",
-	// 		"braun",
-	// 		"grün",
-	// 		"anthrazit-metallic",
-	// 		"midnight blue",
-	// 		"azul noche"
-	// 	]	
-	// 	// [
-	// 	// 	"black",
-	// 	// 	"midnight blue",
-	// 	// 	"green",
-	// 	// 	"metallic anthracite",
-	// 	// 	"burgundy",
-	// 	// 	"brown",
-	// 	// ];
+	useEffect(() => {
+		if (!groups || !Array.isArray(groups)) return;
 
-	// 	const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
-	// 	if (
-	// 		colorGroup &&
-	// 		Array.isArray(colorGroup.attributes) &&
-	// 		colorGroup.attributes.length > 0
-	// 	) {
-	// 		const options = colorGroup.attributes[0].options;
-
-	// 		if (options && Array.isArray(options)) {
-	// 			// Find selected color
-	// 			const selectedOption = options.find(opt => opt.selected === true);
-	// 			console.log('selectedOptionselectedOptionselectedOption---',selectedOption)
-
-	// 			if (selectedOption) {
-	// 				const isDark = darkColors.includes(selectedOption.name.toLowerCase());
-	// 				console.log('isDark---', isDark)
-
-	// 				setIsDarkColor(isDark); // ✅ Set dark color state
-	// 				handleColorSelection(selectedOption.name); // ✅ Always call function with selected color
-	// 				return;
-	// 			}
-	// 		}
-	// 	}
-
-	// 	// No selected color or color group found
-	// 	setIsDarkColor(false);
-	// }, [groups]); // 👈 Include `groups` as dependency
-
-	function processGroups(groupsData: any[]) {
 		const darkColors = [
-			"borgoña",
-			"negro",
-			"marrón",
-			"verde",
-			"antracita metalizado",
-			"borgogna",
-			"nero",
-			"marrone",
-			"antracite metallizzato",
-			"bourgogne",
-			"noir",
-			"marron",
-			"vert",
-			"anthracite métallisé",
-			"burgundy",
-			"black",
-			"brown",
-			"green",
-			"metallic anthracite",
-			"burgundrot",
-			"schwarz",
-			"braun",
-			"grün",
-			"anthrazit-metallic",
-			"midnight blue",
-			"azul noche"
-		]	
-		// [
-		// 	"black",
-		// 	"midnight blue",
-		// 	"green",
-		// 	"metallic anthracite",
-		// 	"burgundy",
-		// 	"brown",
-		// ];
+			"borgoña", "negro", "marrón", "verde", "antracita metalizado",
+			"borgogna", "nero", "marrone", "antracite metallizzato",
+			"bourgogne", "noir", "marron", "vert", "anthracite métallisé",
+			"burgundy", "black", "brown", "green", "metallic anthracite",
+			"burgundrot", "schwarz", "braun", "grün", "anthrazit-metallic",
+			"midnight blue", "azul noche"
+		];
 
+		const colorGroup = groups.find(
+			group => group.name?.toLowerCase() === "color"
+		);
 
-		const colorGroup = groupsData.find(g => g.name?.toLowerCase() === "color");
 		if (
 			colorGroup &&
 			Array.isArray(colorGroup.attributes) &&
 			colorGroup.attributes.length > 0
 		) {
 			const options = colorGroup.attributes[0].options;
-			const selectedOption = Array.isArray(options)
-				? options.find(o => o.selected)
-				: null;
 
-			if (selectedOption) {
-				const isDark = darkColors.includes(selectedOption.name.toLowerCase());
-				setIsDarkColor(isDark);
-				handleColorSelection(selectedOption.name);
-				return;
+			if (Array.isArray(options)) {
+				const selectedOption = options.find(opt => opt.selected);
+				if (selectedOption) {
+					const selectedColor = selectedOption.name.toLowerCase();
+					const isDark = darkColors.includes(selectedColor);
+
+					// Only run if the selected color actually changed
+					if (selectedColor !== prevSelectedColorRef.current) {
+						setIsDarkColor(isDark);
+						handleColorSelection(selectedOption.name);
+						prevSelectedColorRef.current = selectedColor;
+					}
+					return;
+				}
 			}
 		}
+
+		// No selected color or color group found
 		setIsDarkColor(false);
-	}
+		prevSelectedColorRef.current = null;
+	}, [groups]); // ✅ depend only on `groups`
 
-	const hasProcessed = useRef(false);
 
-	if (!hasProcessed.current && groups && groups.length > 0) {
-		hasProcessed.current = true;      // ✅ ensures one-time run
-		processGroups(groups);
-	}
+
+
 
 	useEffect(() => {
 		updateCategories();
