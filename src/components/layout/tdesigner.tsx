@@ -522,46 +522,74 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	// 		setIsDarkColor(false);
 	// 	}, [groups]);
+	console.log('groups-',groups)
+	useEffect(() => {
+		if (!groups || !Array.isArray(groups)) return;
 
 		const darkColors = [
-			"borgoña", "negro", "marrón", "verde", "antracita metalizado",
-			"borgogna", "nero", "marrone", "antracite metallizzato",
-			"bourgogne", "noir", "marron", "vert", "anthracite métallisé",
-			"burgundy", "black", "brown", "green", "metallic anthracite",
-			"burgundrot", "schwarz", "braun", "grün", "anthrazit-metallic",
-			"midnight blue", "azul noche",
-		];
+			"borgoña",
+			"negro",
+			"marrón",
+			"verde",
+			"antracita metalizado",
+			"borgogna",
+			"nero",
+			"marrone",
+			"antracite metallizzato",
+			"bourgogne",
+			"noir",
+			"marron",
+			"vert",
+			"anthracite métallisé",
+			"burgundy",
+			"black",
+			"brown",
+			"green",
+			"metallic anthracite",
+			"burgundrot",
+			"schwarz",
+			"braun",
+			"grün",
+			"anthrazit-metallic",
+			"midnight blue",
+			"azul noche"
+		]	
+		// [
+		// 	"black",
+		// 	"midnight blue",
+		// 	"green",
+		// 	"metallic anthracite",
+		// 	"burgundy",
+		// 	"brown",
+		// ];
 
-		// ✅ Compute the initial selected color ONCE
-		const initialSelection = useMemo(() => {
-			if (!groups || !Array.isArray(groups)) return { isDark: false, name: "" };
+		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
+		if (
+			colorGroup 
+		) {
+			const options = colorGroup.attributes[0].options;
 
-			const colorGroup = groups.find(
-				(group) => group.name?.toLowerCase() === "color"
-			);
-			const selectedOption = colorGroup?.attributes?.[0]?.options?.find(
-				(opt) => opt.selected
-			);
+			if (options && Array.isArray(options)) {
+				// Find selected color
+				const selectedOption = options.find(opt => opt.selected === true);
+				console.log('selectedOptionselectedOptionselectedOption---',selectedOption)
 
-			if (selectedOption) {
-				const isDark = darkColors.includes(selectedOption.name.toLowerCase());
-				return { isDark, name: selectedOption.name };
+				if (selectedOption) {
+					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
+					console.log('isDark---', isDark)
+
+					setIsDarkColor(isDark); // ✅ Set dark color state
+					handleColorSelection(selectedOption.name); // ✅ Always call function with selected color
+					return;
+				}
 			}
+		}else{
+			// No selected color or color group found
+			setIsDarkColor(false);
+		}
 
-			return { isDark: false, name: "" };
-			// ✅ empty dependency array means compute only once
-		}, []);
-
-		// ✅ Apply the memoized result to state/handlers once
-		useEffect(() => {
-			setIsDarkColor(initialSelection.isDark);
-			if (initialSelection.name) {
-				handleColorSelection(initialSelection.name);
-			}
-		}, [initialSelection]);
-
-	
- // 👈 Include `groups` as dependency
+		
+	}, []); // 👈 Include `groups` as dependency
 
 
 
