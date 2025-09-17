@@ -574,7 +574,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	useEffect(() => {
 		console.log("[useEffect] fired. hasProcessed:", hasProcessed.current, "groups:", groups);
 
-		if (!hasProcessed.current && Array.isArray(groups) && groups.length > 0) {
+		if (!hasProcessed.current && groups.length > 0) {
 			console.log("[useEffect] Running processColorSelection");
 			processColorSelection(groups);
 			hasProcessed.current = true;
