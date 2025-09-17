@@ -523,69 +523,69 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	// 		setIsDarkColor(false);
 	// 	}, [groups]);
-	// console.log('groups-',groups)
-	const hasProcessed = useRef(false);
+	console.log('groups-',groups)
+const hasProcessed = useRef(false);
 
-	// Process color selection
-	const processColorSelection = (groups: any) => {
-		const darkColors = [
-			'borgoña',
-			'negro',
-			'marrón',
-			'verde',
-			'antracita metalizado',
-			'borgogna',
-			'nero',
-			'marrone',
-			'antracite metallizzato',
-			'bourgogne',
-			'noir',
-			'marron',
-			'vert',
-			'anthracite métallisé',
-			'burgundy',
-			'black',
-			'brown',
-			'green',
-			'metallic anthracite',
-			'burgundrot',
-			'schwarz',
-			'braun',
-			'grün',
-			'anthrazit-metallic',
-			'midnight blue',
-			'azul noche',
-		];
+  // Process color selection
+  const processColorSelection = (groups: any) => {
+    const darkColors = [
+      'borgoña',
+      'negro',
+      'marrón',
+      'verde',
+      'antracita metalizado',
+      'borgogna',
+      'nero',
+      'marrone',
+      'antracite metallizzato',
+      'bourgogne',
+      'noir',
+      'marron',
+      'vert',
+      'anthracite métallisé',
+      'burgundy',
+      'black',
+      'brown',
+      'green',
+      'metallic anthracite',
+      'burgundrot',
+      'schwarz',
+      'braun',
+      'grün',
+      'anthrazit-metallic',
+      'midnight blue',
+      'azul noche',
+    ];
 
-		if (!groups || !Array.isArray(groups)) {
-			setIsDarkColor(false);
-			return;
-		}
+    if (!groups || !Array.isArray(groups)) {
+      setIsDarkColor(false);
+      return;
+    }
 
-		const colorGroup = groups.find((group: any) => group.name.toLowerCase() === 'color');
-		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
-			const options = colorGroup.attributes[0].options;
-			if (options && Array.isArray(options)) {
-				const selectedOption = options.find((opt: any) => opt.selected === true);
-				if (selectedOption) {
-					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
-					setIsDarkColor(isDark);
-					handleColorSelection(selectedOption.name);
-					return;
-				}
-			}
-		}
+    const colorGroup = groups.find((group: any) => group.name.toLowerCase() === 'color');
+    if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
+      const options = colorGroup.attributes[0].options;
+      if (options && Array.isArray(options)) {
+        const selectedOption = options.find((opt: any) => opt.selected === true);
+        if (selectedOption) {
+          const isDark = darkColors.includes(selectedOption.name.toLowerCase());
+          setIsDarkColor(isDark);
+          handleColorSelection(selectedOption.name);
+          return;
+        }
+      }
+    }
 
-		setIsDarkColor(false);
-	};
+    setIsDarkColor(false);
+  };
 
-	// Run processColorSelection only once when groups is first available
-	useEffect(() => {
-		if (!hasProcessed.current && groups && Array.isArray(groups)) {
-			processColorSelection(groups);
-			hasProcessed.current = true; // Mark as processed
-		}
-	}, [groups]);
+  // Run processColorSelection only once when groups is first available
+  useEffect(() => {
+    if (!hasProcessed.current && groups && Array.isArray(groups)) {
+      processColorSelection(groups);
+      hasProcessed.current = true; // Mark as processed
+    }
+  }, []);
 	useEffect(() => {
 		updateCategories();
 
