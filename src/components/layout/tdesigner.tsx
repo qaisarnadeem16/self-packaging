@@ -871,7 +871,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		);
 		console.log('Find matching printing method',method)
 		if (method) {
-			await setPrintingMethod(method.printMethodId, actualAreaId);
+			 setPrintingMethod(method.printMethodId, actualAreaId);
 		} else {
 			console.warn(`No matching printing method found for keyword: ${keyword}`);
 		}
