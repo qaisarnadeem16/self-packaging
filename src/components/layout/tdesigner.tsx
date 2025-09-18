@@ -870,7 +870,10 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			pm.name.toLowerCase().includes(keyword)
 		);
 		console.log('Find matching printing method',method)
+		
 		if (method) {
+			console.log('setPrintingMethod →', method.printMethodId, actualAreaId);
+
 			 setPrintingMethod(method.printMethodId, actualAreaId);
 		} else {
 			console.warn(`No matching printing method found for keyword: ${keyword}`);
