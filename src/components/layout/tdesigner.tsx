@@ -523,12 +523,12 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	// 		setIsDarkColor(false);
 	// 	}, [groups]);
-	console.log('groups-',groups)
+	// console.log('groups-',groups)
 	const hasProcessed = useRef(false);
 
 	// Process color selection
 	const processColorSelection = (groups: any) => {
-		console.log("[processColorSelection] called with groups:", groups);
+		// console.log("[processColorSelection] called with groups:", groups);
 
 		const darkColors = [
 			"borgoña", "negro", "marrón", "verde", "antracita metalizado",
@@ -546,20 +546,20 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		}
 
 		const colorGroup = groups.find((group: any) => group.name.toLowerCase() === "color");
-		console.log("[processColorSelection] colorGroup:", colorGroup);
+		// console.log("[processColorSelection] colorGroup:", colorGroup);
 
 		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
 			const options = colorGroup.attributes[0].options;
-			console.log("[processColorSelection] options:", options);
+			// console.log("[processColorSelection] options:", options);
 
 			if (options && Array.isArray(options)) {
 				const selectedOption = options.find((opt: any) => opt.selected === true);
-				console.log("[processColorSelection] selectedOption:", selectedOption);
+				// console.log("[processColorSelection] selectedOption:", selectedOption);
 
 				if (selectedOption) {
 					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
 					console.log("[processColorSelection] isDark:", isDark);
-					// setIsDarkColor(isDark);
+					setIsDarkColor(isDark);
 					handleColorSelection(selectedOption.name);
 					return;
 				}
@@ -571,16 +571,18 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	};
 
 	// Run processColorSelection only once when groups is first available
-	useEffect(() => {
-		console.log("[useEffect] fired. hasProcessed:", hasProcessed.current, "groups:", groups);
+	const groupsRef = useRef(groups);
+	useEffect(() => { groupsRef.current = groups; }, [groups]);
 
-		if (groups.length > 0) {
-			console.log("[useEffect] Running processColorSelection");
-			processColorSelection(groups);
-			hasProcessed.current = true;
-			console.log("[useEffect] hasProcessed set to true");
-		}
-	}, [groups]);
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			if (groupsRef.current?.length) {
+				processColorSelection(groupsRef.current);
+			}
+		}, 2000);
+		return () => clearTimeout(timer);
+	}, []);
+
 
 	useEffect(() => {
 		updateCategories();
