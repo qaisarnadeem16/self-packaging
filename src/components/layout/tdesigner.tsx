@@ -496,34 +496,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const [activeButton, setActiveButton] = useState<string | null>('design');
 
 	const groups = useActualGroups();
-	
-	// console.log(product.sku)
-	// 	useEffect(() => {
-	// 		if (!groups || !Array.isArray(groups)) return;
-	// 		// console.log(groups)
 
-	// 		// Find the group named "Color"
-	// 		const colorGroup = groups.find(group => group.name.toLowerCase() === 'color');
-	// 		// console.log("Group names:", groups.map(g => g.name));
-
-	// console.log(colorGroup)
-	// 		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
-	// 			const options = colorGroup.attributes[0].options;
-
-	// 			if (options && Array.isArray(options)) {
-	// 				const blackOption = options.find(opt => opt.name.toLowerCase() === 'black');
-	// 				console.log(blackOption)
-
-	// 				if (blackOption && blackOption.selected === true) {
-	// 					setIsDarkColor(true);
-	// 					return;
-	// 				}
-	// 			}
-	// 		}
-
-	// 		setIsDarkColor(false);
-	// 	}, [groups]);
-	// console.log('groups-',groups)
 	const hasProcessed = useRef(false);
 
 	// Process color selection
@@ -550,7 +523,6 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 		if (colorGroup && Array.isArray(colorGroup.attributes) && colorGroup.attributes.length > 0) {
 			const options = colorGroup.attributes[0].options;
-			// console.log("[processColorSelection] options:", options);
 
 			if (options && Array.isArray(options)) {
 				const selectedOption = options.find((opt: any) => opt.selected === true);
@@ -826,7 +798,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 
 	const printingMethods = getPrintingMethods();
-	console.log('-----p', printingMethods)
+	// console.log('-----p', printingMethods)
 
 	const handleColorSelection = async (colorName: string) => {
 		// Define engraving colors
@@ -871,10 +843,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		const method = printingMethods.find(pm =>
 			pm.name.toLowerCase().includes(keyword)
 		);
-		console.log('Find matching printing method',method)
+		// console.log('Find matching printing method',method)
 		
 		if (method) {
-			console.log('setPrintingMethod →', method.printMethodId, actualAreaId);
 
 			 setPrintingMethod(method.printMethodId, actualAreaId);
 		} else {
