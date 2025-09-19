@@ -5,7 +5,7 @@ import useStore from "../../Store";
 import { QuestionDialog, useDialogManager } from '../dialogs/Dialogs';
 import NftDialog, { NftForm } from '../dialogs/NftDialog'
 import { T } from '../../Helpers';
-import { AddToCartButton, Icon } from '../Atomic';
+import { AddToCartButton, Icon, SaveButton } from '../Atomic';
 import useDropdown from '../../hooks/useDropdown';
 import { TailSpin } from 'react-loader-spinner';
 // import { PriceContainer } from '../Layout/LayoutStyles';
@@ -173,18 +173,17 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
               )}
               {!isAddToCartLoading && isOutOfStock && <span>{T._('OUT OF STOCK', 'Composer')}</span>}
             </AddToCartButton>
-            <h2>TEst</h2>
             {/* )}  */}
             {/* {!isDraftEditor &&
               !isEditorMode &&
               !isViewerMode &&
               sellerSettings &&
               sellerSettings.canSaveDraftComposition && ( */}
-              <AddToCartButton key={'save'} onClick={() => handleSaveClick()}>
-                  <Icon>
-                    <SaveSolid />
-                  </Icon>
-                </AddToCartButton>
+            <SaveButton  key={'save'} onClick={() => handleSaveClick()}>
+                  {/* <Icon> */}
+                  Save Design 
+                   {/* <SaveSolid />   </Icon> */}
+            </SaveButton>
               {/* )} */}
           </div>
 

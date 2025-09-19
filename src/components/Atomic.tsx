@@ -246,6 +246,22 @@ export const AddToCartButton = styled(Button)`
     justify-content: center;
     gap: 10px;
 `;
+export const SaveButton = styled(Button)`
+	width: 150px;
+    height: 45px;
+    background-color: #FF5733;
+    color: white;
+    border: none;
+    border-radius: 18px 18px 18px 0px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+`;
+
 
 export const Columns = styled.div<{ columns: number }>`
 	// width: 100%;
