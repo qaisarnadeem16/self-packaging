@@ -174,19 +174,19 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
               {!isAddToCartLoading && isOutOfStock && <span>{T._('OUT OF STOCK', 'Composer')}</span>}
             </AddToCartButton>
             {/* )}  */}
-            {/* {!isDraftEditor &&
+         
+          </div>
+          {/* {!isDraftEditor &&
               !isEditorMode &&
               !isViewerMode &&
               sellerSettings &&
               sellerSettings.canSaveDraftComposition && ( */}
-            <SaveButton  key={'save'} onClick={() => handleSaveClick()}>
-                  {/* <Icon> */}
-                  Save Design 
-                   {/* <SaveSolid />   </Icon> */}
-            </SaveButton>
-              {/* )} */}
-          </div>
-
+          <SaveButton key={'save'} onClick={() => handleSaveClick()}>
+            {/* <Icon> */}
+            {T._d(`Save Design`)}
+            {/* <SaveSolid />   </Icon> */}
+          </SaveButton>
+          {/* )} */}
           {/* <div className="add_cart">
             {isAddToCartLoading ? (
               "Adding to cart..."
