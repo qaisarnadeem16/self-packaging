@@ -61,6 +61,9 @@ interface Store {
 	notifications: Notification[];
 	setNotifications: (notifications: Notification[]) => void;
 	removeNotification: (id: number) => void;
+
+	tagsOfSavedDesigns: string[];
+	setTagsOfSavedDesigns: (tagsOfSavedDesigns: string[]) => void;
 }
 
 const useStore = create<Store>((set) => ({
@@ -195,6 +198,12 @@ const useStore = create<Store>((set) => ({
 	removeNotification: (id) => {
 		set((state) => ({
 			notifications: state.notifications.filter((notification) => null !== id)
+		}));
+	},
+		tagsOfSavedDesigns: [],
+	setTagsOfSavedDesigns: (tagsOfSavedDesigns: string[]) => {
+		set(() => ({
+			tagsOfSavedDesigns
 		}));
 	}
 }));
