@@ -446,7 +446,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
               }),
             }}>
               
-            <div className="menu_group">
+            <div className="menu_group"
+              style={{
+                display: groups1?.some((g) => g.id === -3) ? "flex" : "none",
+              }}>
               {groups1.map((group) => {
                 const handleGroupClick = (group: any) => {
                   selectGroup(group.id);
