@@ -359,7 +359,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   };
 
   // console.log('wwwwwwwwww', selectedGroupId)
-  // console.log('first', groups1)
+  console.log('first---------------------------------', groups1)
 
   const handlePrint = () => {
     const canvas = document.querySelector("canvas");
@@ -445,8 +445,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 overflowY: "hidden",
               }),
             }}>
-            <h2 className="">TEst.........</h2>
-
+              
             <div className="menu_group">
               {groups1.map((group) => {
                 const handleGroupClick = (group: any) => {
