@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, Component } from 'react';
+import React, { FunctionComponent, useState, Component, useEffect } from 'react';
 import styled from 'styled-components';
 import { ZakekeEnvironment, ZakekeViewer, ZakekeProvider } from '@zakeke/zakeke-configurator-react';
 import Selector from './selector';
@@ -6,6 +6,7 @@ import Viewer from '../pages/Viewer/Viewer';
 import useStore from '../Store';
 import LayoutMobile from '../LayoutMobile';
 import { DialogsRenderer } from "./dialogs/Dialogs";
+import { useZakeke } from 'zakeke-configurator-react';
 
 // const Layout = styled.div`
 //     display: grid;
@@ -61,12 +62,38 @@ const App: FunctionComponent<{}> = () => {
 		selectedGroupId,
 		setIsMobile,
 		setNotifications,
-		setLastSelectedItem
-	} = useStore();
+		setLastSelectedItem ,
 
+		tagsOfSavedDesigns,
+		setTagsOfSavedDesigns
+	} = useStore();
+	const {
+		draftCompositions
+	} = useZakeke();
+	// Tags save from saved compositions
+	useEffect(() => {
+		if (tagsOfSavedDesigns && tagsOfSavedDesigns.length === 0 && draftCompositions && draftCompositions.length > 0) {
+			let tempTags: string[] = [];
+
+			if (draftCompositions && draftCompositions.length > 0) {
+				draftCompositions.forEach((composition) => {
+					if (composition.tags) {
+						const actualTags = composition.tags;
+						tempTags.push(...actualTags);
+					}
+				});
+			}
+
+			let filteredTags = Array.from(new Set(tempTags));
+			setTagsOfSavedDesigns(filteredTags);
+			console.log('useeffect tagssaveddesign', tagsOfSavedDesigns);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [draftCompositions]);
     return (
 		<ErrorBoundary>
 			<ZakekeProvider environment={zakekeEnvironment}>
+				<h2 className="">TEst.........</h2>
 				<Viewer />
 				{/* {isMobile ? <LayoutMobile /> : <Viewer /> } */}
 				{/* <Layout> */}

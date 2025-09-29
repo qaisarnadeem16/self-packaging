@@ -13,6 +13,8 @@ import styled from 'styled-components';
 import footerBg from "../../assets/images/footer.svg"; // Import the image correctly
 import { ReactComponent as SaveSolid } from '../../assets/icons/save-solid.svg';
 import SaveDesignsDraftDialog from './SaveDesignsDraftDialog';
+import { useActualGroups } from 'helper';
+import DesignsDraftList from './DesignsDraftList';
 
 interface MenuFooterProps {
   viewFooter: any;
@@ -23,9 +25,12 @@ const PriceInfoTextContainer = styled.div`
 `;
 
 const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
+  const { selectedGroupId } = useStore()
   const { showDialog, closeDialog } = useDialogManager();
   const mobileButtonRef = useRef<HTMLButtonElement>(null);
   const desktopButtonRef = useRef<HTMLButtonElement>(null);
+  const [isDesignsDraftListOpened, setisDesignsDraftListOpened] = useState(false);
+
   const [disableButtonsByVisibleMessages, setDisableButtonsByVisibleMessages] = useState(false);
   const [openOutOfStockTooltip, closeOutOfStockTooltip,] = useDropdown();
   const { isAddToCartLoading, addToCart, price, useLegacyScreenshot, setQuantity, product, isMandatoryPD, quantity, nftSettings, eventMessages, isOutOfStock, visibleEventMessages, sellerSettings } = useZakeke();
@@ -33,6 +38,12 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
   const [quantityValue, setQuantityValue] = useState(
     product?.quantityRule && product.quantityRule?.minQuantity ? product.quantityRule.minQuantity : quantity
   );
+  const {
+    draftCompositions
+  } = useZakeke();
+  const actualGroups = useActualGroups() ?? [];
+
+  const selectedGroup = selectedGroupId ? actualGroups.find((group) => group.id === selectedGroupId) : null;
 
   useEffect(() => {
     if (visibleEventMessages && visibleEventMessages.some((msg) => msg.addToCartDisabledIfVisible))
@@ -127,8 +138,20 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
       addToCart([], undefined, useLegacyScreenshot);
     }
   };
-
+  useEffect(() => {
+    if (selectedGroup?.id === -3) {
+      setisDesignsDraftListOpened(true);
+    }
+  }, [selectedGroup?.id]);
   const isBuyVisibleForQuoteRule = product?.quoteRule ? product.quoteRule.allowAddToCart : true;
+  function setIsTemplateEditorOpened(arg0: boolean) {
+    throw new Error('Function not implemented.');
+  }
+
+  function handleGroupSelection(arg0: null) {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <div style={{
       background: 'white',
@@ -230,6 +253,15 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
           </div>
         </div>
       </div>
+      {/* Saved Compositions */}
+      {draftCompositions && selectedGroup?.id === -3 && isDesignsDraftListOpened && (
+        <DesignsDraftList
+          onCloseClick={() => {
+            setIsTemplateEditorOpened(false);
+            handleGroupSelection(null);
+          }}
+        />
+      )}
     </div>
   );
 };

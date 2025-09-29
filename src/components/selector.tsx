@@ -50,6 +50,7 @@ import star from '../../assets/icons/star.svg';
 import { FullScreen } from "assets/icons/fullScreen";
 import { EyeIcon } from "assets/icons/eyeIcon";
 import ShareIcon from "assets/icons/ShareIcon";
+import DesignsDraftList from "./Footer/DesignsDraftList";
 const Container = styled.div`
   height: auto;
   // overflow: auto;
@@ -97,6 +98,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     openArMobile,
     isSceneArEnabled,
     productName,
+    draftCompositions
   } = useZakeke();
 
   const { showDialog, closeDialog } = useDialogManager();
@@ -648,7 +650,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
               </>
             )}
             {selectedGroupId === -2 && <Designer />}
-
+            {/* Saved Compositions */}
+            {draftCompositions && selectedGroupId === -3 && <DesignsDraftList />}
             <div className="share_button_desktop">
               {/* <div className="" style={{ cursor: 'pointer' }}>
                 <EyeIcon />

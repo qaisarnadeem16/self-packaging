@@ -115,8 +115,8 @@ const SaveDesignsDraftDialog: FC<{ onCloseClick: () => void }> = ({ onCloseClick
 
     // Filtra i tag disponibili escludendo quelli già selezionati
     const availableTags = tagsOfSavedDesigns
-        .filter((tag: string) => !tags.some((t) => t.value === tag))
-        .map((tag:any) => ({ label: tag, value: tag }));
+        .filter((tag) => !tags.some((t) => t.value === tag))
+        .map((tag) => ({ label: tag, value: tag }));
 
     return (
         <Dialog
