@@ -294,14 +294,39 @@ const Selector: FunctionComponent<SelectorProps> = ({
   //     if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
   //   }
   // }, [selectedGroup, groups1]);
-  useEffect(() => {
+  // useEffect(() => {
   
-      if (!selectedGroup && groups1.length > 0 && groups1[groups1.length - 1].id === -2) {
-        selectGroup(groups1[groups1.length - 1].id);
+  //     if (!selectedGroup && groups1.length > 0 && groups1[groups1.length - 1].id === -2) {
+  //       selectGroup(groups1[groups1.length - 1].id);
 
-        if (groups1[groups1.length - 1].steps.length > 0) selectStep(groups1[groups1.length - 1].steps[0].id);
+  //       if (groups1[groups1.length - 1].steps.length > 0) selectStep(groups1[groups1.length - 1].steps[0].id);
+  //     }
+  //   }, [selectedGroup, groups1]);
+
+
+
+  useEffect(() => {
+    if (!selectedGroup && groups1.length > 0) {
+      // ✅ If a group with id -3 exists, select it first
+      const groupMinus3 = groups1.find((g) => g.id === -3);
+      if (groupMinus3) {
+        selectGroup(groupMinus3.id);
+        if (groupMinus3.steps?.length > 0) {
+          selectStep(groupMinus3.steps[0].id);
+        }
+        return;
       }
-    }, [selectedGroup, groups1]);
+
+      // Fallback: original -2 selection
+      const lastGroup = groups1[groups1.length - 1];
+      if (lastGroup.id === -2) {
+        selectGroup(lastGroup.id);
+        if (lastGroup.steps?.length > 0) {
+          selectStep(lastGroup.steps[0].id);
+        }
+      }
+    }
+  }, [selectedGroup, groups1]);
 
   // Select attribute first time
   useEffect(() => {
@@ -450,7 +475,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
               style={{
                 display: groups1?.some((g) => g.id === -3) ? "flex" : "none",
               }}>
-              {groups1.map((group) => {
+              {groups1?.slice(-2)?.map((group) => {
                 const handleGroupClick = (group: any) => {
                   selectGroup(group.id);
                 };
