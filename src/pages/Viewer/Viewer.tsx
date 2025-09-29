@@ -12,6 +12,7 @@ import ExplodeSolid from "../../assets/icons/expand-arrows-alt-solid.js";
 
 import { Icon } from '../../components/Atomic';
 import { T } from "Helpers";
+import useStore from "Store";
 
 const zakekeEnvironment = new ZakekeEnvironment();
 
@@ -31,14 +32,39 @@ const ExplodeIcon = styled(Icon)`
 const Viewer: FunctionComponent<{}> = () => {
   const {
     isSceneLoading,
-    translations
+    translations,
+    draftCompositions
   } = useZakeke();
+  const {
 
+    tagsOfSavedDesigns,
+    setTagsOfSavedDesigns
+  } = useStore();
   const viewElement = useRef<HTMLDivElement | null>(null);
   
   const fullScreen = () => {
     (viewElement.current!).requestFullscreen()
   }
+    // Tags save from saved compositions
+    useEffect(() => {
+      if (tagsOfSavedDesigns && tagsOfSavedDesigns.length === 0 && draftCompositions && draftCompositions.length > 0) {
+        let tempTags: string[] = [];
+  
+        if (draftCompositions && draftCompositions.length > 0) {
+          draftCompositions.forEach((composition) => {
+            if (composition.tags) {
+              const actualTags = composition.tags;
+              tempTags.push(...actualTags);
+            }
+          });
+        }
+  
+        let filteredTags = Array.from(new Set(tempTags));
+        setTagsOfSavedDesigns(filteredTags);
+        console.log('useeffect tagssaveddesign', tagsOfSavedDesigns);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [draftCompositions]);
   // for translations
   useEffect(() => {
     if (translations) {
