@@ -93,7 +93,6 @@ const App: FunctionComponent<{}> = () => {
     return (
 		<ErrorBoundary>
 			<ZakekeProvider environment={zakekeEnvironment}>
-				<h2 className="">TEst.........</h2>
 				<Viewer />
 				{/* {isMobile ? <LayoutMobile /> : <Viewer /> } */}
 				{/* <Layout> */}
