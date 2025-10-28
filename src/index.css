@@ -257,8 +257,8 @@ html {
   padding-top: 1rem;
   display: flex;
   /* justify-content: center; */
-  flex-wrap: wrap;
-  gap: 2rem;
+  /* flex-wrap: wrap; */
+  gap: 1.5rem;
 }
 
 .toolbar-button {
