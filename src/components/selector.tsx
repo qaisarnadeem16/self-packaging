@@ -337,20 +337,17 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // }, [selectedGroup, groups1]);
 
   useEffect(() => {
-    if (!selectedGroup && groups1.length > 0) {
-      const timer = setTimeout(() => {
-        const targetGroup = groups1.find(group => group.id === -2);
-        if (targetGroup) {
-          selectGroup(targetGroup.id);
-          if (targetGroup.steps?.length > 0) {
-            selectStep(targetGroup.steps[0].id);
-          }
+    if (!selectedGroup && groups1 && groups1.length > 0) {
+      const targetGroup = groups1.find(group => group.id === -2);
+      if (targetGroup) {
+        selectGroup(targetGroup.id);
+        if (targetGroup.steps?.length > 0) {
+          selectStep(targetGroup.steps[0].id);
         }
-      }, 100); // small delay to ensure groups1 is fully loaded
-
-      return () => clearTimeout(timer);
+      }
     }
-  }, [selectedGroup, groups1]);
+  }, [selectedGroup, groups1?.length]);
+
 
 
   // Select attribute first time
@@ -408,8 +405,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
     togglePopup();
   };
 
-  // console.log('wwwwwwwwww', selectedGroupId)
-  // console.log('first---------------------------------', groups1)
+  console.log('wwwwwwwwww', selectedGroupId)
+  console.log('first---------------------------------', groups1)
 
   const handlePrint = () => {
     const canvas = document.querySelector("canvas");
