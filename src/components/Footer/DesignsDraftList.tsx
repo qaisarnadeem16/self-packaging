@@ -14,10 +14,10 @@ interface ThemeCompositions {
 }
 
 const DesignsDraftContainer = styled.div<{ $isMobile?: boolean }>`
-	overflow: auto;
+	/* overflow: auto; */
 	width: 100%;
 	display: block;
-	height: 100%;
+	/* height: 100%; */
 	${(props) =>
         props.$isMobile &&
         `
@@ -162,9 +162,10 @@ const DesignsDraftList: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) =
 
     return (
         <DesignsDraftContainer $isMobile={isMobile}>
-            <H3>{T._('Saved configurations', 'Composer')}</H3>
+            <H3></H3>
+            {/* <H3>{T._('Saved configurations', 'Composer')}</H3> */}
             {draftCompositions && draftCompositions.length === 0 && (
-                <span>{T._('You currently have no saved configurations.', 'Composer')}</span>
+                <span >{T._('You currently have no saved configurations.', 'Composer')}</span>
             )}
             {draftCompositions && draftCompositions.length > 0 && (
                 <>

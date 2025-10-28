@@ -204,11 +204,9 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
               !isViewerMode &&
               sellerSettings &&
               sellerSettings.canSaveDraftComposition && ( */}
-          <SaveButton key={'save'} onClick={() => handleSaveClick()}>
-            {/* <Icon> */}
+          {/* <SaveButton key={'save'} onClick={() => handleSaveClick()}>
             {T._d(`Save Design`)}
-            {/* <SaveSolid />   </Icon> */}
-          </SaveButton>
+          </SaveButton> */}
           {/* )} */}
           {/* <div className="add_cart">
             {isAddToCartLoading ? (

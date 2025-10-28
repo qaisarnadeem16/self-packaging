@@ -1,7 +1,7 @@
 import React from 'react';
-import FooterMobile from './components/layout/t-FooterMobile';
+import FooterMobile from './components/layout/FooterMobile';
 import SelectorMobile from './components/layout/mobile/t-SelectorMobile';
-import Viewer from './components/layout/t-Viewer';
+import Viewer from './components/layout/Viewer';
 import styled from 'styled-components';
 
 export const Container = styled.div`

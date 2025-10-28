@@ -5,7 +5,7 @@ import { CSSObjectWithLabel, GroupBase, OptionProps, SingleValueProps, component
 import styled from 'styled-components';
 import { Button, Columns, Icon, TextArea } from '../Atomic';
 
-import type { PropChangeHandler } from '../layout/tdesigner';
+import type { PropChangeHandler } from '../layout/designer';
 
 import { ReactComponent as CurveIcon } from '../../assets/icons/text-height-solid.svg';
 import { ReactComponent as BoldIcon } from '../../assets/icons/star.svg';
@@ -63,8 +63,9 @@ const TextToolsContainer = styled.div`
   align-items:center;
     display: flex;
     flex-direction: row;
+    /* background-color: rebeccapurple; */
     grid-gap: 10px;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 `;
 
 const TextButtonsContainer = styled.div`
@@ -295,7 +296,7 @@ const ItemText2: FC<{
             )
           }
         >
-          <div style={{ width: "100%", gap: '15px', borderTop: '2px solid #AAAAAA8C', padding: ' 0 0', alignItems: 'baseline', justifyContent: 'space-between' }} >
+          <div style={{ width: "100%", gap: '15px', borderTop: '2px solid #AAAAAA8C',  padding: ' 0 0', alignItems: 'baseline', justifyContent: 'space-between' }} >
 
             {/* <div style={{ marginTop: '10px', padding: ' 0px', display: 'flex', alignItems: 'center', width:'100%', gap:'20px', justifyContent: 'space-between' }}> */}
 
@@ -310,7 +311,7 @@ const ItemText2: FC<{
               </div> */}
             {/* </div> */}
 
-            <div className="controller" style={{ marginTop: '10px', padding: '0px 14px' }}>
+            <div className="controller" style={{ marginTop: '10px', padding: '0px 0px' }}>
               <TextToolsContainer >
                 <div className='textAreaBox'>
                   <TextArea
@@ -322,23 +323,13 @@ const ItemText2: FC<{
                     maxLength={!item.constraints ? null : item.constraints.maxNrChars || null}
                     disabled={!canEdit || fontLoading}
                   />
-                  {/* <TextArea
-                    value={isUpperCase ? item.text.toUpperCase() : item.text}
-                    onChange={handleChange}
-                    maxLength={
-                      !item.constraints ? null : item.constraints.maxNrChars || null
-                    }
-                    // disabled={!canEdit}
-                    disabled={!canEdit || fontLoading}
 
-                  /> */}
-
-                  <div className="" style={{ display: 'flex',  alignItems: 'center', position: 'relative', gap: '20px', padding: "0 5px" }}>
-                    <div>
+                  <div className="" style={{ display: 'flex',  alignItems: 'center', position: 'relative', gap: '15px', padding: "0" }}>
+                    {/* <div> */}
                       {/* <span style={{ color: '#434342', fontSize: '12px', }}>Font</span> */}
 
-                      <FormControl label={T._('Font', 'Composer')}>
-                        <div style={{ cursor: 'pointer', display: 'inline-block', }}>
+                      {/* <FormControl label={T._('Font', 'Composer')}>
+                        <div style={{ cursor: 'pointer', display: 'inline-block', }}> */}
                           <AdvancedSelect
                             components={{
                               Option: FontOption,
@@ -405,13 +396,12 @@ const ItemText2: FC<{
                               }, 2000);
                             }}
                           />
-                        </div>
-                      </FormControl>
-                    </div>
+                        {/* </div>
+                      </FormControl> */}
+                    {/* </div> */}
 
 
                     <div>
-                      {/* <span style={{ color: '#434342', fontSize: '12px' }}>Colour</span> */}
                       {!isDarkColor &&  fillColor && fillColor !== 'white' &&
                       <FormControl label={T._('Color', 'Composer')}>
                         <ColorsContainer>

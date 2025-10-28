@@ -503,13 +503,14 @@ export const ZakekeDesignerContainer = styled.div<{ $isMobile?: boolean }>`
     background: #f2f2f2;
     /* Desktop specific styles */
     @media (max-width: 769px) {
-		height: 50%;
-top: 0;
+		height: 60%;
+top: 10%;
         width: 100%; /* Maximum width for desktop */
         min-width: 100%;
         max-width: 100%;
         bottom: 40%;
         right: 0;
+        left: 0;
         margin: unset;
 
  

@@ -61,7 +61,7 @@ export const TextArea = styled.textarea`
 	border: 2px #AAAAAA8C solid;
 	/* width: 100%; */
 	max-height: 40px;
-	margin-top: 14px;
+	margin-top: 4px;
 	border-radius: 7px;
 	align-items: center;
 	font-family: 'Almarai';
@@ -78,7 +78,7 @@ export const TextArea = styled.textarea`
 	}
 
 	@media (max-width: 767px) {
-		min-width: 100%;
+		min-width: 50%;
 	}
 `;
 
@@ -172,6 +172,7 @@ export const TextButton = styled.button<{
 	uppercase?: boolean;
 }>`
 	display: flex;
+
 	flex-direction:column;
 	justify-content: center;
 	align-items: center;
@@ -186,8 +187,10 @@ export const TextButton = styled.button<{
 	background-color: ${(props) => (props.primary ? '#F2F2F2' : 'white')};
 	color: ${(props) => (props.outline ? 'black' : props.primary ? 'white' : '#313c46')};
 	min-height: 85px;
-	min-width:85px;
-	padding: ${(props) => (props.outline ? '' : '5px 10px 5px 10px')};
+	max-height: 85px;
+	min-width:95px;
+	max-width:95px;
+	padding: ${(props) => (props.outline ? '' : '5px ')};
 	text-align: center;
 	text-transform: ${(props) => (props.uppercase ? 'uppercase' : 'none')};
 	border-radius:10px;
@@ -196,8 +199,8 @@ export const TextButton = styled.button<{
 	${(props) =>
 		props.selected &&
 		`
-    border: 1px solid #F2F2F2;
-	background-color:#F2F2F2;
+    border: 2px solid #FF5733;
+	background-color:white;
   `}
 
 	${(props) =>

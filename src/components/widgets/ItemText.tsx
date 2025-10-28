@@ -5,7 +5,7 @@ import { CSSObjectWithLabel, GroupBase, OptionProps, SingleValueProps, component
 import styled from 'styled-components';
 import { Button, Columns, Icon, TextArea } from '../Atomic';
 
-import type { PropChangeHandler } from '../layout/tdesigner';
+import type { PropChangeHandler } from '../layout/designer';
 
 import { ReactComponent as CurveIcon } from '../../assets/icons/text-height-solid.svg';
 import { ReactComponent as BoldIcon } from '../../assets/icons/star.svg';

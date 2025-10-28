@@ -230,8 +230,67 @@ html {
 }
 
 @media (max-width: 1024px)  {
+.css-1wzmn32-control {
+  max-width: 100px !important;
+}
+
+.css-43exjz-container{
+  width: fit-content !important;
+}
   .textAreaBox {
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     /* wrap only on tablets */
+  }
+}
+
+
+
+
+
+
+
+
+
+.toolbar-container {
+  border-top: 1px solid #ddd;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  display: flex;
+  /* justify-content: center; */
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.toolbar-button {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  text-decoration: underline;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toolbar-button:hover {
+  opacity: 0.8;
+  transform: scale(1.03);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: #f04e23;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+  .toolbar-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 }

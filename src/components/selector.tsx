@@ -27,7 +27,7 @@ import Reset from "../assets/icons/reset.jpg";
 import PrintIcon from "../assets/icons/print.jpg";
 import { Icon } from "./Atomic";
 import MenuFooter from "./Footer/MenuFooter";
-import Designer from "./layout/tdesigner";
+import Designer from "./layout/designer";
 import { ReactComponent as CrossIcon } from "../assets/icons/cross.svg";
 import { ReactComponent as MenuIcon } from "../assets/icons/menu.svg";
 // import { customizeGroup } from "../Helpers";
@@ -51,6 +51,7 @@ import { FullScreen } from "assets/icons/fullScreen";
 import { EyeIcon } from "assets/icons/eyeIcon";
 import ShareIcon from "assets/icons/ShareIcon";
 import DesignsDraftList from "./Footer/DesignsDraftList";
+import DesignToolbar from "./widgets/DesignToolbar";
 const Container = styled.div`
   height: auto;
   // overflow: auto;
@@ -108,7 +109,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // idsToRemove.push(10640); // id to remove on only blazer product
 
   // const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
-  const groups1 = useActualGroups();
+  const groups1 = groups;
   // if (product?.name != PRODUCT_PANT) groups1.push(customizeGroup);
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -384,7 +385,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   };
 
   // console.log('wwwwwwwwww', selectedGroupId)
-  // console.log('first---------------------------------', groups1)
+  console.log('first---------------------------------', groups1)
 
   const handlePrint = () => {
     const canvas = document.querySelector("canvas");
@@ -472,10 +473,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
             }}>
               
             <div className="menu_group"
-              style={{
-                display: groups1?.some((g) => g.id === -3) ? "flex" : "none",
-              }}>
-              {groups1?.slice(-2)?.map((group) => {
+              // style={{
+              //   display: groups1?.some((g) => g.id === -3) ? "flex" : "none",
+              // }}
+              >
+              {groups1?.map((group) => {
+              // {groups1?.slice(-2)?.map((group) => {
                 const handleGroupClick = (group: any) => {
                   selectGroup(group.id);
                 };
@@ -484,7 +487,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   <div
                     className={`menu_item ${group.id === selectedGroupId ? "selected" : ""}`}
                     key={group.id}
-                    // style={{ display: "none" }}
+                    style={{ display: "none" }}
                     onClick={() => {
                       scrollDownOnClick(checkOnce, setCheckOnce);
                       handleGroupClick(group);
@@ -680,7 +683,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
             )}
             {selectedGroupId === -2 && <Designer />}
             {/* Saved Compositions */}
-            {draftCompositions && selectedGroupId === -3 && <DesignsDraftList />}
+            {/* {draftCompositions && selectedGroupId === -3 && <DesignsDraftList />} */}
+            {draftCompositions && <DesignToolbar />}
             <div className="share_button_desktop">
               {/* <div className="" style={{ cursor: 'pointer' }}>
                 <EyeIcon />

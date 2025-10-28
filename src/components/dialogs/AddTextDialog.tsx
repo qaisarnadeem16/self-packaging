@@ -4,7 +4,7 @@ import { Dialog } from "./Dialogs"
 import ItemText from '../widgets/ItemText';
 import { useZakeke } from '@zakeke/zakeke-configurator-react';
 
-import type { PropChangeHandler } from "../layout/tdesigner";
+import type { PropChangeHandler } from "../layout/designer";
 
 interface EditTextItem {
     guid: string,
