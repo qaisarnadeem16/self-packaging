@@ -295,14 +295,14 @@ const Selector: FunctionComponent<SelectorProps> = ({
   //     if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
   //   }
   // }, [selectedGroup, groups1]);
-  useEffect(() => {
+  // useEffect(() => {
   
-      if (!selectedGroup && groups1.length > 0 && groups1[groups1.length - 1].id === -2) {
-        selectGroup(groups1[groups1.length - 1].id);
+  //     if (!selectedGroup && groups1.length > 0 && groups1[groups1.length - 1].id === -2) {
+  //       selectGroup(groups1[groups1.length - 1].id);
 
-        if (groups1[groups1.length - 1].steps.length > 0) selectStep(groups1[groups1.length - 1].steps[0].id);
-      }
-    }, [selectedGroup, groups1]);
+  //       if (groups1[groups1.length - 1].steps.length > 0) selectStep(groups1[groups1.length - 1].steps[0].id);
+  //     }
+  //   }, [selectedGroup, groups1]);
 
 
 
@@ -319,7 +319,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
       // }
 
       // Fallback: original -2 selection
-      const lastGroup = groups1[groups1.length - 1];
+      const lastGroup = groups1[groups1.length - 2];
       if (lastGroup.id === -2) {
         selectGroup(lastGroup.id);
         if (lastGroup.steps?.length > 0) {
