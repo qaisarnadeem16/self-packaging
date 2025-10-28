@@ -19,12 +19,6 @@ import Preview from "./Preview/Preview";
 import SvgArrowDown from "../icons/Arrowdown";
 import Loader from "../components/Loader/Loader";
 import Scroll from "./Scroll/Scroll";
-import SelectionIcon from "../icons/SelectionIcon";
-import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
-
-import { ExplodeIconL } from "../assets/icons/ExplodeIcon";
-import Reset from "../assets/icons/reset.jpg";
-import PrintIcon from "../assets/icons/print.jpg";
 import { Icon } from "./Atomic";
 import MenuFooter from "./Footer/MenuFooter";
 import Designer from "./layout/designer";
@@ -109,7 +103,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // idsToRemove.push(10640); // id to remove on only blazer product
 
   // const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
-  const groups1 = useActualGroups();
+  const groups1 = groups;
   // if (product?.name != PRODUCT_PANT) groups1.push(customizeGroup);
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);

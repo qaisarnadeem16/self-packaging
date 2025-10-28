@@ -89,7 +89,7 @@ const Viewer: FunctionComponent<{}> = () => {
         </div>
       </div>
       </>
-      <Selector refViewer={viewElement} fullScreen={() =>fullScreen()} />
+        {!isSceneLoading &&  <Selector refViewer={viewElement} fullScreen={() =>fullScreen()} />}
       </div>
       
     </>
