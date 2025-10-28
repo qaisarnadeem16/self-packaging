@@ -103,7 +103,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // idsToRemove.push(10640); // id to remove on only blazer product
 
   // const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
-  const groups1 = groups;
+  const groups1 = useActualGroups();
   // if (product?.name != PRODUCT_PANT) groups1.push(customizeGroup);
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
