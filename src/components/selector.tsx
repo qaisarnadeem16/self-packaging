@@ -109,7 +109,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // idsToRemove.push(10640); // id to remove on only blazer product
 
   // const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
-  const groups1 = groups;
+  const groups1 = useActualGroups();
   // if (product?.name != PRODUCT_PANT) groups1.push(customizeGroup);
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -320,7 +320,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
       // Fallback: original -2 selection
       const lastGroup = groups1[groups1.length - 1];
-      if (lastGroup.id === -1) {
+      if (lastGroup.id === -2) {
         selectGroup(lastGroup.id);
         if (lastGroup.steps?.length > 0) {
           selectStep(lastGroup.steps[0].id);
@@ -493,7 +493,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       handleGroupClick(group);
                     }}
                   >
-                    {group.id === -1 ? T._d("Design") :T._d(group.name) }
+                    {group.id === -2 ? T._d("Design") :T._d(group.name) }
                   </div>
                 );
               })}
@@ -681,10 +681,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 })}
               </>
             )}
-            {selectedGroupId === -1 && <Designer />}
+            {selectedGroupId === -2 && <Designer />}
             {/* Saved Compositions */}
             {/* {draftCompositions && selectedGroupId === -3 && <DesignsDraftList />} */}
-            {draftCompositions && <DesignToolbar />}
+            {/* {draftCompositions && <DesignToolbar />} */}
             <div className="share_button_desktop">
               {/* <div className="" style={{ cursor: 'pointer' }}>
                 <EyeIcon />
