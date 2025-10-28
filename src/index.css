@@ -27,7 +27,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  height: 100dvh;
+  height: 100%;
   font-family: "Almarai", sans-serif !important;
   background-color: #f2f2f2 !important;
 }
@@ -252,6 +252,7 @@ html {
 
 
 .toolbar-container {
+  position: relative;
   border-top: 1px solid #ddd;
   margin-top: 1rem;
   padding-top: 1rem;
