@@ -319,11 +319,18 @@ const Selector: FunctionComponent<SelectorProps> = ({
       // }
 
       // Fallback: original -2 selection
-      const lastGroup = groups1[groups1.length - 2];
-      if (lastGroup.id === -2) {
-        selectGroup(lastGroup.id);
-        if (lastGroup.steps?.length > 0) {
-          selectStep(lastGroup.steps[0].id);
+      // const lastGroup = groups1[groups1.length - 2];
+      // if (lastGroup.id === -2) {
+      //   selectGroup(lastGroup.id);
+      //   if (lastGroup.steps?.length > 0) {
+      //     selectStep(lastGroup.steps[0].id);
+      //   }
+      // }
+      const targetGroup = groups1.find(group => group.id === -2);
+      if (targetGroup) {
+        selectGroup(targetGroup.id);
+        if (targetGroup.steps?.length > 0) {
+          selectStep(targetGroup.steps[0].id);
         }
       }
     }
