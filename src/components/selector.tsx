@@ -309,14 +309,14 @@ const Selector: FunctionComponent<SelectorProps> = ({
   useEffect(() => {
     if (!selectedGroup && groups1.length > 0) {
       // ✅ If a group with id -3 exists, select it first
-      const groupMinus3 = groups1.find((g) => g.id === -3);
-      if (groupMinus3) {
-        selectGroup(groupMinus3.id);
-        if (groupMinus3.steps?.length > 0) {
-          selectStep(groupMinus3.steps[0].id);
-        }
-        return;
-      }
+      // const groupMinus3 = groups1.find((g) => g.id === -3);
+      // if (groupMinus3) {
+      //   selectGroup(groupMinus3.id);
+      //   if (groupMinus3.steps?.length > 0) {
+      //     selectStep(groupMinus3.steps[0].id);
+      //   }
+      //   return;
+      // }
 
       // Fallback: original -2 selection
       const lastGroup = groups1[groups1.length - 1];
