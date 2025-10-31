@@ -786,7 +786,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		if (matchedArea) {
 			setActualAreaId(matchedArea.id);
 		}
-	}, []);
+	}, [finalVisibleAreas, skuFaceMap]);
 
 
 	const handleAreaClick = (id: SetStateAction<number>) => {

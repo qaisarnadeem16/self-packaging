@@ -18,7 +18,7 @@ const DesignsDraftContainer = styled.div<{ $isMobile?: boolean }>`
 	width: 100%;
 	display: block;
 	/* height: 100%; */
-	${(props) =>
+	/* ${(props) =>
         props.$isMobile &&
         `
         position:fixed;
@@ -28,7 +28,7 @@ const DesignsDraftContainer = styled.div<{ $isMobile?: boolean }>`
         height:100%;
         z-index:11;
         background-color:#ffffff;
-    `}
+    `} */
 `;
 
 const H3 = styled.h3`
@@ -161,6 +161,7 @@ const DesignsDraftList: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) =
     };
 
     return (
+        
         <DesignsDraftContainer $isMobile={isMobile}>
             <H3></H3>
             {/* <H3>{T._('Saved configurations', 'Composer')}</H3> */}
