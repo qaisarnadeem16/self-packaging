@@ -157,14 +157,14 @@ div {
 
 
 .footer_steps {
-    background-image: none;
+    /* background-image: none;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: center; */
     width: 100%;
     /* display: none; */
     height: 14%;
-    position: absolute;
+    position: fixed;
     right: 0;
     bottom: 18px;
 }

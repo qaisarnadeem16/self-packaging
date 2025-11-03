@@ -400,8 +400,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
     togglePopup();
   };
 
-  console.log('wwwwwwwwww', selectedGroupId)
-  console.log('first---------------------------------', groups1)
+  // console.log('wwwwwwwwww', selectedGroupId)
+  // console.log('first---------------------------------', groups1)
 
   const handlePrint = () => {
     const canvas = document.querySelector("canvas");
@@ -700,7 +700,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
             {selectedGroupId === -2 && <Designer />}
             {/* Saved Compositions */}
             {/* {draftCompositions && selectedGroupId === -3 && <DesignsDraftList />} */}
-            {draftCompositions && <DesignToolbar />}
+            {/* {draftCompositions && <DesignToolbar />} */}
             <div className="share_button_desktop">
               {/* <div className="" style={{ cursor: 'pointer' }}>
                 <EyeIcon />
