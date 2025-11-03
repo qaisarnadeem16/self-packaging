@@ -164,7 +164,7 @@ div {
     width: 100%;
     /* display: none; */
     height: 14%;
-    position: fixed;
+    position: sticky;
     right: 0;
     bottom: 18px;
 }
