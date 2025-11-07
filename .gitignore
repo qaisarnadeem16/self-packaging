@@ -45,3 +45,6 @@ yarn-error.log*
 # Optional: If using Yarn
 .yarn/
 .pnp.*
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat

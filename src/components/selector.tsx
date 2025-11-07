@@ -401,7 +401,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   };
 
   // console.log('wwwwwwwwww', selectedGroupId)
-  // console.log('first---------------------------------', groups1)
+  console.log('first---------------------------------', groups1)
 
   const handlePrint = () => {
     const canvas = document.querySelector("canvas");

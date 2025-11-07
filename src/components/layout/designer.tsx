@@ -526,7 +526,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 			if (options && Array.isArray(options)) {
 				const selectedOption = options.find((opt: any) => opt.selected === true);
-				// console.log("[processColorSelection] selectedOption:", selectedOption);
+				console.log("[processColorSelection] selectedOption:", selectedOption);
 
 				if (selectedOption) {
 					const isDark = darkColors.includes(selectedOption.name.toLowerCase());
